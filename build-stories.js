@@ -23,7 +23,7 @@ const ACTORS = rows => `<div class="k-actors">${rows.map(r => `<div class="a"><s
 const RISK = rows => `<div class="k-risk">${rows.map(r => `<div class="r"><span class="lv lv--${r[0]}">${r[1]}</span><span class="rt"><b>${r[2]}</b><span>${r[3]}</span></span></div>`).join("")}</div>`;
 const SIG = rows => `<div class="k-sigs" data-animate>${rows.map(r => `<div class="k-sig${r[3] ? " hot" : ""}" data-pct="${r[0]}"><svg viewBox="0 0 44 44"><circle class="tr" cx="22" cy="22" r="18"/><circle class="vl" cx="22" cy="22" r="18"/></svg><span class="sb"><b>${r[1]}</b><span class="note">${r[2]}</span></span><b class="pc">${r[0]}%</b></div>`).join("")}</div>`;
 const POLL = rows => `<div class="k-poll" data-animate>${rows.map((r, i) => `<div class="pr${i === 1 ? " alt" : ""}" data-count="${r[3]}"><span class="pt"><span>${r[0]}</span><b class="pv" data-pct="${r[1]}%">${r[1]}%</b></span><span class="tk"><i style="--v:${r[1]}%"></i></span><span class="pc2">${r[2]}</span></div>`).join("")}</div>`;
-const CHART = (goalPct, goalLabel, cols, xlabels) => `<div class="k-chart" data-animate><div class="gl" style="--g:${goalPct}"><em>${goalLabel}</em></div><div class="cols">${cols.map(c => `<button type="button" class="c" style="--v:${c[0]}%" data-x="${c[1]}" data-val="${c[2]}"><i></i></button>`).join("")}</div><div class="xl">${xlabels.map(x => `<span>${x}</span>`).join("")}</div></div>`;
+const CHART = (goalPct, goalLabel, cols, xlabels) => `<div class="k-chart" data-animate><div class="gl" style="bottom:${32 + Math.round(goalPct * 1.68)}px"><em>${goalLabel}</em></div><div class="cols">${cols.map(c => `<button type="button" class="c" data-x="${c[1]}" data-val="${c[2]}"><i style="height:${c[0]}%"></i></button>`).join("")}</div><div class="xl">${xlabels.map(x => `<span>${x}</span>`).join("")}</div></div>`;
 const MAP = (key, schem, legend, attr) => `<div class="k-map"><div class="k-mapbox" data-map="${key}">${schem}<div class="k-maplive"></div></div><div class="k-leg">${legend.map(l => `<span><i style="background:${l[0]}"></i>${l[1]}</span>`).join("")}</div><p class="k-attr">${attr}</p></div>`;
 const GROUND = (rows, tiles) => `<div class="k-ground">${rows.map(r => `<div class="d"><b>${r[0]}</b><p>${r[1]}</p></div>`).join("")}<div class="strip">${tiles.map(t => `<span style="background:${t}"></span>`).join("")}</div></div>`;
 
@@ -455,7 +455,7 @@ S.s04 = {
           ["Hung Hom · Saturday 2PM", "Fifteen viewers queue on the stairs of a walk-up tenement for a 280 sq ft one-bed. It goes over asking within the hour."],
           ["Sha Tin · Thursday 7PM", "An agent's window reprices twice in one week. “Landlords are waiting — every week of waiting has been paying.”"],
           ["To Kwa Wan · Sunday 11AM", "A student WhatsApp group with 800 members trades leads on flats before they are listed."]],
-          ["linear-gradient(135deg,#b7a89b,#8d7e6f)", "linear-gradient(135deg,#9fb3c8,#5f7893)", "linear-gradient(135deg,#c9b8a8,#a08b74)", "linear-gradient(135deg,#8ba394,#5c7466)"]),
+          ["url(../assets/img/hero-flatshare.jpg) left center/cover", "url(../assets/img/card-flatshare.jpg) center/cover", "url(../assets/img/hero-flatshare.jpg) right center/cover", "url(../assets/img/card-flatshare.jpg) left top/cover"]),
         "What to watch for…"),
       CARD(5, "Signal",
         SIG([
@@ -510,7 +510,7 @@ S.s04 = {
           ["紅磡 · 星期六 2PM", "一個280呎一房唐樓單位，十五個準租客喺樓梯排隊睇樓。一個鐘之內，高過叫價成交。"],
           ["沙田 · 星期四 7PM", "地產舖櫥窗一星期改價兩次。經紀話：「業主家陣識得等——等一個禮拜，賺一個禮拜。」"],
           ["土瓜灣 · 星期日 11AM", "一個800人嘅學生WhatsApp群組，盤未上網先喺群入面流轉。"]],
-          ["linear-gradient(135deg,#b7a89b,#8d7e6f)", "linear-gradient(135deg,#9fb3c8,#5f7893)", "linear-gradient(135deg,#c9b8a8,#a08b74)", "linear-gradient(135deg,#8ba394,#5c7466)"]),
+          ["url(../assets/img/hero-flatshare.jpg) left center/cover", "url(../assets/img/card-flatshare.jpg) center/cover", "url(../assets/img/hero-flatshare.jpg) right center/cover", "url(../assets/img/card-flatshare.jpg) left top/cover"]),
         "值得盯住的訊號……"),
       CARD(5, "訊號",
         SIG([
@@ -537,8 +537,12 @@ S.s04 = {
 /* ======================= EXTRAS (CSS + JS in original tokens) ======================= */
 const EXTRA_CSS = `<style>
 /* new card modules, styled with the original page tokens */
-/* .card-body is a centered flex column — k-blocks must claim full width */
-.k-stats,.k-schips,.k-tl,.k-actors,.k-risk,.k-sigs,.k-poll,.k-chart,.k-map,.k-ground{width:100%;align-self:stretch}
+/* .card-body is a centered flex column — k-blocks must claim full width;
+   min-width:0 stops wide children (photo strip) inflating the card via min-content */
+.k-stats,.k-schips,.k-tl,.k-actors,.k-risk,.k-sigs,.k-poll,.k-chart,.k-map,.k-ground{width:100%;align-self:stretch;min-width:0}
+/* hide scrollbars on the page scroller */
+.phone{overflow-x:hidden;scrollbar-width:none;-ms-overflow-style:none}
+.phone::-webkit-scrollbar{display:none!important;width:0!important}
 .k-stats{display:flex;gap:8px;margin:2px 0 4px}
 .k-stats .s{flex:1;background:var(--background-secondary);border-radius:12px;padding:12px 8px;text-align:center}
 .k-stats .s b{display:block;font-family:var(--display);font-weight:700;font-size:20px;line-height:23px;color:var(--colour-content-primary)}
@@ -600,14 +604,14 @@ const EXTRA_CSS = `<style>
 .k-poll .pc2{display:block;margin-top:6px;font-size:12.5px;line-height:18px;color:var(--content-secondary)}
 .k-chart{position:relative;height:200px;margin-top:6px}
 .k-chart::before{content:"";position:absolute;left:0;right:0;bottom:32px;height:168px;pointer-events:none;background:repeating-linear-gradient(to top,var(--stroke-transparent),var(--stroke-transparent) 1px,transparent 1px,transparent 24px)}
-.k-chart .cols{position:absolute;inset:0 0 32px 0;display:flex;align-items:flex-end;gap:10px;padding:0 4px}
+.k-chart .cols{position:absolute;left:0;right:0;top:0;bottom:32px;display:flex;align-items:flex-end;gap:10px;padding:0 4px}
 .k-chart .c{flex:1;height:100%;display:flex;align-items:flex-end;background:none;border:0;cursor:pointer;padding:0 6px}
-.k-chart .c i{display:block;width:100%;height:var(--v,50%);background:var(--content-brand-primary);border-radius:6px 6px 0 0;transform:scaleY(0);transform-origin:bottom;transition:transform .7s cubic-bezier(.2,.7,.2,1);opacity:.9}
+.k-chart .c i{display:block;width:100%;background:var(--content-brand-primary);border-radius:6px 6px 0 0;transform:scaleY(0);transform-origin:bottom;transition:transform .7s cubic-bezier(.2,.7,.2,1);opacity:.9}
 .k-chart.in .c i{transform:scaleY(1)}
 .k-chart .c:nth-child(2) i{transition-delay:.06s}.k-chart .c:nth-child(3) i{transition-delay:.12s}.k-chart .c:nth-child(4) i{transition-delay:.18s}.k-chart .c:nth-child(5) i{transition-delay:.24s}.k-chart .c:nth-child(6) i{transition-delay:.3s}.k-chart .c:nth-child(7) i{transition-delay:.36s}
 .k-chart .xl{position:absolute;left:0;right:0;bottom:0;display:flex;gap:10px;padding:0 4px}
 .k-chart .xl span{flex:1;text-align:center;font-size:11px;line-height:16px;color:var(--content-secondary)}
-.k-chart .gl{position:absolute;left:0;right:0;bottom:calc(32px + var(--g,50)/100*168px);border-top:2px dashed var(--status-negative);z-index:1;pointer-events:none}
+.k-chart .gl{position:absolute;left:0;right:0;border-top:2px dashed var(--status-negative);z-index:1;pointer-events:none}
 .k-chart .gl em{position:absolute;right:0;top:-20px;font-style:normal;font-size:11px;font-weight:700;color:var(--status-negative);background:#fdeceb;border-radius:6px;padding:2px 6px}
 .k-tip{position:absolute;z-index:5;transform:translate(-50%,-100%);background:var(--common-primary-inverted);color:#fff;border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s}
 .k-tip.on{opacity:1}
@@ -631,9 +635,9 @@ const EXTRA_CSS = `<style>
 .k-ground .d:last-of-type{border-bottom:0}
 .k-ground .d b{display:block;font-size:12px;font-weight:700;color:var(--content-brand-primary);margin-bottom:3px}
 .k-ground .d p{font-size:14px;line-height:20px;color:var(--content-primary)}
-.k-ground .strip{display:flex;gap:8px;overflow-x:auto;margin-top:10px;padding-bottom:4px;scrollbar-width:none}
+.k-ground .strip{display:flex;gap:8px;overflow-x:auto;margin-top:10px;padding-bottom:4px;scrollbar-width:none;max-width:100%}
 .k-ground .strip::-webkit-scrollbar{display:none}
-.k-ground .strip span{flex:none;width:156px;height:104px;border-radius:10px}
+.k-ground .strip span{flex:none;width:156px;height:104px;border-radius:10px;background-size:cover;background-position:center}
 </style>`;
 
 const extraJs = (mapKey, lang) => `<script>

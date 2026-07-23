@@ -271,6 +271,7 @@ for (const id of ["s01", "s02", "s03", "s04"]) {
     // based on
     h = h.replace(d.basedOn[0], d.basedOn[1]);
 
+    h = h.replace("</body>", "<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}</style>" + "</body>");
     fs.writeFileSync(`${lang}/pulse-${id}.html`, h);
     n++;
   }
