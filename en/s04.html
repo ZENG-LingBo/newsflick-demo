@@ -960,6 +960,8 @@ body{background:#3a3a3a;display:flex;justify-content:center;padding:40px 0;font-
 </script>
 <style>
 /* new card modules, styled with the original page tokens */
+/* .card-body is a centered flex column — k-blocks must claim full width */
+.k-stats,.k-schips,.k-tl,.k-actors,.k-risk,.k-sigs,.k-poll,.k-chart,.k-map,.k-ground{width:100%;align-self:stretch}
 .k-stats{display:flex;gap:8px;margin:2px 0 4px}
 .k-stats .s{flex:1;background:var(--background-secondary);border-radius:12px;padding:12px 8px;text-align:center}
 .k-stats .s b{display:block;font-family:var(--display);font-weight:700;font-size:20px;line-height:23px;color:var(--colour-content-primary)}
@@ -1033,7 +1035,7 @@ body{background:#3a3a3a;display:flex;justify-content:center;padding:40px 0;font-
 .k-tip{position:absolute;z-index:5;transform:translate(-50%,-100%);background:var(--common-primary-inverted);color:#fff;border-radius:8px;padding:6px 10px;font-size:12px;font-weight:600;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s}
 .k-tip.on{opacity:1}
 .k-chartnote{margin-top:10px;font-size:12.5px;line-height:18px;color:var(--content-secondary)}
-.k-map .k-mapbox{position:relative;height:239px;border-radius:12px;overflow:hidden;background:#dde3e6}
+.k-map .k-mapbox{position:relative;height:320px;margin:0 -16px;border-radius:0;overflow:hidden;background:#dde3e6}
 .k-maplive{position:absolute;inset:0;z-index:2}
 .k-schem{position:absolute;inset:0;z-index:1;width:100%;height:100%}
 .k-mapbox.ready .k-schem{opacity:0;transition:opacity .4s}
@@ -1091,7 +1093,8 @@ body{background:#3a3a3a;display:flex;justify-content:center;padding:40px 0;font-
     if(box._m||!MAPCFG) return;
     if(typeof L==='undefined'){ box.classList.add('fallback'); return; }
     box._m=true;
-    var map=L.map(box.querySelector('.k-maplive'),{scrollWheelZoom:false,attributionControl:false,zoomControl:true,center:MAPCFG.center,zoom:MAPCFG.zoom,maxZoom:11,minZoom:Math.max(3,MAPCFG.zoom-2)});
+    var map=L.map(box.querySelector('.k-maplive'),{scrollWheelZoom:false,attributionControl:false,zoomControl:true,center:MAPCFG.center,zoom:MAPCFG.zoom,maxZoom:11,minZoom:3});
+    var pts=[];MAPCFG.zones.forEach(function(z){pts.push(z[0]);});MAPCFG.points.forEach(function(p){pts.push(p[0]);});
     var loaded=false;
     var tl=L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{subdomains:'abcd',maxZoom:12});
     tl.on('load',function(){loaded=true;box.classList.add('ready');});
@@ -1105,7 +1108,8 @@ body{background:#3a3a3a;display:flex;justify-content:center;padding:40px 0;font-
     MAPCFG.points.forEach(function(p){
       L.marker(p[0],{icon:L.divIcon({className:'k-diamond',html:'<span></span>',iconSize:[16,16]})}).addTo(map).bindPopup('<b>'+p[1]+'</b><br>'+p[2]);
     });
-    setTimeout(function(){map.invalidateSize();},80);
+    setTimeout(function(){map.invalidateSize();
+      map.fitBounds(L.latLngBounds(pts),{padding:[34,34],animate:false});},80);
   }
   /* rect-sweep reveal (IO does not fire in hidden/offscreen iframes) */
   var anim=[].slice.call(document.querySelectorAll('[data-animate]'));
