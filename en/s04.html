@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewsFlick · HK rents surge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=Noto+Sans+HK:wght@300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/cards.css">
+</head>
+<body>
+<div class="phone">
+  <div class="scroll">
+
+    <div class="hero" style="background-image:url(../assets/img/hero-flatshare.jpg)">
+      <div class="scrim"></div>
+      <div class="statusbar statusbar--inv"><div class="time" data-clock></div></div>
+      <div class="kickers">
+        <span class="tagchip">Local</span><span class="tagchip">Housing</span>
+      </div>
+      <div class="conf"><span class="confchip conf-high" data-nf-sheet="confidence" role="button">High ›</span></div>
+      <div class="titlewrap">
+        <p class="overline">Hong Kong · Rental market</p>
+        <h1>The steepest summer climb in a decade</h1>
+      </div>
+    </div>
+
+    <div class="cards">
+
+      <section class="card" data-card>
+        <div class="body">
+          <p>Hong Kong rents rose <span class="inline inline--confirmed">almost 4% in the first half</span> — on pace for the biggest summer gain since 2016. The drivers are measurable: a steady inflow of <span class="inline inline--confirmed">mainland professionals and students</span>, returning expat demand, and thin supply.</p>
+          <p style="margin-top:10px">Whether this is recovery or squeeze <span class="inline inline--analysis">depends on which side of a lease you sit</span>.</p>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">The numbers, measured…</div></div>
+
+      <section class="card" data-card>
+        <h3 class="chead">Key Facts</h3>
+        <div class="stats">
+          <div class="stat"><b>+3.8%</b><span>rents, H1</span></div>
+          <div class="stat"><b>10 yr</b><span>steepest summer since</span></div>
+          <div class="stat"><b>$18.9K</b><span>median 1-bed, urban</span></div>
+        </div>
+        <div class="sep"></div>
+        <div class="facts">
+          <div class="fact"><p>The Rating and Valuation Department's index has risen <span class="inline inline--confirmed">seven months straight</span>.</p></div>
+          <div class="fact"><p>Analysts see home prices <span class="inline inline--developing">rebounding up to 19% over two years</span> on the back of rental growth.</p></div>
+          <div class="fact"><p>How much is policy-driven talent inflow versus cycle is <span class="inline inline--disputed">debated</span>.</p></div>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">The climb, month by month…</div></div>
+
+      <section class="card card--chart" data-card data-animate>
+        <h3 class="chead">By the Numbers</h3>
+        <div class="bignum"><b>+3.8%</b><span>residential rental index, January to July</span></div>
+        <div class="chartbox">
+          <div class="goal" style="--g:96"><em>2016 peak</em></div>
+          <div class="cols">
+            <button class="col" type="button" style="--v:32%" data-x="Jan" data-val="118.2"><i></i></button>
+            <button class="col" type="button" style="--v:40%" data-x="Feb" data-val="119.0"><i></i></button>
+            <button class="col" type="button" style="--v:48%" data-x="Mar" data-val="119.8"><i></i></button>
+            <button class="col" type="button" style="--v:59%" data-x="Apr" data-val="120.9"><i></i></button>
+            <button class="col" type="button" style="--v:70%" data-x="May" data-val="122.0"><i></i></button>
+            <button class="col" type="button" style="--v:83%" data-x="Jun" data-val="123.3"><i></i></button>
+            <button class="col" type="button" style="--v:95%" data-x="Jul" data-val="124.5"><i></i></button>
+          </div>
+          <div class="xlabels"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span></div>
+        </div>
+        <p class="goalnote chartnote" hidden>The dashed line is the August 2016 index peak — the market is within one normal month's move of it.</p>
+        <p class="chartnote">Tap a column for the month's index level. Sources: Rating and Valuation Department; Centaline leading index.</p>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">Where it bites hardest…</div></div>
+
+      <section class="card card--map" data-card>
+        <h3 class="chead">Map</h3>
+        <div class="mapbox" data-map="hk">
+          <svg class="map-schem" viewBox="0 0 335 239" xmlns="http://www.w3.org/2000/svg">
+            <rect width="335" height="239" fill="#dfe7ea"/>
+            <path d="M0 0 H335 V60 C300 76 262 66 230 84 C204 98 170 90 140 100 C104 112 60 100 0 116 Z" fill="#eceeea"/>
+            <path d="M40 239 C80 210 140 224 200 206 C250 192 300 210 335 198 V239 Z" fill="#eceeea"/>
+            <circle cx="168" cy="120" r="7" fill="#800080" opacity=".6"/>
+            <circle cx="196" cy="96" r="6" fill="#800080" opacity=".5"/>
+            <circle cx="230" cy="140" r="6" fill="#800080" opacity=".5"/>
+            <circle cx="90" cy="104" r="5" fill="#800080" opacity=".4"/>
+          </svg>
+          <div class="map-live"></div>
+        </div>
+        <p class="mapnote">Live map unavailable — showing schematic.</p>
+        <div class="leg">
+          <span class="g"><i style="background:#800080"></i>Rent change, H1</span>
+          <span class="g"><i style="background:#ec4837"></i>Steepest district</span>
+        </div>
+        <p class="attr">© OpenStreetMap contributors © CARTO</p>
+        <div class="sep"></div>
+        <p class="body">The squeeze is not even. Districts near universities are climbing fastest, led by <span class="inline inline--confirmed">Hung Hom at +6.2%</span>.</p>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">What it looks like on the ground…</div></div>
+
+      <section class="card" data-card>
+        <h3 class="chead">On the Ground</h3>
+        <div class="dispatch"><p class="dl">Hung Hom · Saturday 2PM</p><p>Fifteen viewers queue on the stairs of a walk-up tenement for a 280 sq ft one-bed. It goes over asking within the hour.</p></div>
+        <div class="dispatch"><p class="dl">Sha Tin · Thursday 7PM</p><p>An agent's window reprices twice in one week. "Landlords are waiting — every week of waiting has been paying."</p></div>
+        <div class="dispatch"><p class="dl">To Kwa Wan · Sunday 11AM</p><p>A student WhatsApp group with 800 members trades leads on flats before they are listed.</p></div>
+        <div class="strip">
+          <div class="ph" style="background:linear-gradient(135deg,#b7a89b,#8d7e6f)"></div>
+          <div class="ph" style="background:linear-gradient(135deg,#9fb3c8,#5f7893)"></div>
+          <div class="ph" style="background:linear-gradient(135deg,#c9b8a8,#a08b74)"></div>
+          <div class="ph" style="background:linear-gradient(135deg,#8ba394,#5c7466)"></div>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">What to watch for…</div></div>
+
+      <section class="card" data-card data-animate>
+        <h3 class="chead">Signal</h3>
+        <div class="sig sig--hot" data-pct="68">
+          <svg class="sigring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="val" cx="22" cy="22" r="18"/></svg>
+          <div class="sigbody"><p class="sigt">The climb spreads to the New Territories</p><p class="sign">Tuen Mun and Yuen Long lagged in H1 — agents report inquiry volume doubling.</p></div>
+          <b class="sigpct">68%</b>
+        </div>
+        <div class="sig" data-pct="57">
+          <svg class="sigring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="val" cx="22" cy="22" r="18"/></svg>
+          <div class="sigbody"><p class="sigt">Rental demand converts to buying</p><p class="sign">Analysts' 19% two-year price-rebound case rests on exactly this handover.</p></div>
+          <b class="sigpct">57%</b>
+        </div>
+        <div class="sig" data-pct="35">
+          <svg class="sigring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="val" cx="22" cy="22" r="18"/></svg>
+          <div class="sigbody"><p class="sigt">Policy response on student housing</p><p class="sign">Universities and government have both floated hostel expansion; nothing is funded yet.</p></div>
+          <b class="sigpct">35%</b>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">One read worth hearing…</div></div>
+
+      <section class="card" data-card>
+        <h3 class="chead">Expert View</h3>
+        <div class="quoteblock">
+          <p class="mark">“</p>
+          <p class="q">A rental market can run ahead of incomes for a while, but not ahead of arithmetic. The question is who absorbs the gap — tenants, or policy.</p>
+        </div>
+        <div class="voice-row">
+          <div class="av" style="background-image:url(../assets/img/av8.png)"></div>
+          <div class="nm"><b>Dr Alicia Leung</b><span>Housing researcher, City University of Hong Kong</span></div>
+        </div>
+        <p class="viewsource">View source ↗</p>
+        <button class="rxbtn" type="button">Show reactions (3)</button>
+        <div class="rxlist">
+          <button class="stance" type="button">🤔 Not convinced</button>
+          <button class="stance" type="button">😟 This worries me</button>
+          <button class="stance" type="button">👀 Watching closely</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="tabsrow">
+      <button class="tab tab--on" type="button">The Story</button>
+      <button class="tab" type="button">Key Facts</button>
+      <button class="tab" type="button">Numbers</button>
+      <button class="tab" type="button">Map</button>
+      <button class="tab" type="button">Ground</button>
+      <button class="tab" type="button">Signal</button>
+      <button class="tab" type="button">Expert</button>
+    </div>
+    <div class="actions">
+      <button class="iconbtn" type="button" data-nf-back aria-label="Back"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#1d201d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="nextpill" data-nf-next="s01"><span class="nl">Next:</span><span class="nt">The strait that prices the world is closed</span></div>
+      <button class="pillbtn" type="button" data-nf-sheet="pulse">58 Voices</button>
+    </div>
+  </div>
+</div>
+
+<script>
+window.NF_MAPS = {
+  hk: {
+    center: [22.36, 114.13], zoom: 10,
+    zones: [
+      {at:[22.306,114.185], r:2.2, name:"Hung Hom / Ho Man Tin", note:"+6.2% H1 — student influx around the universities; queues at walk-up viewings."},
+      {at:[22.312,114.263], r:2.5, name:"Tseung Kwan O", note:"+5.3% H1 — new-town supply absorbed faster than completions."},
+      {at:[22.382,114.19],  r:2.5, name:"Sha Tin / Tai Wai", note:"+4.8% H1 — rail-line demand from cross-boundary commuters."},
+      {at:[22.284,114.22],  r:2.2, name:"Island East", note:"+4.1% H1 — returning expat leases concentrated here."},
+      {at:[22.39,113.973],  r:2.6, name:"Tuen Mun", note:"+2.9% H1 — the lagging district agents expect to move next."}
+    ],
+    points: [
+      {at:[22.306,114.185], name:"Steepest: Hung Hom", note:"+6.2% in six months — the fastest district climb since 2016."}
+    ]
+  }
+};
+window.NF_POP = {
+  "almost 4% in the first half": {rows:[["Who confirmed it","The Rating and Valuation Department index, cross-checked against Centaline's leading index."],["Why we're sure","Two independently-compiled indices agree within 0.3 points."],["Why it matters","This is measured record, not sentiment — the basis for every claim in this story."]], src:["Rating and Valuation Department","Centaline"]},
+  "mainland professionals and students": {rows:[["Who confirmed it","Visa-scheme approval counts and university enrolment data, both published."],["Why we're sure","Both series are official and current through June."],["Why it matters","Demand-side inflow is the single largest driver agents cite in leasing data."]], src:["Immigration Department","UGC enrolment statistics"]},
+  "depends on which side of a lease you sit": {rows:[["Whose view this is","Market commentators noting the same index reads as recovery to owners and squeeze to tenants."],["Why it's analysis, not fact","The number is one fact; 'good' or 'bad' is a position."]], src:["HK01","Ming Pao"]},
+  "seven months straight": {rows:[["Who confirmed it","The RVD's published monthly series."],["Why we're sure","The streak is directly readable from the official table."],["Why it matters","Duration separates a trend from a blip."]], src:["Rating and Valuation Department"]},
+  "rebounding up to 19% over two years": {rows:[["What's developing","A widely-cited analyst scenario, not an official forecast."],["Who says what","Bloomberg Intelligence modelling projects 19% over 2026–27; others see single digits."],["Why it's still open","The scenario depends on rental demand converting to purchases."]], src:["Bloomberg Intelligence","HKET"]},
+  "debated": {rows:[["What's disputed","How much of the inflow is policy-driven (talent schemes) versus cyclical return."],["Who says what","Government points to scheme approvals; independent economists note regional cycles moved the same way."],["Why the gap exists","The two effects arrived in the same eighteen months and cannot be cleanly separated yet."]], src:["Ming Pao","SCMP"]},
+  "hung hom at +6.2%": {rows:[["Who confirmed it","District-level leasing data compiled by the major agencies, consistent across both."],["Why we're sure","Two competing agencies publish the same district ranking."],["Why it matters","The pattern — universities first — identifies the marginal renter driving the market."]], src:["Centaline","Midland Realty"]}
+};
+</script>
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/cards.js"></script>
+</body>
+</html>

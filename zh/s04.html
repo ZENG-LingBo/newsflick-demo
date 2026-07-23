@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewsFlick · 香港租金急升</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=Noto+Sans+HK:wght@300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/cards.css">
+</head>
+<body>
+<div class="phone">
+  <div class="scroll">
+
+    <div class="hero" style="background-image:url(../assets/img/hero-flatshare.jpg)">
+      <div class="scrim"></div>
+      <div class="statusbar statusbar--inv"><div class="time" data-clock></div></div>
+      <div class="kickers">
+        <span class="tagchip">本地</span><span class="tagchip">房屋</span>
+      </div>
+      <div class="conf"><span class="confchip conf-high" data-nf-sheet="confidence" role="button">高 ›</span></div>
+      <div class="titlewrap">
+        <p class="overline">香港 · 租務市場</p>
+        <h1>十年來最急的夏季升浪</h1>
+      </div>
+    </div>
+
+    <div class="cards">
+
+      <section class="card" data-card>
+        <div class="body">
+          <p>香港住宅租金上半年<span class="inline inline--confirmed">升近4%</span>——有望創2016年以來最大的夏季升幅。推手有數可依：<span class="inline inline--confirmed">內地專才與學生</span>持續流入、外派需求回流，加上供應緊絀。</p>
+          <p style="margin-top:10px">這是復甦還是壓力，<span class="inline inline--analysis">視乎你坐在租約的哪一邊</span>。</p>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">實測的數字……</div></div>
+
+      <section class="card" data-card>
+        <h3 class="chead">關鍵事實</h3>
+        <div class="stats">
+          <div class="stat"><b>+3.8%</b><span>上半年租金</span></div>
+          <div class="stat"><b>10年</b><span>最急夏季升幅</span></div>
+          <div class="stat"><b>$18.9K</b><span>市區一房月租中位數</span></div>
+        </div>
+        <div class="sep"></div>
+        <div class="facts">
+          <div class="fact"><p>差餉物業估價署租金指數已<span class="inline inline--confirmed">連升七個月</span>。</p></div>
+          <div class="fact"><p>有分析預期樓價受租金帶動，<span class="inline inline--developing">兩年內反彈最多19%</span>。</p></div>
+          <div class="fact"><p>當中幾多來自政策輸入人才、幾多屬周期回升，<span class="inline inline--disputed">仍有爭論</span>。</p></div>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">逐月攀升的軌跡……</div></div>
+
+      <section class="card card--chart" data-card data-animate>
+        <h3 class="chead">數字看門道</h3>
+        <div class="bignum"><b>+3.8%</b><span>住宅租金指數，1月至7月</span></div>
+        <div class="chartbox">
+          <div class="goal" style="--g:96"><em>2016年高位</em></div>
+          <div class="cols">
+            <button class="col" type="button" style="--v:32%" data-x="1月" data-val="118.2"><i></i></button>
+            <button class="col" type="button" style="--v:40%" data-x="2月" data-val="119.0"><i></i></button>
+            <button class="col" type="button" style="--v:48%" data-x="3月" data-val="119.8"><i></i></button>
+            <button class="col" type="button" style="--v:59%" data-x="4月" data-val="120.9"><i></i></button>
+            <button class="col" type="button" style="--v:70%" data-x="5月" data-val="122.0"><i></i></button>
+            <button class="col" type="button" style="--v:83%" data-x="6月" data-val="123.3"><i></i></button>
+            <button class="col" type="button" style="--v:95%" data-x="7月" data-val="124.5"><i></i></button>
+          </div>
+          <div class="xlabels"><span>1月</span><span>2月</span><span>3月</span><span>4月</span><span>5月</span><span>6月</span><span>7月</span></div>
+        </div>
+        <p class="goalnote chartnote" hidden>虛線是2016年8月的指數高位——如今距離只差一個普通月份的升幅。</p>
+        <p class="chartnote">輕按柱形可查看當月指數。資料來源：差餉物業估價署、中原城市領先指數。</p>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">邊區最當炒……</div></div>
+
+      <section class="card card--map" data-card>
+        <h3 class="chead">地圖</h3>
+        <div class="mapbox" data-map="hk">
+          <svg class="map-schem" viewBox="0 0 335 239" xmlns="http://www.w3.org/2000/svg">
+            <rect width="335" height="239" fill="#dfe7ea"/>
+            <path d="M0 0 H335 V60 C300 76 262 66 230 84 C204 98 170 90 140 100 C104 112 60 100 0 116 Z" fill="#eceeea"/>
+            <path d="M40 239 C80 210 140 224 200 206 C250 192 300 210 335 198 V239 Z" fill="#eceeea"/>
+            <circle cx="168" cy="120" r="7" fill="#800080" opacity=".6"/>
+            <circle cx="196" cy="96" r="6" fill="#800080" opacity=".5"/>
+            <circle cx="230" cy="140" r="6" fill="#800080" opacity=".5"/>
+            <circle cx="90" cy="104" r="5" fill="#800080" opacity=".4"/>
+          </svg>
+          <div class="map-live"></div>
+        </div>
+        <p class="mapnote">實時地圖暫時無法載入——顯示示意圖。</p>
+        <div class="leg">
+          <span class="g"><i style="background:#800080"></i>上半年租金變動</span>
+          <span class="g"><i style="background:#ec4837"></i>升幅最急地區</span>
+        </div>
+        <p class="attr">© OpenStreetMap contributors © CARTO</p>
+        <div class="sep"></div>
+        <p class="body">壓力並不平均。大學周邊地區升得最快，<span class="inline inline--confirmed">紅磡以+6.2%領先</span>。</p>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">現場實況……</div></div>
+
+      <section class="card" data-card>
+        <h3 class="chead">現場直擊</h3>
+        <div class="dispatch"><p class="dl">紅磡 · 星期六 2PM</p><p>一個280呎一房唐樓單位，十五個準租客喺樓梯排隊睇樓。一個鐘之內，高過叫價成交。</p></div>
+        <div class="dispatch"><p class="dl">沙田 · 星期四 7PM</p><p>地產舖櫥窗一星期改價兩次。經紀話：「業主家陣識得等——等一個禮拜，賺一個禮拜。」</p></div>
+        <div class="dispatch"><p class="dl">土瓜灣 · 星期日 11AM</p><p>一個800人嘅學生WhatsApp群組，盤未上網先喺群入面流轉。</p></div>
+        <div class="strip">
+          <div class="ph" style="background:linear-gradient(135deg,#b7a89b,#8d7e6f)"></div>
+          <div class="ph" style="background:linear-gradient(135deg,#9fb3c8,#5f7893)"></div>
+          <div class="ph" style="background:linear-gradient(135deg,#c9b8a8,#a08b74)"></div>
+          <div class="ph" style="background:linear-gradient(135deg,#8ba394,#5c7466)"></div>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">值得盯住的訊號……</div></div>
+
+      <section class="card" data-card data-animate>
+        <h3 class="chead">訊號</h3>
+        <div class="sig sig--hot" data-pct="68">
+          <svg class="sigring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="val" cx="22" cy="22" r="18"/></svg>
+          <div class="sigbody"><p class="sigt">升浪蔓延新界</p><p class="sign">屯門、元朗上半年落後——但代理反映查詢量倍增。</p></div>
+          <b class="sigpct">68%</b>
+        </div>
+        <div class="sig" data-pct="57">
+          <svg class="sigring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="val" cx="22" cy="22" r="18"/></svg>
+          <div class="sigbody"><p class="sigt">租務需求轉化為置業</p><p class="sign">分析員兩年反彈19%的推算，正正建基於這一步接力。</p></div>
+          <b class="sigpct">57%</b>
+        </div>
+        <div class="sig" data-pct="35">
+          <svg class="sigring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="val" cx="22" cy="22" r="18"/></svg>
+          <div class="sigbody"><p class="sigt">學生宿舍政策出手</p><p class="sign">大學與政府都放過風擴建宿舍；至今未有一項落實撥款。</p></div>
+          <b class="sigpct">35%</b>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">一個值得一聽的解讀……</div></div>
+
+      <section class="card" data-card>
+        <h3 class="chead">專家之言</h3>
+        <div class="quoteblock">
+          <p class="mark">「</p>
+          <p class="q">租金可以跑贏收入一段時間，但跑不贏數學。問題是條數最後由誰埋單——租客，還是政策。</p>
+        </div>
+        <div class="voice-row">
+          <div class="av" style="background-image:url(../assets/img/av8.png)"></div>
+          <div class="nm"><b>梁凱晴博士</b><span>房屋研究學者，香港城市大學</span></div>
+        </div>
+        <p class="viewsource">查看原文 ↗</p>
+        <button class="rxbtn" type="button">顯示回應 (3)</button>
+        <div class="rxlist">
+          <button class="stance" type="button">🤔 未被說服</button>
+          <button class="stance" type="button">😟 令我擔憂</button>
+          <button class="stance" type="button">👀 密切留意</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="tabsrow">
+      <button class="tab tab--on" type="button">本篇</button>
+      <button class="tab" type="button">關鍵事實</button>
+      <button class="tab" type="button">數字</button>
+      <button class="tab" type="button">地圖</button>
+      <button class="tab" type="button">現場</button>
+      <button class="tab" type="button">訊號</button>
+      <button class="tab" type="button">專家</button>
+    </div>
+    <div class="actions">
+      <button class="iconbtn" type="button" data-nf-back aria-label="返回"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#1d201d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="nextpill" data-nf-next="s01"><span class="nl">下一篇：</span><span class="nt">為全球定價的海峽，封了</span></div>
+      <button class="pillbtn" type="button" data-nf-sheet="pulse">58把聲音</button>
+    </div>
+  </div>
+</div>
+
+<script>
+window.NF_MAPS = {
+  hk: {
+    center: [22.36, 114.13], zoom: 10,
+    zones: [
+      {at:[22.306,114.185], r:2.2, name:"紅磡／何文田", note:"上半年+6.2%——大學周邊學生湧入，唐樓睇樓要排隊。"},
+      {at:[22.312,114.263], r:2.5, name:"將軍澳", note:"上半年+5.3%——新市鎮供應被吸納的速度快過落成。"},
+      {at:[22.382,114.19],  r:2.5, name:"沙田／大圍", note:"上半年+4.8%——鐵路沿線受跨境通勤需求帶動。"},
+      {at:[22.284,114.22],  r:2.2, name:"港島東", note:"上半年+4.1%——回流外派租約集中於此。"},
+      {at:[22.39,113.973],  r:2.6, name:"屯門", note:"上半年+2.9%——暫時落後，代理估計下一浪到此。"}
+    ],
+    points: [
+      {at:[22.306,114.185], name:"升幅最急：紅磡", note:"半年+6.2%——2016年以來最快的地區升幅。"}
+    ]
+  }
+};
+window.NF_POP = {
+  "升近4%": {rows:[["由誰證實","差餉物業估價署指數，並與中原城市領先指數互相核對。"],["為何可信","兩個獨立編製的指數，相差不足0.3點。"],["為何重要","這是實測紀錄而非市場情緒——本篇所有論斷的基礎。"]], src:["差餉物業估價署","中原地產"]},
+  "內地專才與學生": {rows:[["由誰證實","人才計劃批核數字及大學收生數據，均已公布。"],["為何可信","兩組數列同屬官方，更新至6月。"],["為何重要","需求端流入是代理在租務數據中最常引述的單一推手。"]], src:["入境事務處","教資會收生統計"]},
+  "視乎你坐在租約的哪一邊": {rows:[["這是誰的觀點","市場評論者指出，同一個指數，業主讀作復甦，租客讀作壓力。"],["為何屬分析而非事實","數字是事實；「好事定壞事」是立場。"]], src:["香港01","明報"]},
+  "連升七個月": {rows:[["由誰證實","差估署按月公布的數列。"],["為何可信","連升紀錄可直接從官方數表讀出。"],["為何重要","持續時間，正是趨勢與雜音的分界。"]], src:["差餉物業估價署"]},
+  "兩年內反彈最多19%": {rows:[["發展中","一個被廣泛引用的分析員情景推算，並非官方預測。"],["各方說法","彭博行業研究模型推算2026至27年累升19%；亦有分析估計只得單位數。"],["為何未定","情景成立與否，取決於租務需求能否轉化為置業。"]], src:["彭博行業研究","香港經濟日報"]},
+  "仍有爭論": {rows:[["爭議所在","流入需求有幾多來自政策（人才計劃）、幾多屬周期回升。"],["各方說法","政府引用計劃批核數字；獨立經濟學者指區內周期同步向上。"],["分歧從何而來","兩股力量在同一年半內同時出現，暫難乾淨分割。"]], src:["明報","南華早報"]},
+  "紅磡以+6.2%領先": {rows:[["由誰證實","大型代理行編製的分區租務數據，兩行結果一致。"],["為何可信","兩間互相競爭的代理行，公布同一個分區排名。"],["為何重要","「大學周邊先行」的模式，點出了正在推動整個市場的邊際租客。"]], src:["中原地產","美聯物業"]}
+};
+</script>
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/cards.js"></script>
+</body>
+</html>

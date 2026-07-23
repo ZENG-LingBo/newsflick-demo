@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewsFlick · 海峽封鎖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=Noto+Sans+HK:wght@300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/cards.css">
+</head>
+<body>
+<div class="phone">
+  <div class="scroll">
+
+    <div class="hero" style="background-image:url(../assets/img/hero-hormuz.svg)">
+      <div class="scrim"></div>
+      <div class="statusbar statusbar--inv"><div class="time" data-clock></div></div>
+      <div class="kickers">
+        <span class="tagchip">必讀</span><span class="tagchip">國際</span>
+      </div>
+      <div class="conf"><span class="confchip conf-med" data-nf-sheet="confidence" role="button">中 ›</span></div>
+      <div class="titlewrap">
+        <p class="overline">美伊衝突 · 第12日</p>
+        <h1>為全球定價的海峽，封了</h1>
+      </div>
+    </div>
+
+    <div class="cards">
+
+      <section class="card" data-card>
+        <div class="body">
+          <p>十二日空襲，擊中伊朗境內<span class="inline inline--confirmed">逾5,000個目標</span>；報復之下，<span class="inline inline--keyword">霍爾木茲海峽</span>宣告封鎖——全球五分之一的石油，平日正是取道這條水道。</p>
+          <p style="margin-top:10px">官員把行動形容為「施壓」。但十二日以來，沒有任何一場簡報講過<span class="inline inline--analysis">這一切如何收科</span>。</p>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">行動背後的數字……</div></div>
+
+      <section class="card" data-card>
+        <h3 class="chead">關鍵事實</h3>
+        <div class="stats">
+          <div class="stat"><b>900+</b><span>次空襲</span></div>
+          <div class="stat"><b>5,000+</b><span>個目標</span></div>
+          <div class="stat"><b>1,255</b><span>人死亡*</span></div>
+        </div>
+        <div class="sep"></div>
+        <div class="facts">
+          <div class="fact"><p><span class="inline inline--confirmed">霍爾木茲海峽已對商船封閉</span>——歷史上首次全面封鎖。</p></div>
+          <div class="fact"><p>*死亡數字<span class="inline inline--disputed">仍有爭議</span>：交戰雙方的統計相差約三千。</p></div>
+          <div class="fact"><p>宣稱目標已由核設施轉為<span class="inline inline--analysis">「重建威懾」</span>。</p></div>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">今日事態……</div></div>
+
+      <section class="card" data-card>
+        <div class="status-chips"><span class="schip schip--live"><i></i>突發</span><span class="schip schip--dev">發展中</span></div>
+        <div class="tl">
+          <div class="tlrow"><div class="tlt">06:40</div><div class="dotc"></div><div class="tlx">油輪通航量連續第七日歸零；保險商全面暫停波斯灣航運承保。</div></div>
+          <div class="tlrow"><div class="tlt">09:15</div><div class="dotc"></div><div class="tlx">阿巴斯港港口設施附近傳出空襲——是迄今最貼近海峽的一輪攻擊。</div></div>
+          <div class="tlrow"><div class="tlt">11:52</div><div class="dotc"></div><div class="tlx">阿曼證實第三輪低調斡旋「渠道仍然打開」。</div></div>
+          <div class="tlrow"><div class="tlt">14:30</div><div class="dotc"></div><div class="tlx">布蘭特期油升穿140美元；航運附加費開始出現在零售運費報價。</div></div>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">事發地點……</div></div>
+
+      <section class="card card--map" data-card>
+        <h3 class="chead">地圖</h3>
+        <div class="mapbox" data-map="gulf">
+          <svg class="map-schem" viewBox="0 0 335 239" xmlns="http://www.w3.org/2000/svg">
+            <rect width="335" height="239" fill="#dfe7ea"/>
+            <path d="M0 0 H335 V70 C300 82 270 72 244 92 C222 108 200 100 178 112 C150 126 118 112 84 120 C50 128 20 118 0 108 Z" fill="#eceeea"/>
+            <path d="M0 239 H335 V196 C310 184 288 194 266 182 C246 172 226 182 202 174 C172 164 140 182 104 176 C70 170 30 184 0 178 Z" fill="#eceeea"/>
+            <circle cx="130" cy="66" r="6" fill="#800080" opacity=".55"/>
+            <circle cx="175" cy="88" r="5" fill="#800080" opacity=".5"/>
+            <circle cx="228" cy="118" r="6" fill="#800080" opacity=".55"/>
+            <rect x="206" y="140" width="12" height="12" transform="rotate(45 212 146)" fill="#ec4837" stroke="#fff" stroke-width="2"/>
+          </svg>
+          <div class="map-live"></div>
+        </div>
+        <p class="mapnote">實時地圖暫時無法載入——顯示示意圖。</p>
+        <div class="leg">
+          <span class="g"><i style="background:#800080"></i>空襲區</span>
+          <span class="g"><i style="background:#ec4837"></i>咽喉要道</span>
+        </div>
+        <p class="attr">© OpenStreetMap contributors © CARTO</p>
+        <div class="sep"></div>
+        <p class="body">空襲集中於五個省份。整場危機的支點，是<span class="inline inline--confirmed">已經封鎖</span>的霍爾木茲海峽。</p>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">接下來可能發生……</div></div>
+
+      <section class="card" data-card>
+        <h3 class="chead">風險</h3>
+        <div class="risk">
+          <div class="riskrow"><span class="risktag risk--high">高</span><div class="rt"><b>封鎖持續</b><span>供應壓力數星期內波及鄰近市場；附加費直達零售價。</span></div></div>
+          <div class="riskrow"><span class="risktag risk--med">中</span><div class="rt"><b>衝突擴大</b><span>一次誤判就足以捲入第三方；這種風險不會乖乖留在國界之內。</span></div></div>
+          <div class="riskrow"><span class="risktag risk--low">低</span><div class="rt"><b>本地燃料供應中斷</b><span>戰略儲備足以應付短期。</span></div></div>
+        </div>
+        <div class="sep"></div>
+        <p class="body muted" style="font-size:12.5px">風險等級按現時所知評估，隨時或會改變。</p>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">值得盯住的訊號……</div></div>
+
+      <section class="card" data-card data-animate>
+        <h3 class="chead">訊號</h3>
+        <div class="sig sig--hot" data-pct="72">
+          <svg class="sigring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="val" cx="22" cy="22" r="18"/></svg>
+          <div class="sigbody"><p class="sigt">航運路線壓力升溫</p><p class="sign">保險商撤保是領先指標——過往每次油價急升之前，它都先行變動。</p></div>
+          <b class="sigpct">72%</b>
+        </div>
+        <div class="sig" data-pct="38">
+          <svg class="sigring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="val" cx="22" cy="22" r="18"/></svg>
+          <div class="sigbody"><p class="sigt">阿曼渠道重啟談判</p><p class="sign">這條渠道已促成三次低調接觸；破裂不等於玩完。</p></div>
+          <b class="sigpct">38%</b>
+        </div>
+        <div class="sig" data-pct="55">
+          <svg class="sigring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="val" cx="22" cy="22" r="18"/></svg>
+          <div class="sigbody"><p class="sigt">再有核設施附近遭空襲</p><p class="sign">過去四日，打擊目標明顯移向基礎設施。</p></div>
+          <b class="sigpct">55%</b>
+        </div>
+        <div class="sep"></div>
+        <p class="body muted" style="font-size:12.5px">輕按訊號可查看變動原因。百分比屬模型估算，並非預測。</p>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">一個值得一聽的解讀……</div></div>
+
+      <section class="card" data-card>
+        <h3 class="chead">專家之言</h3>
+        <div class="quoteblock">
+          <p class="mark">「</p>
+          <p class="q">封鎖霍爾木茲，傷封鎖者不亞於被封鎖者。所以歷史上從未發生——也所以現在無人知道遊戲規則。</p>
+        </div>
+        <div class="voice-row">
+          <div class="av" style="background-image:url(../assets/img/av-expert.jpg)"></div>
+          <div class="nm"><b>Samira Kazemi博士</b><span>能源安全分析師，Meridian研究所</span></div>
+        </div>
+        <p class="viewsource">查看原文 ↗</p>
+        <button class="rxbtn" type="button">顯示回應 (3)</button>
+        <div class="rxlist">
+          <button class="stance" type="button">🤔 未被說服</button>
+          <button class="stance" type="button">😟 令我擔憂</button>
+          <button class="stance" type="button">👀 密切留意</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="tabsrow">
+      <button class="tab tab--on" type="button">本篇</button>
+      <button class="tab" type="button">關鍵事實</button>
+      <button class="tab" type="button">時序</button>
+      <button class="tab" type="button">地圖</button>
+      <button class="tab" type="button">風險</button>
+      <button class="tab" type="button">訊號</button>
+      <button class="tab" type="button">專家</button>
+    </div>
+    <div class="actions">
+      <button class="iconbtn" type="button" data-nf-back aria-label="返回"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#1d201d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="nextpill" data-nf-next="s02"><span class="nl">下一篇：</span><span class="nt">法國16歲以下社交媒體禁令</span></div>
+      <button class="pillbtn" type="button" data-nf-sheet="pulse">54把聲音</button>
+    </div>
+  </div>
+</div>
+
+<script>
+window.NF_MAPS = {
+  gulf: {
+    center: [27.6, 52.8], zoom: 6,
+    zones: [
+      {at:[33.72,51.72], r:60, name:"納坦茲一帶", note:"首週起多次空襲濃縮相關設施。"},
+      {at:[32.65,51.67], r:50, name:"伊斯法罕省", note:"工業及防空目標；第9晚攻勢最猛烈。"},
+      {at:[27.18,56.28], r:45, name:"阿巴斯港", note:"今日港口設施被擊中——迄今最貼近海峽的一輪。"},
+      {at:[29.6,52.5],  r:55, name:"法爾斯省", note:"第4至11日間指揮及雷達設施接連被擊中。"},
+      {at:[35.7,51.4],  r:50, name:"德黑蘭省", note:"首日起針對指揮及通訊目標。"}
+    ],
+    points: [
+      {at:[26.6,56.25], name:"霍爾木茲海峽", note:"已對商船封閉。全球五分之一的石油平日取道此處。"}
+    ]
+  }
+};
+window.NF_POP = {
+  "逾5,000個目標": {rows:[["由誰證實","獨立衛星影像統計與交戰雙方各自公布的數字，同樣指向5,000以上。"],["為何可信","三種互不相干的點算方法，在規模上得出一致結論。"],["為何重要","規模是唯一無爭議的事實——這遠超一次有限度行動。"]], src:["Meridian研究所","Sentinel影像組織"]},
+  "霍爾木茲海峽": {def:"伊朗與阿曼之間一條闊33公里的水道，是波斯灣唯一出海口。全球約五分之一的石油、三分之一的海運液化天然氣平日取道於此。此前從未全面封鎖。"},
+  "這一切如何收科": {rows:[["這是誰的觀點","分析者指出，十二日的簡報未曾提出時間表、條件或退場安排。"],["為何屬分析而非事實","「未講終局」是對言論的觀察——不等於證明沒有計劃。"]], src:["Meridian研究所"]},
+  "霍爾木茲海峽已對商船封閉": {rows:[["由誰證實","航運交通數據顯示油輪通航量連續七日歸零；保險商已全面撤保。"],["為何可信","通航數據由第三方獨立量度，不受任何一方政府左右。"],["為何重要","歷史首次的封鎖，正是把地區衝突變成全球價格事件的一步。"]], src:["全球航運追蹤機構","勞合社承保商"]},
+  "仍有爭議": {rows:[["爭議所在","平民死亡數字：雙方統計相差約三千。"],["各方說法","兩邊官方各自公布對己有利的數字；獨立監察無法進入空襲區。"],["分歧從何而來","無第三方能實地核查，數字無從釐清。"]], src:["聯合國傷亡監察"]},
+  "「重建威懾」": {rows:[["這是誰的觀點","行動方發言人；宣稱目標已由核設施轉為更廣泛的姿態。"],["為何屬分析而非事實","措辭改變有紀錄可查；它反映甚麼意圖，則屬解讀。"]], src:["第1至12日官方簡報"]},
+  "已經封鎖": {rows:[["由誰證實","油輪通航數據連續七日歸零；兩國政府均承認封鎖。"],["為何可信","這是各方罕有一致同意的事實。"],["為何重要","本篇報道中每一個價格效應，都由這一項事實而起。"]], src:["全球航運追蹤機構"]}
+};
+</script>
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/cards.js"></script>
+</body>
+</html>

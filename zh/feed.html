@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewsFlick · 主頁</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=Noto+Sans+HK:wght@300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<style>
+.hero{position:relative;background:linear-gradient(180deg,#ffe9e0 0%,#ffd3c3 100%);margin-top:-92px;padding-top:92px;padding-bottom:64px;height:auto}
+.sun{position:absolute;top:180px;left:50%;transform:translateX(-50%);width:264px;height:264px;border-radius:50%;
+  background:radial-gradient(circle,#ffab6e 0%,#ffab6e 38%,rgba(255,171,110,0) 74%);pointer-events:none;z-index:0}
+.appbar{position:sticky;top:0;z-index:20;background:transparent;display:flex;flex-direction:column;align-items:center;width:100%}
+.navbar{display:flex;align-items:center;justify-content:space-between;width:100%;padding:4px 16px;
+  max-height:56px;overflow:hidden;transition:max-height .26s ease,opacity .18s ease,padding .26s ease}
+.chrome-off .navbar{max-height:0;opacity:0;padding-top:0;padding-bottom:0}
+.logo{width:33px;height:40px;display:flex;align-items:center}
+.navright{display:flex;align-items:center;gap:4px}
+.pill{display:flex;align-items:center;justify-content:center;gap:6px;min-width:60px;padding:6px 10px;border-radius:999px}
+.pill.news{background:#fff}.pill.energy{background:var(--content-brand-secondary)}
+.pill span{font-size:14px;line-height:20px;font-weight:500;color:var(--content-primary)}
+.greeting{position:relative;z-index:1;padding:20px 16px 0;display:flex;flex-direction:column;gap:8px}
+.greeting h1{font-family:var(--sf);font-weight:600;font-size:32px;line-height:36px;color:var(--content-primary)}
+.greeting .date{font-size:14px;line-height:20px;color:var(--content-secondary)}
+.snapshot{position:relative;z-index:1;margin:64px 16px 0;background:rgba(255,255,255,.2);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);
+  border:1px solid rgba(255,255,255,.5);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.snap-head{display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.snap-head p{font-family:var(--display);font-weight:600;font-size:20px;line-height:24px;color:var(--heading)}
+.snapshot.collapsed{gap:0}
+.snapshot.collapsed>.ssep,.snapshot.collapsed>.snap-body,.snapshot.collapsed>.snap-foot{display:none}
+.snap-arrow{transform:scaleY(-1);transition:transform .2s ease;color:var(--content-primary)}
+.snapshot.collapsed .snap-arrow{transform:none}
+.ssep{height:1px;width:100%;background:var(--stroke-transparent)}
+.snap-body{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.now{display:flex;align-items:center;gap:8px}
+.now .liveDot{width:8px;height:8px;border-radius:50%;background:#f2683c;flex:none;box-shadow:0 0 0 3px rgba(242,104,60,.18)}
+.now span{font-size:14px;line-height:20px;color:var(--content-secondary)}
+.snap-lede{font-family:var(--display);font-weight:600;font-size:20px;line-height:24px;color:var(--heading)}
+.snap-list{list-style:disc;padding-left:21px;display:flex;flex-direction:column}
+.snap-list li{font-size:14px;line-height:20px;color:var(--content-secondary)}
+.snap-foot{display:flex;align-items:center;justify-content:space-between;width:100%;white-space:nowrap}
+.snap-foot .l{font-size:14px;line-height:20px;color:var(--content-secondary)}
+.snap-foot .r{font-size:14px;line-height:20px;font-weight:500;color:var(--content-primary)}
+.content{position:relative;margin-top:-40px;background:var(--background-secondary);border-radius:24px 24px 0 0;
+  padding:24px 16px;display:flex;flex-direction:column;gap:16px}
+.section-title{font-family:var(--display);font-weight:600;font-size:20px;line-height:24px;color:var(--heading)}
+.mcard{background:#fff;border:1px solid var(--stroke-transparent);border-radius:16px;overflow:hidden;
+  height:360px;display:flex;flex-direction:column;cursor:pointer}
+.media{position:relative;flex:1;min-height:0;background:#141613 center/cover no-repeat;overflow:hidden}
+.conf{position:absolute;top:8px;right:8px;display:flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;
+  backdrop-filter:blur(12px);font-size:12px;line-height:16px;font-weight:500;color:#fff}
+.conf-high{background:#3f7a54}.conf-med{background:#ab5c2b}.conf-slate{background:#5a616e}
+.tags{position:absolute;left:8px;top:8px;display:flex;align-items:center;gap:4px}
+.tag{background:#e7eae9;backdrop-filter:blur(12px);border-radius:999px;padding:4px 8px;display:flex;align-items:center;
+  font-size:12px;line-height:16px;font-weight:500;color:var(--content-primary)}
+.mcard-body{background:#fff;padding:16px;display:flex;flex-direction:column;gap:16px}
+.mcard-text{display:flex;flex-direction:column;gap:4px}
+.mc-title{font-family:var(--display);font-weight:600;font-size:20px;line-height:24px;color:var(--heading)}
+.mc-desc{font-size:14px;line-height:20px;color:var(--content-secondary);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.mcard-meta{display:flex;align-items:center;gap:9px}
+.meta-left{display:flex;flex:1;gap:16px;align-items:center;min-width:0}
+.meta-item{display:flex;align-items:center;gap:6px;font-size:14px;line-height:20px;color:var(--content-secondary)}
+.track-btn{display:flex;align-items:center;justify-content:center;min-width:80px;padding:6px 12px;
+  border:1px solid var(--stroke-transparent);border-radius:999px;background:#fff;cursor:pointer;
+  font-size:14px;line-height:20px;font-weight:500;color:var(--content-primary)}
+.tabbar{position:fixed;left:0;bottom:0;width:100%;display:flex;flex-direction:column;align-items:center;pointer-events:none;z-index:20}
+.tabs{background:#fff;box-shadow:var(--shadow-lg);border-radius:999px;padding:4px;display:flex;align-items:center;gap:8px;pointer-events:auto}
+.tab{display:flex;align-items:center;border-radius:999px}
+.tab.active{background:var(--content-brand-primary);padding:4px 20px 4px 4px}
+.tab .ic-wrap{display:flex;padding:8px;border-radius:999px}
+.tab.active .lab{font-family:var(--sf);font-weight:600;font-size:14px;line-height:16px;color:#fff}
+.tab.plain .ic-wrap{padding:12px}
+.homeind{height:24px;width:100%}
+.spacer{height:110px}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="scroll">
+    <div class="appbar">
+      <div class="statusbar"><div class="time" data-clock></div></div>
+      <div class="navbar">
+        <div class="logo"><img src="../assets/img/logo.png" alt="NewsFlick" width="30" height="30" style="display:block"></div>
+        <div class="navright">
+          <div class="pill news"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14.5 21H7c-2.3 0-3.45 0-4.22-.73C2 19.53 2 18.35 2 16V7.5C2 5.15 2 3.97 2.78 3.23 3.55 2.5 4.7 2.5 7 2.5h5c2.3 0 3.45 0 4.22.73.78.74.78 1.92.78 4.27v9c0 1.1 0 1.65.34 2 .34.34.9.34 2 .34.65 0 1.35 0 1.85-.5.51-.5.51-1.2.51-1.84V10c0-.94 0-1.4.29-1.7.29-.3.75-.3 1.66-.3" stroke="#1d201d" stroke-width="1.6" stroke-linejoin="round"/><path d="M6 8h6.5M6 12h6.5M6 16h4" stroke="#1d201d" stroke-width="1.6" stroke-linecap="round"/></svg><span>4</span></div>
+          <div class="pill energy"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M9.56 2.31c.4-.55 1.06-.7 1.62-.45.52.24.86.78.86 1.4v5.22c0 .004.002.007.002.01h2.32c.67 0 1.11.48 1.29.93.17.46.15 1.05-.2 1.53l-5 6.74c-.4.54-1.06.69-1.62.44-.52-.23-.86-.78-.86-1.4v-5.21c0-.004-.002-.008-.002-.011H5.64c-.67 0-1.11-.47-1.29-.93-.17-.46-.15-1.05.2-1.53l5-6.74Z" fill="#1d201d"/></svg><span>4</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="sun"></div>
+      <div class="greeting">
+        <h1>哈囉，Michelle 👋</h1>
+        <div class="date" data-today></div>
+      </div>
+      <div class="snapshot">
+        <div class="snap-head">
+          <p>即時概覽</p>
+          <svg class="snap-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="ssep"></div>
+        <div class="snap-body">
+          <div class="now"><span class="liveDot"></span><span>現正發生</span></div>
+          <p class="snap-lede">一條封鎖的海峽、一道破天荒的禁令、兩個過熱的市場，正悄悄為日常生活重新定價</p>
+          <ul class="snap-list">
+            <li>霍爾木茲封鎖 → 油價升穿140美元，空襲第12日</li>
+            <li>法國劃下16歲界線 → 全世界都在看</li>
+            <li>50%關稅落在加拿大 → 物價隨後就到</li>
+            <li>香港租金 → 十年最急夏季升浪</li>
+          </ul>
+        </div>
+        <div class="ssep"></div>
+        <div class="snap-foot">
+          <span class="l">綜合17個來源</span>
+          <span class="r">開啟完整概覽</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="section-title">必讀</div>
+
+      <article class="mcard" data-story="s01">
+        <div class="media" style="background-image:url(../assets/img/hero-hormuz.svg)">
+          <div class="conf conf-med">中</div>
+          <div class="tags"><span class="tag">必讀</span><span class="tag">國際</span></div>
+        </div>
+        <div class="mcard-body">
+          <div class="mcard-text">
+            <h3 class="mc-title">為全球定價的海峽，封了</h3>
+            <p class="mc-desc">十二日空襲令霍爾木茲海峽史上首次封鎖——而沒有一場簡報肯講這一切如何收科。</p>
+          </div>
+          <div class="mcard-meta">
+            <div class="meta-left">
+              <span class="meta-item"><span data-ago="45"></span></span>
+              <span class="meta-item">7篇報道</span>
+            </div>
+            <button class="track-btn" type="button">追蹤 +</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="mcard" data-story="s02">
+        <div class="media" style="background-image:url(../assets/img/card-teens.jpg)">
+          <div class="conf conf-med">中</div>
+          <div class="tags"><span class="tag">必讀</span><span class="tag">社會</span></div>
+        </div>
+        <div class="mcard-body">
+          <div class="mcard-text">
+            <h3 class="mc-title">法國劃下16歲那條線</h3>
+            <p class="mc-desc">歐盟首個全面禁令正式成法。其他政府辯論多年的實驗，如今由一個國家親身示範。</p>
+          </div>
+          <div class="mcard-meta">
+            <div class="meta-left">
+              <span class="meta-item"><span data-ago="130"></span></span>
+              <span class="meta-item">5篇報道</span>
+            </div>
+            <button class="track-btn" type="button">追蹤 +</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="mcard" data-story="s03">
+        <div class="media" style="background-image:url(../assets/img/hero-tariffs.svg)">
+          <div class="conf conf-high">高</div>
+          <div class="tags"><span class="tag">經濟</span></div>
+        </div>
+        <div class="mcard-body">
+          <div class="mcard-text">
+            <h3 class="mc-title">對加拿大徵50%關稅，即時生效</h3>
+            <p class="mc-desc">近代史上盟友之間最高的關稅牆——價格效應比政治結果更快到埗。</p>
+          </div>
+          <div class="mcard-meta">
+            <div class="meta-left">
+              <span class="meta-item"><span data-ago="200"></span></span>
+              <span class="meta-item">6篇報道</span>
+            </div>
+            <button class="track-btn" type="button">追蹤 +</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="mcard" data-story="s04">
+        <div class="media" style="background-image:url(../assets/img/card-flatshare.jpg)">
+          <div class="conf conf-high">高</div>
+          <div class="tags"><span class="tag">本地</span><span class="tag">房屋</span></div>
+        </div>
+        <div class="mcard-body">
+          <div class="mcard-text">
+            <h3 class="mc-title">香港租金：十年最急夏季升浪</h3>
+            <p class="mc-desc">半年租金升近4%。壓力真實、有數可計——而且逐區畫在地圖上。</p>
+          </div>
+          <div class="mcard-meta">
+            <div class="meta-left">
+              <span class="meta-item"><span data-ago="320"></span></span>
+              <span class="meta-item">5篇報道</span>
+            </div>
+            <button class="track-btn" type="button">追蹤 +</button>
+          </div>
+        </div>
+      </article>
+
+      <div class="spacer"></div>
+    </div>
+  </div>
+
+  <div class="tabbar">
+    <div class="tabs">
+      <div class="tab active">
+        <div class="ic-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M9.5 17.5h5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M2.75 12.2c0-1.9 0-2.9.4-3.68.4-.78 1.15-1.34 2.65-2.46l1.5-1.12C9.44 3.5 10.43 2.75 12 2.75s2.56.75 4.7 2.19l1.5 1.12c1.5 1.12 2.25 1.68 2.65 2.46.4.78.4 1.78.4 3.68v1.5c0 3.54 0 5.3-1.1 6.4-1.1 1.1-2.87 1.1-6.4 1.1h-3.5c-3.53 0-5.3 0-6.4-1.1-1.1-1.1-1.1-2.86-1.1-6.4z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <div class="lab">主頁</div>
+      </div>
+      <div class="tab plain">
+        <div class="ic-wrap"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9.25" stroke="#1d201d" stroke-width="1.6"/><circle cx="12" cy="9.6" r="3.1" stroke="#1d201d" stroke-width="1.6"/><path d="M5.6 19c.7-2.4 3.1-3.8 6.4-3.8s5.7 1.4 6.4 3.8" stroke="#1d201d" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+      </div>
+    </div>
+    <div class="homeind"></div>
+  </div>
+</div>
+<script src="../assets/js/app.js"></script>
+<script>
+(function(){
+  var sh=document.querySelector(".snap-head");
+  if(sh) sh.addEventListener("click",function(){ document.querySelector(".snapshot").classList.toggle("collapsed"); });
+  document.querySelectorAll(".mcard").forEach(function(c){
+    c.addEventListener("click",function(e){
+      if(e.target.closest(".track-btn")) return;
+      NF.openStory(c.dataset.story||"s01");
+    });
+  });
+  var sc=document.querySelector(".scroll"), phone=document.querySelector(".phone");
+  var lastY=0,HOLD=48,DELTA=5,q=false;
+  sc.addEventListener("scroll",function(){ if(q)return; q=true;
+    requestAnimationFrame(function(){ q=false;
+      var y=sc.scrollTop,d=y-lastY;
+      if(y<=HOLD){ phone.classList.remove("chrome-off"); lastY=y; return; }
+      if(Math.abs(d)<DELTA) return;
+      phone.classList.toggle("chrome-off",d>0); lastY=y;
+    });
+  },{passive:true});
+})();
+</script>
+</body>
+</html>
