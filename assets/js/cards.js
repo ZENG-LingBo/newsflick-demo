@@ -2,11 +2,25 @@
 (function(){
   var ZH = window.NF && NF.zh;
 
-  /* ---- reveal-on-scroll (drives all card animations) ---- */
-  var io = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
-  },{threshold:.35});
-  document.querySelectorAll("[data-animate]").forEach(function(el){ io.observe(el); });
+  /* ---- reveal-on-scroll (drives all card animations) ----
+     rect-sweep rather than IntersectionObserver: IO does not fire while a
+     document is hidden (background tab / offscreen iframe), a state this demo
+     is legitimately in while preloaded behind the feed. */
+  var pendingAnim=[].slice.call(document.querySelectorAll("[data-animate]"));
+  var pendingMaps=[];
+  function sweep(){
+    var vh=window.innerHeight||812;
+    pendingAnim=pendingAnim.filter(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.top < vh-80 && r.bottom > 0){ el.classList.add("in"); return false; }
+      return true;
+    });
+    pendingMaps=pendingMaps.filter(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.top < vh+220 && r.bottom > -220){ initMap(el); return false; }
+      return true;
+    });
+  }
 
   /* ---- signal gauges: set dashoffset from data-pct ---- */
   document.querySelectorAll(".sig").forEach(function(s){
@@ -90,10 +104,17 @@
     });
     setTimeout(function(){ map.invalidateSize(); },80);
   }
-  var mio=new IntersectionObserver(function(es){
-    es.forEach(function(e){ if(e.isIntersecting){ initMap(e.target); mio.unobserve(e.target); } });
-  },{rootMargin:"200px 0px"});
-  document.querySelectorAll(".mapbox[data-map]").forEach(function(b){ mio.observe(b); });
+  pendingMaps=[].slice.call(document.querySelectorAll(".mapbox[data-map]"));
+
+  /* sweep triggers: page scroll, resize, and a light poll until everything fired */
+  var scrollHost=document.querySelector(".scroll")||window;
+  scrollHost.addEventListener("scroll",function(){ requestAnimationFrame(sweep); },{passive:true});
+  window.addEventListener("resize",sweep);
+  var sweepTimer=setInterval(function(){
+    sweep();
+    if(!pendingAnim.length && !pendingMaps.length) clearInterval(sweepTimer);
+  },700);
+  sweep();
 
   /* ---- story chrome: tabs scroll-spy, actions ---- */
   var scroller=document.querySelector(".scroll");
