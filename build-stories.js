@@ -543,6 +543,12 @@ const EXTRA_CSS = `<style>
 /* hide scrollbars on the page scroller */
 .phone{overflow-x:hidden;scrollbar-width:none;-ms-overflow-style:none}
 .phone::-webkit-scrollbar{display:none!important;width:0!important}
+/* args columns: original stack is fixed-height (244px) for line-broken Figma copy —
+   free it so full sentences fit instead of clipping */
+.card-std .args-stack{height:auto!important}
+.card-std .args-stack .simple{flex:none!important;height:auto!important}
+.card-std .stats{overflow:visible!important;align-items:flex-start!important}
+.card-std .simple{width:100%}
 .k-stats{display:flex;gap:8px;margin:2px 0 4px}
 .k-stats .s{flex:1;background:var(--background-secondary);border-radius:12px;padding:12px 8px;text-align:center}
 .k-stats .s b{display:block;font-family:var(--display);font-weight:700;font-size:20px;line-height:23px;color:var(--colour-content-primary)}
