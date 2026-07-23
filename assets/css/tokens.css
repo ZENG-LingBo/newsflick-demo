@@ -1,0 +1,79 @@
+/* NewsFlick design tokens + base — extracted from the original demo pages */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --background-frame:#e7eae9;
+  --background-primary:#ffffff;
+  --background-secondary:#ecedec;
+  --background-brand-tertiary:#320965;
+  --content-primary:#1d201d;
+  --content-secondary:#616460;
+  --content-tertiary:#8e918e;
+  --content-primary-inverted:#ffffff;
+  --content-secondary-inverted:#ffffff99;
+  --content-brand-primary:#800080;
+  --content-brand-secondary:#c9fa85;
+  --content-brand-tertiary:#320965;
+  --common-primary:#ffffff;
+  --common-primary-inverted:#141613;
+  --heading:#272a27;
+  --stroke-opaque:#d6d7d5;
+  --stroke-transparent:#4347421a;
+  --state-inactive-content:#bbbdbb;
+  --state-inactive-background:#9e9e9e29;
+  --status-negative:#ec4837;
+  --inline-confirmed:#2f8a58;
+  --inline-developing:#c56a3f;
+  --inline-disputed:#c56a3f;
+  --inline-analysis:#2f68d6;
+  --nova:#667dff;
+  --font-size-xs:12px; --font-size-s:14px; --font-size-m:16px; --font-size-l:18px; --font-size-xl:20px;
+  --font-lh-xs:16px; --font-lh-s:20px; --font-lh-m:24px; --font-lh-l:28px;
+  --xxs:4px; --xs:8px; --sm:12px; --md:16px;
+  --sf:-apple-system,"SF Pro Text","SF Pro","Noto Sans HK",system-ui,sans-serif;
+  --display:'Space Grotesk','Noto Sans HK',sans-serif;
+  --body:'Inter','Noto Sans HK',sans-serif;
+  --shadow-lg:0 16px 20px rgba(0,0,0,0.12);
+}
+html,body{background:var(--background-frame)}
+body{font-family:var(--body);color:var(--content-primary);-webkit-font-smoothing:antialiased}
+
+/* phone-height scroll container used by every screen */
+.phone{position:relative;width:100%;min-height:100dvh;background:var(--background-frame);overflow:hidden}
+.scroll{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.scroll::-webkit-scrollbar{display:none}
+
+/* status bar */
+.statusbar{height:44px;width:100%;position:relative;flex:none}
+.statusbar .time{position:absolute;left:32px;top:50%;transform:translateY(-50%);
+  font-family:var(--sf);font-weight:600;font-size:14px;letter-spacing:-.28px;color:var(--heading)}
+.statusbar .sysicons{position:absolute;right:20px;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:6px}
+.statusbar .sysicons svg{display:block}
+.statusbar--inv .time{color:#fff}
+
+/* inline tappable spans (glossary popovers) */
+.inline{font:inherit}
+.inline--keyword,.inline--confirmed,.inline--developing,.inline--disputed,.inline--analysis{
+  font-weight:600;cursor:pointer;border-bottom:1.5px dotted currentColor;padding-bottom:1px}
+.inline--keyword{color:var(--content-brand-primary)}
+.inline--confirmed{color:var(--inline-confirmed)}
+.inline--developing,.inline--disputed{color:var(--inline-disputed)}
+.inline--analysis{color:var(--inline-analysis)}
+
+/* popover */
+.nf-pop{position:fixed;z-index:80;max-width:300px;background:#fff;border:1px solid var(--stroke-transparent);
+  border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);padding:12px;display:none;font-family:var(--body)}
+.nf-pop.on{display:block}
+.nf-pop .hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.nf-pop .lbl{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--content-secondary)}
+.nf-pop .dot{width:7px;height:7px;border-radius:50%;background:var(--content-brand-primary)}
+.nf-pop.t-confirmed .dot{background:var(--inline-confirmed)}
+.nf-pop.t-disputed .dot,.nf-pop.t-developing .dot{background:var(--inline-disputed)}
+.nf-pop.t-analysis .dot{background:var(--inline-analysis)}
+.nf-pop .x{border:0;background:none;font-size:16px;line-height:1;color:var(--content-tertiary);cursor:pointer;padding:2px}
+.nf-pop .def,.nf-pop .row{font-size:13px;line-height:19px;color:var(--content-primary)}
+.nf-pop .row{margin-bottom:6px}
+.nf-pop .row b{color:var(--content-secondary);font-weight:600}
+.nf-pop .src{font-size:12px;line-height:17px;color:var(--content-secondary);margin-top:8px;padding-top:8px;border-top:1px solid var(--stroke-transparent)}
+.nf-pop .chip{font-weight:600;color:var(--content-primary)}
+.nf-pop .save{display:flex;align-items:center;gap:6px;margin-top:10px;border:1px solid var(--stroke-transparent);
+  background:#fff;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--content-primary);cursor:pointer}

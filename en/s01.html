@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NewsFlick · The strait is closed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=Noto+Sans+HK:wght@300..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="../assets/css/tokens.css">
+<link rel="stylesheet" href="../assets/css/cards.css">
+</head>
+<body>
+<div class="phone">
+  <div class="scroll">
+
+    <div class="hero" style="background-image:url(../assets/img/hero-hormuz.svg)">
+      <div class="scrim"></div>
+      <div class="statusbar statusbar--inv"><div class="time" data-clock></div></div>
+      <div class="kickers">
+        <span class="tagchip">Essential</span><span class="tagchip">World</span>
+      </div>
+      <div class="conf"><span class="confchip conf-med" data-nf-sheet="confidence" role="button">Medium ›</span></div>
+      <div class="titlewrap">
+        <p class="overline">US–Iran conflict · Day 12</p>
+        <h1>The strait that prices the world is closed</h1>
+      </div>
+    </div>
+
+    <div class="cards">
+
+      <section class="card" data-card>
+        <div class="body">
+          <p>Twelve days of strikes have hit <span class="inline inline--confirmed">more than 5,000 targets</span> across Iran, and the response has shut the <span class="inline inline--keyword">Strait of Hormuz</span> — the channel a fifth of the world's oil passes through.</p>
+          <p style="margin-top:10px">Officials describe the campaign as pressure. What no briefing has offered is <span class="inline inline--analysis">any description of how it ends</span>.</p>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">The numbers behind the campaign…</div></div>
+
+      <section class="card" data-card>
+        <h3 class="chead">Key Facts</h3>
+        <div class="stats">
+          <div class="stat"><b>900+</b><span>strikes</span></div>
+          <div class="stat"><b>5,000+</b><span>targets</span></div>
+          <div class="stat"><b>1,255</b><span>deaths*</span></div>
+        </div>
+        <div class="sep"></div>
+        <div class="facts">
+          <div class="fact"><p>The <span class="inline inline--confirmed">Strait of Hormuz has closed</span> to commercial shipping — the first full closure in its history.</p></div>
+          <div class="fact"><p>*The death toll is <span class="inline inline--disputed">disputed</span>: the two sides' counts are roughly three thousand apart.</p></div>
+          <div class="fact"><p>The stated objective has shifted from nuclear sites to <span class="inline inline--analysis">"restoring deterrence"</span>.</p></div>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">What happened today…</div></div>
+
+      <section class="card" data-card>
+        <div class="status-chips"><span class="schip schip--live"><i></i>Breaking</span><span class="schip schip--dev">Developing</span></div>
+        <div class="tl">
+          <div class="tlrow"><div class="tlt">06:40</div><div class="dotc"></div><div class="tlx">Tanker traffic at zero for a seventh day; insurers suspend Gulf transit cover entirely.</div></div>
+          <div class="tlrow"><div class="tlt">09:15</div><div class="dotc"></div><div class="tlx">Strikes reported near Bandar Abbas port facilities — the closest yet to the strait itself.</div></div>
+          <div class="tlrow"><div class="tlt">11:52</div><div class="dotc"></div><div class="tlx">Oman confirms a third round of quiet mediation "remains open".</div></div>
+          <div class="tlrow"><div class="tlt">14:30</div><div class="dotc"></div><div class="tlx">Brent crude passes $140; shipping surcharges begin appearing in retail freight quotes.</div></div>
+        </div>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">Where it is happening…</div></div>
+
+      <section class="card card--map" data-card>
+        <h3 class="chead">Map</h3>
+        <div class="mapbox" data-map="gulf">
+          <svg class="map-schem" viewBox="0 0 335 239" xmlns="http://www.w3.org/2000/svg">
+            <rect width="335" height="239" fill="#dfe7ea"/>
+            <path d="M0 0 H335 V70 C300 82 270 72 244 92 C222 108 200 100 178 112 C150 126 118 112 84 120 C50 128 20 118 0 108 Z" fill="#eceeea"/>
+            <path d="M0 239 H335 V196 C310 184 288 194 266 182 C246 172 226 182 202 174 C172 164 140 182 104 176 C70 170 30 184 0 178 Z" fill="#eceeea"/>
+            <circle cx="130" cy="66" r="6" fill="#800080" opacity=".55"/>
+            <circle cx="175" cy="88" r="5" fill="#800080" opacity=".5"/>
+            <circle cx="228" cy="118" r="6" fill="#800080" opacity=".55"/>
+            <rect x="206" y="140" width="12" height="12" transform="rotate(45 212 146)" fill="#ec4837" stroke="#fff" stroke-width="2"/>
+          </svg>
+          <div class="map-live"></div>
+        </div>
+        <p class="mapnote">Live map unavailable — showing schematic.</p>
+        <div class="leg">
+          <span class="g"><i style="background:#800080"></i>Strike zones</span>
+          <span class="g"><i style="background:#ec4837"></i>Chokepoint</span>
+        </div>
+        <p class="attr">© OpenStreetMap contributors © CARTO</p>
+        <div class="sep"></div>
+        <p class="body">Strikes cluster across five provinces. The pivotal point is the Strait of Hormuz, <span class="inline inline--confirmed">now closed</span>.</p>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">What could happen next…</div></div>
+
+      <section class="card" data-card>
+        <h3 class="chead">Risk</h3>
+        <div class="risk">
+          <div class="riskrow"><span class="risktag risk--high">High</span><div class="rt"><b>A prolonged closure</b><span>Supply strain spreads to nearby markets within weeks; surcharges reach shelf prices.</span></div></div>
+          <div class="riskrow"><span class="risktag risk--med">Medium</span><div class="rt"><b>The conflict widens</b><span>One miscalculation pulls in a third party; the risk does not stay inside a border.</span></div></div>
+          <div class="riskrow"><span class="risktag risk--low">Low</span><div class="rt"><b>Fuel supply disruption at home</b><span>Strategic reserves cover the near term.</span></div></div>
+        </div>
+        <div class="sep"></div>
+        <p class="body muted" style="font-size:12.5px">Risk levels reflect what is known now and may change.</p>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">What to watch for…</div></div>
+
+      <section class="card" data-card data-animate>
+        <h3 class="chead">Signal</h3>
+        <div class="sig sig--hot" data-pct="72">
+          <svg class="sigring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="val" cx="22" cy="22" r="18"/></svg>
+          <div class="sigbody"><p class="sigt">Pressure on shipping routes</p><p class="sign">Insurance withdrawal is the leading indicator — it moved before every previous spike.</p></div>
+          <b class="sigpct">72%</b>
+        </div>
+        <div class="sig" data-pct="38">
+          <svg class="sigring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="val" cx="22" cy="22" r="18"/></svg>
+          <div class="sigbody"><p class="sigt">Talks resume via Oman</p><p class="sign">The channel has produced three quiet contacts; collapsed is not the same as over.</p></div>
+          <b class="sigpct">38%</b>
+        </div>
+        <div class="sig" data-pct="55">
+          <svg class="sigring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="val" cx="22" cy="22" r="18"/></svg>
+          <div class="sigbody"><p class="sigt">Further strikes near nuclear sites</p><p class="sign">The target list has drifted toward infrastructure over the past four days.</p></div>
+          <b class="sigpct">55%</b>
+        </div>
+        <div class="sep"></div>
+        <p class="body muted" style="font-size:12.5px">Tap a signal to see why it is moving. Probabilities are model estimates, not predictions.</p>
+      </section>
+
+      <div class="connector"><div class="bar"></div><div class="node"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="txt">One read worth hearing…</div></div>
+
+      <section class="card" data-card>
+        <h3 class="chead">Expert View</h3>
+        <div class="quoteblock">
+          <p class="mark">“</p>
+          <p class="q">Closing Hormuz hurts the closer as much as the closed-to. That is why it has never happened before — and why nobody knows the rules now.</p>
+        </div>
+        <div class="voice-row">
+          <div class="av" style="background-image:url(../assets/img/av-expert.jpg)"></div>
+          <div class="nm"><b>Dr Samira Kazemi</b><span>Energy security analyst, Meridian Institute</span></div>
+        </div>
+        <p class="viewsource">View source ↗</p>
+        <button class="rxbtn" type="button">Show reactions (3)</button>
+        <div class="rxlist">
+          <button class="stance" type="button">🤔 Not convinced</button>
+          <button class="stance" type="button">😟 This worries me</button>
+          <button class="stance" type="button">👀 Watching closely</button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="tabsrow">
+      <button class="tab tab--on" type="button">The Story</button>
+      <button class="tab" type="button">Key Facts</button>
+      <button class="tab" type="button">Timeline</button>
+      <button class="tab" type="button">Map</button>
+      <button class="tab" type="button">Risk</button>
+      <button class="tab" type="button">Signal</button>
+      <button class="tab" type="button">Expert</button>
+    </div>
+    <div class="actions">
+      <button class="iconbtn" type="button" data-nf-back aria-label="Back"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#1d201d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="nextpill" data-nf-next="s02"><span class="nl">Next:</span><span class="nt">France's under-16 social media ban</span></div>
+      <button class="pillbtn" type="button" data-nf-sheet="pulse">54 Voices</button>
+    </div>
+  </div>
+</div>
+
+<script>
+window.NF_MAPS = {
+  gulf: {
+    center: [27.6, 52.8], zoom: 6,
+    zones: [
+      {at:[33.72,51.72], r:60, name:"Natanz province", note:"Repeated strikes on enrichment-linked sites through the first week."},
+      {at:[32.65,51.67], r:50, name:"Isfahan province", note:"Industrial and air-defence targets; heaviest single night on day 9."},
+      {at:[27.18,56.28], r:45, name:"Bandar Abbas", note:"Port facilities hit today — the closest strikes yet to the strait."},
+      {at:[29.6,52.5],  r:55, name:"Fars province", note:"Command and radar infrastructure struck across days 4–11."},
+      {at:[35.7,51.4],  r:50, name:"Tehran province", note:"Leadership and communications targets from day one."}
+    ],
+    points: [
+      {at:[26.6,56.25], name:"Strait of Hormuz", note:"Closed to commercial shipping. A fifth of the world's oil normally passes through this channel."}
+    ]
+  }
+};
+window.NF_POP = {
+  "more than 5,000 targets": {rows:[["Who confirmed it","Independent satellite-imagery tallies and both sides' own claims align above the 5,000 mark."],["Why we're sure","Three separate counting methods agree on the scale, if not the detail."],["Why it matters","Scale is the one thing not in dispute — this is far beyond a limited operation."]], src:["Meridian Institute","Sentinel Imagery Group"]},
+  "strait of hormuz": {def:"A 33km-wide channel between Iran and Oman — the only sea route out of the Persian Gulf. About a fifth of global oil and a third of seaborne LNG normally pass through it. It has never been fully closed before now."},
+  "any description of how it ends": {rows:[["Whose view this is","Analysts noting that twelve days of briefings have offered no timeline, conditions, or exit."],["Why it's analysis, not fact","'No stated endgame' is an observation about statements — not proof there is no plan."]], src:["Meridian Institute"]},
+  "strait of hormuz has closed": {rows:[["Who confirmed it","Shipping-traffic data shows tanker transits at zero for seven days; insurers have withdrawn cover."],["Why we're sure","Transit data is measured independently of either government."],["Why it matters","A first-in-history closure is what turns a regional conflict into a global price event."]], src:["Global shipping trackers","Lloyd's-listed insurers"]},
+  "disputed": {rows:[["What's disputed","The civilian death toll: the two sides' counts differ by roughly three thousand."],["Who says what","Officials on each side publish figures that serve their case; independent monitors cannot reach the strike zones."],["Why the gap exists","No third party has ground access, so nobody can settle the number."]], src:["UN casualty monitors"]},
+  "\"restoring deterrence\"": {rows:[["Whose view this is","The campaign's own spokespeople, whose stated aim has shifted from nuclear sites to a broader posture."],["Why it's analysis, not fact","A change in language is documented; what it means about intent is interpretation."]], src:["Official briefings, days 1–12"]},
+  "now closed": {rows:[["Who confirmed it","Tanker-transit data at zero for seven days; both governments acknowledge the closure."],["Why we're sure","It is one of the few points on which all parties agree."],["Why it matters","Every price effect in this story flows from this single fact."]], src:["Global shipping trackers"]}
+};
+</script>
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/cards.js"></script>
+</body>
+</html>
