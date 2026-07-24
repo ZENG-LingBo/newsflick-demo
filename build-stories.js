@@ -543,6 +543,12 @@ const EXTRA_CSS = `<style>
 /* hide scrollbars on the page scroller */
 .phone{overflow-x:hidden;scrollbar-width:none;-ms-overflow-style:none}
 .phone::-webkit-scrollbar{display:none!important;width:0!important}
+/* responsive: fill the iframe whatever its size (375px on desktop shell, full screen on phones) */
+html,body{width:100%;height:100%}
+body{display:block!important;padding:0!important}
+.phone{width:100%!important;height:100%!important;min-height:100%!important;border-radius:0!important}
+.cards,.tabs,.home,.topnav,.bottom,.tabs-inner,.nextrow,.actions,.hero .scrim{width:100%!important}
+.card-std,.card-story,.card-story .hero,.card-story .img,.card-wrap,.card-content{width:100%!important}
 /* args columns: original stack is fixed-height (244px) for line-broken Figma copy —
    free it so full sentences fit instead of clipping */
 .card-std .args-stack{height:auto!important}

@@ -289,7 +289,7 @@ for (const id of ["s01", "s02", "s03", "s04"]) {
     h = h.replace(/flags:\s*(true|false)/, `flags:${d.flags}`);
     h = h.replace(/const STATUS = \{[\s\S]*?\};/, `const STATUS = ${JSON.stringify(d.status)};`);
 
-    h = h.replace("</body>", "<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}</style>" + "</body>");
+    h = h.replace("</body>", "<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}/*responsive-fill*/html,body{width:100%;height:100%}body{display:block!important;padding:0!important}.phone{width:100%!important;height:100%!important;border-radius:0!important}</style>" + "</body>");
     fs.writeFileSync(`${lang}/confidence-${id}.html`, h);
     n++;
   }

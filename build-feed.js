@@ -138,7 +138,7 @@ for (const lang of ["en", "zh"]) {
 .media--s03{background-image:url(../assets/img/hero-tariffs.svg)!important}
 .media--s04{background-image:url(../assets/img/hero-flatshare.jpg)!important}
 </style>`;
-  h = h.replace("</body>", mediaCss + `<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}</style>` + DATE_JS(lang) + "\n</body>");
+  h = h.replace("</body>", mediaCss + `<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}/*responsive-fill*/html,body{width:100%;height:100%}body{display:block!important;padding:0!important}.phone{width:100%!important;height:100%!important;min-height:100%!important}.tabbar{width:100%!important}</style>` + DATE_JS(lang) + "\n</body>");
 
   fs.writeFileSync(`${lang}/feed.html`, h);
   count++;
