@@ -237,20 +237,29 @@ const D = {
 };
 
 /* ---------------- compose ---------------- */
+/* Replace the inner HTML of the <div> that starts at openIdx, matching nested
+   divs properly. Counting closing tags by heuristic silently unbalances the
+   document and lets later sections escape their scroll container. */
+function replaceInner(h, openIdx, newInner) {
+  if (openIdx < 0) throw new Error("open tag not found");
+  const openEnd = h.indexOf(">", openIdx) + 1;
+  const re = /<div\b|<\/div>/g;
+  re.lastIndex = openEnd;
+  let depth = 1, m;
+  while ((m = re.exec(h))) {
+    depth += m[0] === "</div>" ? -1 : 1;
+    if (depth === 0) return h.slice(0, openEnd) + newInner + h.slice(m.index);
+  }
+  throw new Error("unbalanced divs");
+}
+
 function secReplace(h, sec, newInner) {
-  // replace content of <div class="cs-list"> ... </div> inside a given data-sec block, keeping heading
+  // replace the items inside <div class="cs-list"> of a given data-sec block, keeping its heading
   const start = h.indexOf(`<div class="sec" data-sec="${sec}">`);
   if (start < 0) throw new Error("sec not found: " + sec);
-  const end = h.indexOf(`\n<div class="sec"`, start + 10);
-  const block = h.slice(start, end < 0 ? h.length : end);
-  const listStart = block.indexOf('<div class="cs-list"');
-  const listOpenEnd = block.indexOf(">", listStart) + 1;
-  // find matching close: the cs-list div closes right before either <p class="cs-biasnote" or </div> chain; use lastIndexOf of '</div>' before block's cs-rule-b
-  const ruleIdx = block.indexOf('cs-rule-b');
-  const bias = block.indexOf('cs-biasnote');
-  const stop = bias > 0 ? block.lastIndexOf("</div>", bias) : block.lastIndexOf("</div>", block.lastIndexOf("</div>", ruleIdx) - 1);
-  const nb = block.slice(0, listOpenEnd) + "\n" + newInner + "\n          " + block.slice(stop);
-  return h.slice(0, start) + nb + h.slice(end < 0 ? h.length : end);
+  const listIdx = h.indexOf('<div class="cs-list"', start);
+  if (listIdx < 0) throw new Error("cs-list not found in sec " + sec);
+  return replaceInner(h, listIdx, "\n" + newInner + "\n          ");
 }
 
 let n = 0;
@@ -263,7 +272,7 @@ for (const id of ["s01", "s02", "s03", "s04"]) {
     h = h.replace(/(<p class="cs-status"[^>]*>)[^<]+(<\/p>)/, `$1${d.verdict}$2`);
     // claims
     const whys = d.claims.map((c, i) => WHY(i, l.tags[c[0]][0], l.tags[c[0]][1], c[1], c[2])).join("\n");
-    h = h.replace(/<div class="cs-whys"[^>]*>[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<\/div>\n/, `<div class="cs-whys">${whys}</div>\n</div>\n</div>\n`);
+    h = replaceInner(h, h.indexOf('<div class="cs-whys"'), "\n" + whys + "\n");
     // flags off?
     if (!d.flags) h = h.replace(/(var|const|let)?\s*/, m => m); // handled via S patch below
     // based on / verified
