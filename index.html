@@ -63,19 +63,26 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
 .langbtn span{padding:7px 16px;font-size:14px;font-weight:600;color:#616460;background:transparent}
 .langbtn span.on{background:#800080;color:#fff}
 
-/* Mobile: keep every page at its native 375px design and SCALE the whole device
-   to fill the screen. Nothing inside is stretched, so the layout stays exactly
-   as designed — it just gets bigger. JS sets --s (scale) and --dh (device height). */
-@media (max-width:820px), (hover:none) and (pointer:coarse){
-  html,body{overflow:hidden;height:100%}
-  body{padding:0;gap:0;display:block}
-  .rail{display:none}
-  .device{position:fixed;top:0;left:0;
-    width:375px;height:var(--dh,812px);
-    border-radius:0;box-shadow:none;
-    transform-origin:top left;transform:scale(var(--s,1))}
-  .device iframe{width:375px;height:var(--dh,812px)}
-}
+/* Pages always keep their native 375px design; the shell SCALES the device.
+   Nothing inside is ever stretched, so layouts stay exactly as designed.
+   JS sets --s (scale) and --dh (device height) and the mode class. */
+
+/* phones: fill the whole screen */
+.m-phone,.m-phone body{overflow:hidden;height:100%}
+.m-phone body{padding:0;gap:0;display:block}
+.m-phone .rail{display:none}
+.m-phone .device{position:fixed;top:0;left:0;
+  width:375px;height:var(--dh,812px);
+  border-radius:0;box-shadow:none;
+  transform-origin:top left;transform:scale(var(--s,1))}
+.m-phone .device iframe{width:375px;height:var(--dh,812px)}
+
+/* tablets (iPad): keep the framed device, scaled up to use the screen */
+.m-tablet,.m-tablet body{overflow:hidden;height:100%}
+.m-tablet body{padding:16px;gap:28px}
+.m-tablet .device{transform:scale(var(--s,1));transform-origin:center center}
+.m-tablet .rail p{max-width:220px;font-size:14px;line-height:20px}
+.m-tablet .rail .brand span{font-size:22px}
 </style>
 </head>
 <body>
@@ -178,15 +185,30 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
     switchLang(t.dataset.lang);
   });
 
-  /* mobile: scale the native 375px device so it fills the screen exactly */
+  /* scale the native 375px device to suit the screen:
+     phone  -> fill edge to edge
+     tablet -> framed, scaled to use the height (rail still fits beside it)
+     desktop-> untouched 375x812 frame */
   function fit(){
-    var mobile = window.matchMedia("(max-width:820px), (hover:none) and (pointer:coarse)").matches;
     var root=document.documentElement;
-    if(!mobile){ root.style.removeProperty("--s"); root.style.removeProperty("--dh"); return; }
     var w=window.innerWidth, h=window.innerHeight;
-    var s=w/375;
-    root.style.setProperty("--s", s);
-    root.style.setProperty("--dh", Math.ceil(h/s)+"px");
+    var coarse=window.matchMedia("(hover:none) and (pointer:coarse)").matches;
+    var phone = w<=820 || (coarse && w<=900);
+    var tablet = !phone && coarse;
+    root.classList.toggle("m-phone", phone);
+    root.classList.toggle("m-tablet", tablet);
+    if(phone){
+      var s=w/375;
+      root.style.setProperty("--s", s);
+      root.style.setProperty("--dh", Math.ceil(h/s)+"px");
+    } else if(tablet){
+      /* fit the height, leave room for the side rail, never absurdly large */
+      var s2=Math.min((h-32)/812, (w-268)/375, 1.75);
+      root.style.setProperty("--s", s2);
+      root.style.setProperty("--dh","812px");
+    } else {
+      root.style.removeProperty("--s"); root.style.removeProperty("--dh");
+    }
   }
   fit();
   window.addEventListener("resize",fit);
