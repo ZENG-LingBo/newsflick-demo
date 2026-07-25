@@ -2,6 +2,7 @@
    Templates: confidence-s01 (→ new s01, s02), confidence-s03 (→ new s03), confidence-s02 (→ new s04).
    Run: node build-conf.js */
 const fs = require("fs");
+const CLOCK_JS = "<script>(function(){function t(){var d=new Date(),h=d.getHours(),m=d.getMinutes(),x=h%12===0?12:h%12;var s=x+\":\"+(m<10?\"0\":\"\")+m;var n=document.querySelectorAll(\".time\");for(var i=0;i<n.length;i++)n[i].textContent=s;}t();setInterval(t,10000);document.addEventListener(\"visibilitychange\",t);})();</script>";
 
 const TPL = { s01: "confidence-s01", s02: "confidence-s01", s03: "confidence-s03", s04: "confidence-s02" };
 
@@ -289,7 +290,7 @@ for (const id of ["s01", "s02", "s03", "s04"]) {
     h = h.replace(/flags:\s*(true|false)/, `flags:${d.flags}`);
     h = h.replace(/const STATUS = \{[\s\S]*?\};/, `const STATUS = ${JSON.stringify(d.status)};`);
 
-    h = h.replace("</body>", "<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}/*responsive-fill*/html,body{height:100%}body{display:block!important;padding:0!important}.phone{height:100%!important;border-radius:0!important}</style>" + "</body>");
+    h = h.replace("</body>", "<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}/*responsive-fill*/html,body{height:100%}body{display:block!important;padding:0!important}.phone{height:100%!important;border-radius:0!important}</style>" + CLOCK_JS + "</body>");
     fs.writeFileSync(`${lang}/confidence-${id}.html`, h);
     n++;
   }

@@ -6,6 +6,7 @@
      new s04 <- pulse-s02 (resignation/frustration/humour/solidarity)
    Run: node build-pulse.js */
 const fs = require("fs");
+const CLOCK_JS = "<script>(function(){function t(){var d=new Date(),h=d.getHours(),m=d.getMinutes(),x=h%12===0?12:h%12;var s=x+\":\"+(m<10?\"0\":\"\")+m;var n=document.querySelectorAll(\".time\");for(var i=0;i<n.length;i++)n[i].textContent=s;}t();setInterval(t,10000);document.addEventListener(\"visibilitychange\",t);})();</script>";
 
 const TPL = { s01: "pulse-s03", s02: "pulse-s01", s03: "pulse-s03", s04: "pulse-s02" };
 const KEYS = {
@@ -199,7 +200,7 @@ const D = {
       ],
       voices: [
         { cat: "Officials", b: "差估", n: "Rating and Valuation Dept", m: "Official data · monthly", x: "The index has recorded seven consecutive monthly increases across all classes." },
-        { cat: "Experts", b: "AL", n: "Dr Alicia Leung", m: "Housing researcher, CityU · 3h ago", x: "A rental market can run ahead of incomes for a while, but not ahead of arithmetic." },
+        { cat: "Experts", b: "AL", n: "Dr Alicia Leung", m: "Housing economist, Harbourside Housing Institute · 3h ago", x: "A rental market can run ahead of incomes for a while, but not ahead of arithmetic." },
         { cat: "Outlets", b: "01", n: "HK01", m: "HK online · 5h ago", x: "On the tenement stairs in Hung Hom, the queue is the story: fifteen viewers, one flat, sixty minutes." },
         { cat: "Outlets", b: "明", n: "Ming Pao", m: "HK daily · 3h ago", x: "Agents report landlords repricing mid-week — a behaviour last routine in 2016." },
         { cat: "Commentators", b: "TA", n: "@tokwawan_amy", m: "tenant · Threads · 25m ago", x: "Landlord wants $1,800 more. Agent says be grateful it isn't $2,500. This is the conversation now." },
@@ -222,7 +223,7 @@ const D = {
       ],
       voices: [
         { cat: "Officials", b: "差估", n: "差餉物業估價署", m: "官方數據 · 按月", x: "指數於各類別均錄得連續七個月按月上升。" },
-        { cat: "Experts", b: "AL", n: "梁凱晴博士", m: "房屋研究學者，城大 · 3小時前", x: "租金可以跑贏收入一段時間，但跑不贏數學。" },
+        { cat: "Experts", b: "AL", n: "梁凱晴博士", m: "房屋經濟學者，港灣房屋研究所 · 3小時前", x: "租金可以跑贏收入一段時間，但跑不贏數學。" },
         { cat: "Outlets", b: "01", n: "香港01", m: "香港網媒 · 5小時前", x: "紅磡唐樓樓梯上，人龍本身就是新聞：十五個準租客，一個單位，六十分鐘。" },
         { cat: "Outlets", b: "明", n: "明報", m: "香港日報 · 3小時前", x: "代理反映業主週中改價——上一次成為常態，已是2016年。" },
         { cat: "Commentators", b: "TA", n: "@tokwawan_amy", m: "租客 · Threads · 25分鐘前", x: "業主話加$1,800。經紀叫我偷笑，話唔係加$2,500。而家嘅對話就係咁。" },
@@ -271,7 +272,7 @@ for (const id of ["s01", "s02", "s03", "s04"]) {
     // based on
     h = h.replace(d.basedOn[0], d.basedOn[1]);
 
-    h = h.replace("</body>", "<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}/*responsive-fill*/html,body{height:100%}body{display:block!important;padding:0!important}.phone{height:100%!important;border-radius:0!important}</style>" + "</body>");
+    h = h.replace("</body>", "<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}/*responsive-fill*/html,body{height:100%}body{display:block!important;padding:0!important}.phone{height:100%!important;border-radius:0!important}</style>" + CLOCK_JS + "</body>");
     fs.writeFileSync(`${lang}/pulse-${id}.html`, h);
     n++;
   }

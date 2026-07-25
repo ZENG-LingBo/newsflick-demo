@@ -384,5 +384,5 @@ var now=new Date();
 document.querySelectorAll("[data-ago]").forEach(function(e){e.textContent=ago(+e.getAttribute("data-ago")||1);});
 document.querySelectorAll("[data-today]").forEach(function(e){e.textContent=ZH?(now.getMonth()+1)+"月"+now.getDate()+"日 星期"+W_ZH[now.getDay()]:W_EN[now.getDay()]+", "+now.getDate()+" "+M_EN[now.getMonth()];});
 })();
-</script>
+</script><script>(function(){function t(){var d=new Date(),h=d.getHours(),m=d.getMinutes(),x=h%12===0?12:h%12;var s=x+":"+(m<10?"0":"")+m;var n=document.querySelectorAll(".time");for(var i=0;i<n.length;i++)n[i].textContent=s;}t();setInterval(t,10000);document.addEventListener("visibilitychange",t);})();</script>
 </body></html>

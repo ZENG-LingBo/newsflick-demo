@@ -1,6 +1,7 @@
 /* Build en/zh feed on the ORIGINAL feed UI (templates/{lang}/feed.html) with 4 story cards.
    Run: node build-feed.js */
 const fs = require("fs");
+const CLOCK_JS = "<script>(function(){function t(){var d=new Date(),h=d.getHours(),m=d.getMinutes(),x=h%12===0?12:h%12;var s=x+\":\"+(m<10?\"0\":\"\")+m;var n=document.querySelectorAll(\".time\");for(var i=0;i<n.length;i++)n[i].textContent=s;}t();setInterval(t,10000);document.addEventListener(\"visibilitychange\",t);})();</script>";
 
 const FEED = {
   en: {
@@ -138,7 +139,7 @@ for (const lang of ["en", "zh"]) {
 .media--s03{background-image:url(../assets/img/hero-tariffs.svg)!important}
 .media--s04{background-image:url(../assets/img/hero-flatshare.jpg)!important}
 </style>`;
-  h = h.replace("</body>", mediaCss + `<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}/*responsive-fill*/html,body{height:100%}body{display:block!important;padding:0!important}.phone{height:100%!important;min-height:100%!important}</style>` + DATE_JS(lang) + "\n</body>");
+  h = h.replace("</body>", mediaCss + `<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}/*responsive-fill*/html,body{height:100%}body{display:block!important;padding:0!important}.phone{height:100%!important;min-height:100%!important}</style>` + DATE_JS(lang) + CLOCK_JS + "\n</body>");
 
   fs.writeFileSync(`${lang}/feed.html`, h);
   count++;

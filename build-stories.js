@@ -2,6 +2,7 @@
    Base: templates/{en,zh}/s02.html (original decoded page — chrome, CSS, popover engine).
    Run: node build-stories.js */
 const fs = require("fs");
+const CLOCK_JS = "<script>(function(){function t(){var d=new Date(),h=d.getHours(),m=d.getMinutes(),x=h%12===0?12:h%12;var s=x+\":\"+(m<10?\"0\":\"\")+m;var n=document.querySelectorAll(\".time\");for(var i=0;i<n.length;i++)n[i].textContent=s;}t();setInterval(t,10000);document.addEventListener(\"visibilitychange\",t);})();</script>";
 
 const T = {
   en: fs.readFileSync("templates/en/s02.html", "utf8"),
@@ -465,7 +466,7 @@ S.s04 = {
         "One read worth hearing…"),
       QUOTE(6, "Expert View",
         ["A rental market can run ahead", "of incomes for a while, but not", "ahead of arithmetic. The question", "is who absorbs the gap."],
-        "../assets/img/av8.png", "Dr Alicia Leung", "Housing researcher, City University of Hong Kong", "View source ↗", "")
+        "../assets/img/av8.png", "Dr Alicia Leung", "Housing economist, Harbourside Housing Institute", "View source ↗", "")
     ],
     pop: {
       "almost 4% in the first half": { rows: [["Who confirmed it", "The Rating and Valuation Department index, cross-checked against Centaline's leading index."], ["Why we're sure", "Two independently-compiled indices agree within 0.3 points."], ["Why it matters", "This is measured record, not sentiment — the basis for every claim in this story."]], src: ["Rating and Valuation Department", "Centaline"] },
@@ -520,7 +521,7 @@ S.s04 = {
         "一個值得一聽的解讀……"),
       QUOTE(6, "專家之言",
         ["租金可以跑贏收入一段時間，", "但跑不贏數學。", "問題是條數最後由誰埋單。"],
-        "../assets/img/av8.png", "梁凱晴博士", "房屋研究學者，香港城市大學", "查看原文 ↗", "")
+        "../assets/img/av8.png", "梁凱晴博士", "房屋經濟學者，港灣房屋研究所", "查看原文 ↗", "")
     ],
     pop: {
       "升近4%": { rows: [["由誰證實", "差餉物業估價署指數，並與中原城市領先指數互相核對。"], ["為何可信", "兩個獨立編製的指數，相差不足0.3點。"], ["為何重要", "這是實測紀錄而非市場情緒——本篇所有論斷的基礎。"]], src: ["差餉物業估價署", "中原地產"] },
@@ -763,7 +764,7 @@ for (const id of ["s01", "s02", "s03", "s04"]) {
     // leaflet in head
     if (d.mapKey) h = h.replace("</head>", LEAFLET + "</head>");
     // extras before </body>
-    h = h.replace("</body>", EXTRA_CSS + confCss + extraJs(d.mapKey, lang) + "\n</body>");
+    h = h.replace("</body>", EXTRA_CSS + confCss + extraJs(d.mapKey, lang) + CLOCK_JS + "\n</body>");
 
     fs.writeFileSync(`${lang}/${id}.html`, h);
     count++;
