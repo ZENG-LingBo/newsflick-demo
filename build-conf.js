@@ -16,12 +16,18 @@ const ITEM_DISP = (t, k1, v1, k2, v2, view, n) => `<div class="cs-item"><div cla
 const ITEM_UNK = (t, p, awaiting, view, n) => `<div class="cs-item"><div class="cs-itemhead"><span class="d d--disputed"></span><p class="cs-t">${t}</p></div><p class="cs-p">${p}</p><div class="cs-etags cs-etags--one"><span class="cs-etag cs-etag--awaiting">${awaiting}</span></div><div class="cs-foot"><div class="rule"></div><div class="cs-footrow"><div class="cs-mini cs-mini--one"><span class="f"><img src="../assets/img/av${(n % 9) + 1}.png" alt=""></span></div><p class="cs-view">${view}</p></div></div></div>`;
 const ITEM_SETTLE = (t, p, awaiting) => `<div class="cs-item"><div class="cs-itemhead"><span class="d d--disputed"></span><p class="cs-t">${t}</p></div><p class="cs-p">${p}</p><div class="cs-etags cs-etags--one"><span class="cs-etag cs-etag--awaiting">${awaiting}</span></div></div>`;
 const WHY = (i, tagCls, tagTxt, t, p) => `<div class="cs-why${i === 0 ? " cs-why--open" : ""}"><div class="cs-whyhead"><span class="cs-tag cs-tag--${tagCls}">${tagTxt}</span><svg class="ico"><use href="#ic-arrow-down-01"/></svg></div><p class="cs-whytitle">${t}</p><div class="cs-whybody-wrap"><div><p class="cs-whybody">${p}</p></div></div></div>`;
+/* sections 16-18 (Interpretations / Political Bias / Top Sources) — v2 port */
+const AV_SVG = (ch, color) => `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;border-radius:99px"><circle cx="20" cy="20" r="20" fill="${color}"/><text x="20" y="21" font-family="Inter,sans-serif" font-size="17" font-weight="600" fill="#ffffff" text-anchor="middle" dominant-baseline="central">${ch}</text></svg>`;
+const ITEM_INTERP = (x, q) => `<div class="cs-item"><div class="cs-interp"><div class="cs-outlet"><span class="av">${AV_SVG(x.av, x.color)}</span><div class="meta"><div class="nm"><p>${x.name}</p><svg class="ico"><use href="#ic-verified"/></svg></div><p class="sub">${x.sub}</p></div></div><p class="cs-headline">${q[0]}${x.headline}${q[1]}</p></div></div>`;
+const ITEM_SRC = (x, q, view) => `<div class="cs-item"><div class="cs-srchead"><div class="cs-srcid"><span class="cs-mono">${x.mono}</span><div class="cs-srcname"><div class="n"><span>${x.name}</span><svg class="ico"><use href="#ic-verified"/></svg></div><p class="r">${x.role}</p></div></div><div class="cs-score"><span class="cs-lean${x.leanCls ? " cs-lean--" + x.leanCls : ""}">${x.lean}</span><p class="v">${x.score}</p></div></div><p class="cs-headline cs-headline--s">${q[0]}${x.headline}${q[1]}</p><p class="cs-view" style="width:100%">${view}</p></div>`;
 
 const L = {
   en: { term: "Term", view: "View sources &rarr;", awaiting: "Awaiting", tags: { ok: ["confirmed", "Confirmed"], dev: ["ongoing", "Ongoing"], un: ["unverified", "Unverified"] },
-        et: { official: "Official", witness: "Witness", physical: "Physical", notyet: "Not yet" } },
+        et: { official: "Official", witness: "Witness", physical: "Physical", notyet: "Not yet" },
+        lean: ["Left", "Center", "Right"], q: ["&ldquo;", "&rdquo;"] },
   zh: { term: "詞條", view: "查看來源 &rarr;", awaiting: "有待進展", tags: { ok: ["confirmed", "已證實"], dev: ["ongoing", "持續中"], un: ["unverified", "未經核實"] },
-        et: { official: "官方", witness: "目擊", physical: "實證", notyet: "暫未有" } }
+        et: { official: "官方", witness: "目擊", physical: "實證", notyet: "暫未有" },
+        lean: ["左", "中間", "右"], q: ["「", "」"] }
 };
 
 /* ---------------- data ---------------- */
@@ -102,7 +108,25 @@ const D = {
                ["A working privacy-safe age check", "Would remove the largest practical objection."],
                ["The technical decree itself", "Publication will show what enforcement actually requires of every user."]],
       settleNote: "Every gap here is Awaiting, expected to resolve as enforcement begins — which is why the story is Developing and likely to move within months.",
-      explore: ["Age verification tech", "Teen mental health", "EU platform law"]
+      explore: ["Age verification tech", "Teen mental health", "EU platform law"],
+      interp: [
+        { av: "L", color: "#1a5fb4", name: "Le Monde", sub: "News outlet &middot; 2h ago",
+          headline: "A landmark for child protection: France leads Europe in shielding minors from documented harms" },
+        { av: "T", color: "#8A4F9E", name: "TechWire EU", sub: "Tech press &middot; 2h ago",
+          headline: "Six-month deadline is unworkable and will push teens onto VPNs, platform engineers warn" },
+        { av: "S", color: "#B0791F", name: "Signal Civique", sub: "Digital-rights review &middot; 3h ago",
+          headline: "Age checks for minors mean identity checks for everyone, privacy advocates warn" }],
+      bias: { l: 34, c: 30, r: 36,
+        note: "Coverage splits along familiar lines: a child-protection frame on one side, a digital-rights and state-overreach frame on the other. Shown for transparency, not as a verdict on who is right." },
+      sources: [
+        { mono: "CN", name: "CNIL", role: "Regulator &middot; 28m ago", lean: "Official", leanCls: "official", score: 96,
+          headline: "Verification must be privacy-preserving; the technical decree will specify how" },
+        { mono: "FW", name: "Frontline Wire", role: "Wire &middot; 52m ago", lean: "Center", score: 95,
+          headline: "France passes the EU's first blanket under-16 social-media ban; platforms get six months" },
+        { mono: "MI", name: "Meridian Institute", role: "Research body &middot; 1h ago", lean: "Center", score: 90,
+          headline: "Harm tracks platform design, not a single birthday, evidence review finds" },
+        { mono: "ONI", name: "Open Net Initiative", role: "Digital-rights group &middot; 1h ago", lean: "Left", score: 84,
+          headline: "You cannot verify a child's age without verifying everyone's" }]
     },
     zh: {
       level: "MEDIUM", state: "Developing", flags: false, basedOn: "9 個來源", verified: "35分鐘前核實",
@@ -127,7 +151,25 @@ const D = {
                ["一套可行的私隱友善年齡核查", "可消除最大的實際反對理由。"],
                ["技術細則本身", "細則公布，就會看清執行對每個用戶的實際要求。"]],
       settleNote: "此處每項缺口均屬「有待進展」，預期隨執行展開逐步解決——這正是報道處於「發展中」、數月內可望變動的原因。",
-      explore: ["年齡核實技術", "青少年精神健康", "歐盟平台法規"]
+      explore: ["年齡核實技術", "青少年精神健康", "歐盟平台法規"],
+      interp: [
+        { av: "世", color: "#1a5fb4", name: "世界報", sub: "新聞機構 &middot; 2小時前",
+          headline: "保護兒童的里程碑：法國領先歐洲，為未成年人擋住有紀錄可查的傷害" },
+        { av: "T", color: "#8A4F9E", name: "TechWire EU", sub: "科技媒體 &middot; 2小時前",
+          headline: "平台工程師警告：六個月死線不切實際，只會把青少年推向VPN" },
+        { av: "S", color: "#B0791F", name: "Signal Civique", sub: "數碼權益評論 &middot; 3小時前",
+          headline: "私隱倡議者警告：查核未成年人的年齡，等於查核每一個人的身份" }],
+      bias: { l: 34, c: 30, r: 36,
+        note: "報道沿熟悉的路線分岔：一邊是保護兒童的框架，另一邊是數碼權利與政府越權的框架。列出以示透明，並非誰對誰錯的裁決。" },
+      sources: [
+        { mono: "CN", name: "法國資訊自由委員會", role: "監管機構 &middot; 28分鐘前", lean: "官方", leanCls: "official", score: 96,
+          headline: "核實必須保障私隱；技術細則將列明做法" },
+        { mono: "FW", name: "Frontline Wire", role: "通訊社 &middot; 52分鐘前", lean: "中間", score: 95,
+          headline: "法國通過歐盟首個16歲以下全面禁令；平台獲六個月合規期" },
+        { mono: "MI", name: "Meridian Institute", role: "研究機構 &middot; 1小時前", lean: "中間", score: 90,
+          headline: "評估發現：傷害隨平台設計而變，不隨某一個生日而變" },
+        { mono: "ONI", name: "Open Net Initiative", role: "數碼權益組織 &middot; 1小時前", lean: "左", score: 84,
+          headline: "查核不了一個孩子的年齡，除非查核每一個人的" }]
     }
   },
   s03: {
@@ -253,6 +295,22 @@ function replaceInner(h, openIdx, newInner) {
   throw new Error("unbalanced divs");
 }
 
+/* remove a whole <div class="sec" data-sec="..."> block (balanced) — kills stale
+   hidden content instead of shipping it under display:none */
+function removeSec(h, sec) {
+  const i = h.indexOf(`<div class="sec" data-sec="${sec}">`);
+  if (i < 0) return h;
+  const openEnd = h.indexOf(">", i) + 1;
+  const re = /<div\b|<\/div>/g;
+  re.lastIndex = openEnd;
+  let depth = 1, m;
+  while ((m = re.exec(h))) {
+    depth += m[0] === "</div>" ? -1 : 1;
+    if (depth === 0) return h.slice(0, i) + h.slice(m.index + "</div>".length);
+  }
+  throw new Error("unbalanced divs in sec " + sec);
+}
+
 function secReplace(h, sec, newInner) {
   // replace the items inside <div class="cs-list"> of a given data-sec block, keeping its heading
   const start = h.indexOf(`<div class="sec" data-sec="${sec}">`);
@@ -286,6 +344,21 @@ for (const id of ["s01", "s02", "s03", "s04"]) {
     h = secReplace(h, "14", d.unknown.map((u, i) => ITEM_UNK(u[0], u[1], l.awaiting, l.view, i + 5)).join("\n"));
     h = secReplace(h, "15", d.settle.map(s => ITEM_SETTLE(s[0], s[1], l.awaiting)).join("\n"));
     h = h.replace(/(<p class="cs-biasnote"[^>]*>)[\s\S]*?(<\/p>)/, `$1${d.settleNote}$2`);
+    h = removeSec(h, "18b"); // stale hidden duplicate of Top Sources
+    if (!d.interp) { h = removeSec(h, "16"); h = removeSec(h, "17"); h = removeSec(h, "18"); }
+    // sections 16-18: Interpretations / Political Bias / Top Sources (v2 port; unhide when data present)
+    if (d.interp) {
+      h = secReplace(h, "16", d.interp.map(x => ITEM_INTERP(x, l.q)).join("\n"));
+      const biasHtml = `<div class="cs-bias">` +
+        [["l", d.bias.l], ["c", d.bias.c], ["r", d.bias.r]].map(([k, v], i) =>
+          `<span class="cs-bias--${k}" style="flex:0 0 ${v}%"><p class="k">${l.lean[i]}</p><p class="v">${v}%</p></span>`).join("") +
+        `</div><p class="cs-biasnote">${d.bias.note}</p>`;
+      const s17 = h.indexOf('<div class="sec" data-sec="17">');
+      h = replaceInner(h, h.indexOf('<div class="cs-biaswrap"', s17), biasHtml);
+      h = secReplace(h, "18", d.sources.map(x => ITEM_SRC(x, l.q, l.view)).join("\n"));
+      h = h.replace('[data-sec="16"],[data-sec="17"],[data-sec="18"],[data-sec="18b"]{display:none!important}',
+                    '[data-sec="18b"]{display:none!important}');
+    }
     // explore pills
     h = h.replace(/<div class="cs-pills"[^>]*>[\s\S]*?<\/div>/, `<div class="cs-pills">` + d.explore.map(x => `<a class="cs-pill">${x}</a>`).join("\n") + `</div>`);
     // diff pair for High stories
