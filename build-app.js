@@ -64,7 +64,7 @@ const FEED_TEXT = {
   }
 };
 
-const IMG = { s01: "../assets/img/hero-hormuz.svg", s02: "../assets/img/hero-teens.jpg", s03: "../assets/img/hero-tariffs.svg", s04: "../assets/img/hero-flatshare.jpg" };
+const IMG = { s01: "../assets/img/hero-strait.jpg", s02: "../assets/img/hero-teens.jpg", s03: "../assets/img/hero-tariff.jpg", s04: "../assets/img/hero-rent.jpg" };
 
 /* ---------- kit: map data (lifted from build-stories.js) + per-lang config ---------- */
 const MAPS = {

@@ -6,7 +6,7 @@ module.exports = {
     nextTitle: "The strait that prices the world is closed",
     tabs: ["The Story", "Key Facts", "Then vs Now", "Why This Matters", "What's Next"],
     hero: {
-      img: "../assets/img/hero-flatshare.jpg",
+      img: "../assets/img/hero-rent.jpg",
       title: "The steepest summer climb in a decade.",
       paras: [
         { p: "Hong Kong rents rose **almost 4% in the first half** — on pace for the biggest summer gain since 2016. The drivers are measurable: mainland professionals and students, returning expats, and thin supply.",
@@ -63,7 +63,7 @@ module.exports = {
     nextTitle: "為全球定價的海峽，封了",
     tabs: ["本篇", "關鍵事實", "今昔對比", "為何重要", "下一步"],
     hero: {
-      img: "../assets/img/hero-flatshare.jpg",
+      img: "../assets/img/hero-rent.jpg",
       title: "十年來最急的夏季升浪。",
       paras: [
         "香港住宅租金上半年**升近4%**——有望創2016年以來最大的夏季升幅。推手有數可依：內地專才與學生、回流外派人員，加上供應緊絀。",

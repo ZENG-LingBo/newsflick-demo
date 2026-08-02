@@ -6,7 +6,7 @@ module.exports = {
     nextTitle: "The steepest summer climb in a decade",
     tabs: ["The Story", "Key Facts", "How It Works", "Then vs Now", "Why This Matters", "What's Next"],
     hero: {
-      img: "../assets/img/hero-tariffs.svg",
+      img: "../assets/img/hero-tariff.jpg",
       title: "50% tariffs, between allies.",
       paras: [
         { p: "The order is signed: **50% tariffs on most Canadian goods**, citing autos, alcohol and dairy. It is the steepest tariff wall between two allied economies in modern history.",
@@ -72,7 +72,7 @@ module.exports = {
     nextTitle: "十年來最急的夏季升浪",
     tabs: ["本篇", "關鍵事實", "運作機制", "今昔對比", "為何重要", "下一步"],
     hero: {
-      img: "../assets/img/hero-tariffs.svg",
+      img: "../assets/img/hero-tariff.jpg",
       title: "盟友之間，50%關稅。",
       paras: [
         "行政命令已簽署：**對大部分加拿大貨品徵收50%關稅**，點名汽車、酒類及乳製品。這是近代史上兩個盟友經濟體之間最高的關稅牆。",

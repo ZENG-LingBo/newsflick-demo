@@ -6,7 +6,7 @@ module.exports = {
     nextTitle: "Should under-16s be banned from social media?",
     tabs: ["The Story", "Key Facts", "Why This Matters", "What's Next"],
     hero: {
-      img: "../assets/img/hero-hormuz.svg",
+      img: "../assets/img/hero-strait.jpg",
       title: "The strait that prices the world is closed.",
       paras: [
         { p: "Twelve days of strikes have hit **more than 5,000 targets** across Iran, and the response has shut the [kw:Strait of Hormuz] — the channel a fifth of the world's oil passes through.",
@@ -81,7 +81,7 @@ module.exports = {
     nextTitle: "16歲以下應否禁用社交媒體？",
     tabs: ["本篇", "關鍵事實", "為何重要", "下一步"],
     hero: {
-      img: "../assets/img/hero-hormuz.svg",
+      img: "../assets/img/hero-strait.jpg",
       title: "為全球定價的海峽，封了。",
       paras: [
         "十二日空襲，擊中伊朗境內**逾5,000個目標**；報復之下，[kw:霍爾木茲海峽]宣告封鎖——全球五分之一的石油，平日正是取道這條水道。",
