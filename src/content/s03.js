@@ -119,3 +119,41 @@ module.exports = {
     ovConn: { def: "唐樓樓梯上的人龍，比任何指數都先出現。" }
   }
 };
+
+/* ===== P2: animated chart + popovers ===== */
+{
+const en = module.exports.en, zh = module.exports.zh;
+en.cards.splice(1, 0, { type: "numbers2", data: { title: "Numbers",
+    banner: { fig: "50%", lab: "Average tariff on Canadian goods — up from 2% in January." },
+    cols: [["2%", 6, "Jan"], ["10%", 18, "Mar"], ["22%", 32, "May"], ["25%", 36, "Jun"], ["50%", 62, "Jul", "50% — the new blanket order", true]],
+    para: { p: "For scale: the 2018 steel dispute peaked at 25%. This week's order [b:doubles |it] in one step.",
+            c: "For scale: the 2018 steel dispute peaked at 25%. This week's order [b:doubles |it] in a single step.",
+            e: "The last big fight, in 2018, topped out at 25%. This new rule [b:doubles |it] in one go." } },
+  conn: { def: "That is the climb. Here is the machinery that moves it to your receipt.",
+          e5: "📈 That's the climb. Now the machine that moves it onto YOUR receipt. 🧾" } });
+en.tabs.splice(1, 0, "Numbers");
+zh.cards.splice(1, 0, { type: "numbers2", data: { title: "數字",
+    banner: { fig: "50%", lab: "對加拿大貨品的平均關稅——1月時僅為2%。" },
+    cols: [["2%", 6, "1月"], ["10%", 18, "3月"], ["22%", 32, "5月"], ["25%", 36, "6月"], ["50%", 62, "7月", "50%——全面關稅令生效", true]],
+    para: "作個對比：2018年鋼鋁爭端高位是25%。本週的命令一步[b:翻|倍]。" },
+  conn: { def: "升勢講完。接下來是把它搬到你單據上的機器。" } });
+zh.tabs.splice(1, 0, "數字");
+en.pop = {
+  "politics": "Retaliation lists, USMCA panels, emergency talks — the formal machinery. It moves in months; supply chains reprice in weeks.",
+  "most goods categories": "The published schedule covers the large majority of trade lines, with energy carved out. A near-blanket rate behaves differently from targeted tariffs — there is nowhere to reroute.",
+  "contested by both capitals": "Ottawa says the USMCA pact plainly applies; Washington says the security carve-out puts the order outside it. The carve-out has never been tested at this scale.",
+  "within six to eight weeks": "Retail analysts' estimate based on inventory cycles — how long current stock lasts before tariffed goods hit shelves.",
+  "pass-through": "How much of a tariff shows up in consumer prices. Studies of the 2018 round found pass-through was near-complete within months.",
+  "doubles it": "From 25% to 50% — the steepest single tariff step between allied economies on record.",
+  "cannot re-shore in a season": "Re-shoring timelines are projections from past cases: plants take years to site, permit and build — not months."
+};
+zh.pop = {
+  "政治": "反制清單、《美墨加》仲裁、緊急會談——正式的機器。它以月計運轉；供應鏈以週計重新定價。",
+  "絕大部分貨品類別": "命令附表覆蓋絕大多數貿易項目，能源獲豁免。近乎全面的稅率與針對性關稅性質迥異——根本無路可繞。",
+  "兩國各執一詞": "渥太華指協定明顯適用；華府稱安全豁免令命令置身協定之外。這條豁免從未在此規模下受考驗。",
+  "六至八星期內浮現": "零售分析師按庫存周期估算——現貨賣完、關稅貨上架，大約就是這個時間。",
+  "轉嫁": "關稅有多少反映在消費物價上。2018年一輪的研究發現，數月內轉嫁近乎完全。",
+  "翻倍": "由25%到50%——盟友經濟體之間有紀錄以來最陡的一步。",
+  "不可能一季之內搬回本土": "回流時間表按過往案例推算：建廠選址、審批、施工以年計，不是以月計。"
+};
+}

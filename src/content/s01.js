@@ -117,3 +117,75 @@ module.exports = {
     ovConn: { def: "青少年上網的處境並非一夜改變，改變的是社會出手處理的決心。" }
   }
 };
+
+/* ===== P2: interactive kit cards ===== */
+const SCH = require("../schematics.js");
+const en = module.exports.en, zh = module.exports.zh;
+en.cards.splice(1, 0,
+  { type: "map", data: { title: "Map", mapKey: "gulf", schem: SCH.gulf,
+      legend: [["#800080", "Strike zones"], ["#ec4837", "Chokepoint"]],
+      para: { p: "Strikes cluster across five provinces. The pivotal point is the Strait of Hormuz, [g:now |closed].",
+              c: "The strikes cluster across five provinces — and the pivot of it all is the Strait of Hormuz, [g:now |closed].",
+              e: "The strikes hit five different regions. But the spot that matters most is the Strait of Hormuz — [g:now |closed]." } },
+    conn: { def: "That is where. Here is when — today, hour by hour.", e5: "🗺️ That's WHERE. Now here's WHEN — today, hour by hour. ⏰" } },
+  { type: "timeline", data: { title: "Timeline", chips: ["Breaking", "Developing"], rows: [
+      ["06:40", "Tanker traffic at zero for a seventh day; insurers suspend Gulf transit cover entirely."],
+      ["09:15", "Strikes reported near Bandar Abbas port facilities — the closest yet to the strait itself."],
+      ["11:52", "Oman confirms a third round of quiet mediation \"remains open\"."],
+      ["14:30", "Brent crude passes $140; surcharges appear in retail freight quotes."]] },
+    conn: { def: "That is the day so far. Step back for the ledger of what is known.", e5: "🕐 That's today so far. Now zoom out for the big picture. 🔭" } });
+en.cards.splice(5, 0,
+  { type: "risk2", data: { title: "Risk", rows: [
+      ["high", "High", "A prolonged closure", "Supply strain spreads to nearby markets within weeks; surcharges reach shelf prices."],
+      ["med", "Medium", "The conflict widens", "One miscalculation pulls in a third party; the risk does not stay inside a border."],
+      ["low", "Low", "Fuel disruption at home", "Strategic reserves cover the near term."]],
+      para: { p: "Risk levels reflect what is known now and may change.", c: "These levels reflect what's known right now — they can and will move.", e: "These are today's best guesses. They can change fast." } },
+    conn: { def: "Those are the risks. These are the dials to watch move.", e5: "⚠️ Those are the risks. Now watch these dials. 🎛️" } },
+  { type: "signal", data: { title: "Signal", rows: [
+      [72, "Pressure on shipping routes", "Insurance withdrawal is the leading indicator — it moved before every previous spike.", true],
+      [38, "Talks resume via Oman", "The channel has produced three quiet contacts; collapsed is not the same as over.", false],
+      [55, "Further strikes near nuclear sites", "The target list has drifted toward infrastructure over the past four days.", false]],
+      para: { p: "Tap a signal to see why it is moving. Probabilities are model estimates, not predictions.",
+              c: "Tap any signal to see why it's moving. The percentages are model estimates, not promises.",
+              e: "Tap a dial to see why it's moving. The numbers are smart guesses, not promises." } },
+    conn: { def: "Those are the dials. Here is why they reach your wallet.", e5: "🎛️ Those are the dials. Here's why they reach YOUR wallet. 👛" } });
+en.tabs = ["The Story", "Map", "Timeline", "Key Facts", "Risk", "Signal", "Why This Matters", "What's Next"];
+zh.cards.splice(1, 0,
+  { type: "map", data: { title: "地圖", mapKey: "gulf", schem: SCH.gulf,
+      legend: [["#800080", "空襲區"], ["#ec4837", "咽喉要道"]],
+      para: "空襲集中於五個省份。整場危機的支點，是[g:已經|封鎖]的霍爾木茲海峽。" },
+    conn: { def: "這是地點。接下來是時間——今日，逐個鐘看。" } },
+  { type: "timeline", data: { title: "時序", chips: ["突發", "發展中"], rows: [
+      ["06:40", "油輪通航量連續第七日歸零；保險商全面暫停波斯灣航運承保。"],
+      ["09:15", "阿巴斯港港口設施附近傳出空襲——迄今最貼近海峽的一輪。"],
+      ["11:52", "阿曼證實第三輪低調斡旋「渠道仍然打開」。"],
+      ["14:30", "布蘭特期油升穿140美元；附加費現身零售運費報價。"]] },
+    conn: { def: "這是今日的進度。退一步，看看已知的帳目。" } });
+zh.cards.splice(5, 0,
+  { type: "risk2", data: { title: "風險", rows: [
+      ["high", "高", "封鎖持續", "供應壓力數星期內波及鄰近市場；附加費直達零售價。"],
+      ["med", "中", "衝突擴大", "一次誤判就足以捲入第三方；風險不會乖乖留在國界之內。"],
+      ["low", "低", "本地燃料中斷", "戰略儲備足以應付短期。"]],
+      para: "風險等級按現時所知評估，隨時或會改變。" },
+    conn: { def: "這些是風險。接下來是值得盯住的錶盤。" } },
+  { type: "signal", data: { title: "訊號", rows: [
+      [72, "航運路線壓力升溫", "保險商撤保是領先指標——過往每次急升之前，它都先行變動。", true],
+      [38, "阿曼渠道重啟談判", "渠道已促成三次低調接觸；破裂不等於玩完。", false],
+      [55, "再有核設施附近遭空襲", "過去四日，打擊目標明顯移向基礎設施。", false]],
+      para: "輕按訊號可查看變動原因。百分比屬模型估算，並非預測。" },
+    conn: { def: "錶盤講完。接下來是它們為何摸到你的錢包。" } });
+zh.tabs = ["本篇", "地圖", "時序", "關鍵事實", "風險", "訊號", "為何重要", "下一步"];
+en.pop = {
+  "strait of hormuz": "A 33km-wide channel between Iran and Oman — the only sea route out of the Persian Gulf. About a fifth of global oil normally passes through it. It has never been fully closed before now.",
+  "now closed": "Tanker-transit data has shown zero transits for seven days, and both governments acknowledge the closure. It is one of the few points on which all parties agree.",
+  "restoring deterrence": "The campaign's stated aim since week two — a posture, not a target list. The language shift from 'nuclear sites' is documented; what it means about intent is interpretation.",
+  "disputed by three thousand lives": "Officials on each side publish figures that serve their case; independent monitors cannot reach the strike zones, so nobody can settle the number.",
+  "strait of hormuz has closed to shipping": "Measured independently of either government: transit trackers show zero tanker passages for seven consecutive days."
+};
+zh.pop = {
+  "霍爾木茲海峽": "伊朗與阿曼之間一條闊33公里的水道，是波斯灣唯一出海口。全球約五分之一的石油平日取道於此。此前從未全面封鎖。",
+  "已經封鎖": "油輪通航數據連續七日歸零，兩國政府均承認封鎖——這是各方罕有一致同意的事實。",
+  "重建威懾": "行動方自第二週起的官方說法——是姿態，不是目標清單。措辭由「核設施」轉變有紀錄可查；意圖為何則屬解讀。",
+  "雙方統計相差三千": "兩邊官方各自公布對己有利的數字；獨立監察無法進入空襲區，數字無從釐清。",
+  "霍爾木茲海峽已對商船封閉": "由第三方獨立量度：航運追蹤顯示油輪連續七日零通過。"
+};

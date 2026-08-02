@@ -66,6 +66,63 @@ const FEED_TEXT = {
 
 const IMG = { s01: "../assets/img/hero-hormuz.svg", s02: "../assets/img/hero-teens.jpg", s03: "../assets/img/hero-tariffs.svg", s04: "../assets/img/hero-flatshare.jpg" };
 
+/* ---------- kit: map data (lifted from build-stories.js) + per-lang config ---------- */
+const MAPS = {
+  gulf: {
+    center: [30.8, 53.6], zoom: 5,
+    zones: {
+      en: [
+        [[33.72, 51.72], 60, "Natanz province", "Repeated strikes on enrichment-linked sites through the first week."],
+        [[32.65, 51.67], 50, "Isfahan province", "Industrial and air-defence targets; heaviest single night on day 9."],
+        [[27.18, 56.28], 45, "Bandar Abbas", "Port facilities hit today — the closest strikes yet to the strait."],
+        [[29.6, 52.5], 55, "Fars province", "Command and radar infrastructure struck across days 4–11."],
+        [[35.7, 51.4], 50, "Tehran province", "Leadership and communications targets from day one."]],
+      zh: [
+        [[33.72, 51.72], 60, "納坦茲一帶", "首週起多次空襲濃縮相關設施。"],
+        [[32.65, 51.67], 50, "伊斯法罕省", "工業及防空目標；第9晚攻勢最猛烈。"],
+        [[27.18, 56.28], 45, "阿巴斯港", "今日港口設施被擊中——迄今最貼近海峽的一輪。"],
+        [[29.6, 52.5], 55, "法爾斯省", "第4至11日間指揮及雷達設施接連被擊中。"],
+        [[35.7, 51.4], 50, "德黑蘭省", "首日起針對指揮及通訊目標。"]]
+    },
+    points: {
+      en: [[[26.6, 56.25], "Strait of Hormuz", "Closed to commercial shipping. A fifth of the world's oil normally passes through this channel."]],
+      zh: [[[26.6, 56.25], "霍爾木茲海峽", "已對商船封閉。全球五分之一的石油平日取道此處。"]]
+    }
+  },
+  hk: {
+    center: [22.36, 114.13], zoom: 10,
+    zones: {
+      en: [
+        [[22.306, 114.185], 2.2, "Hung Hom / Ho Man Tin", "+6.2% H1 — student influx around the universities; queues at walk-up viewings."],
+        [[22.312, 114.263], 2.5, "Tseung Kwan O", "+5.3% H1 — new-town supply absorbed faster than completions."],
+        [[22.382, 114.19], 2.5, "Sha Tin / Tai Wai", "+4.8% H1 — rail-line demand from cross-boundary commuters."],
+        [[22.284, 114.22], 2.2, "Island East", "+4.1% H1 — returning expat leases concentrated here."],
+        [[22.39, 113.973], 2.6, "Tuen Mun", "+2.9% H1 — the lagging district agents expect to move next."]],
+      zh: [
+        [[22.306, 114.185], 2.2, "紅磡／何文田", "上半年+6.2%——大學周邊學生湧入，唐樓睇樓要排隊。"],
+        [[22.312, 114.263], 2.5, "將軍澳", "上半年+5.3%——新市鎮供應被吸納的速度快過落成。"],
+        [[22.382, 114.19], 2.5, "沙田／大圍", "上半年+4.8%——鐵路沿線受跨境通勤需求帶動。"],
+        [[22.284, 114.22], 2.2, "港島東", "上半年+4.1%——回流外派租約集中於此。"],
+        [[22.39, 113.973], 2.6, "屯門", "上半年+2.9%——暫時落後，代理估計下一浪到此。"]]
+    },
+    points: {
+      en: [[[22.306, 114.185], "Steepest: Hung Hom", "+6.2% in six months — the fastest district climb since 2016."]],
+      zh: [[[22.306, 114.185], "升幅最急：紅磡", "半年+6.2%——2016年以來最快的地區升幅。"]]
+    }
+  }
+};
+function kitConfig(lang) {
+  const maps = {};
+  for (const key of Object.keys(MAPS)) {
+    const m = MAPS[key];
+    maps[key] = { center: m.center, zoom: m.zoom, zones: m.zones[lang], points: m.points[lang] };
+  }
+  const pop = {};
+  for (const sid of ORDER) Object.assign(pop, STORIES[sid][lang].pop || {});
+  return { maps, pop };
+}
+const LEAFLET_TAGS = `<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">\n<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/script>`;
+
 /* ---------- feed ---------- */
 function mcard(lang, sid, idx, cardCount) {
   const F = FEED_TEXT[lang];
@@ -192,6 +249,8 @@ const APPENDIX = `
 const SPRITE = H.S.slice(0, H.S.indexOf('<div class="nf-frame"'));
 const ENGINE = fs.readFileSync("src/engine.js", "utf8");
 const APP_CSS = fs.readFileSync("src/app.css", "utf8");
+const KIT_CSS = fs.readFileSync("src/kit.css", "utf8");
+const KIT_JS = fs.readFileSync("src/kit.js", "utf8");
 
 const COUNTER_CSS = lang => `
 /* 4-story counter overrides */
@@ -208,7 +267,9 @@ function head(lang) {
 <title>NewsFlick</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=Noto+Sans+HK:wght@300..900&family=Noto+Serif+HK:wght@400..700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap" rel="stylesheet">
+${LEAFLET_TAGS}
 <style>${APP_CSS}
+${KIT_CSS}
 ${COUNTER_CSS(lang)}
 /* nf-flush: inside the shell iframe the frame sits at 0,0 with no page chrome —
    v2 centered itself with body padding, which made the document 48px taller than
@@ -237,7 +298,8 @@ function buildApp(lang) {
     vsheet(lang) + "\n" +
     `<div class="sheet-layer" id="layer-confidence"><iframe id="confidence"></iframe></div>\n` +
     `<div class="sheet-layer" id="layer-pulse"><iframe id="pulse"></iframe></div>\n` +
-    `</div>\n<script>${ENGINE}</scr` + `ipt>\n<script>${APPENDIX}</scr` + `ipt>\n</body></html>`;
+    `</div>\n<script>${ENGINE}</scr` + `ipt>\n<script>${APPENDIX}</scr` + `ipt>\n` +
+    `<script>window.NF_KIT=${JSON.stringify(kitConfig(lang))};</scr` + `ipt>\n<script>${KIT_JS}</scr` + `ipt>\n</body></html>`;
 }
 
 for (const lang of ["en", "zh"]) {

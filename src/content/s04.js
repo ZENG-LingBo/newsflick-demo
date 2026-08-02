@@ -104,3 +104,66 @@ module.exports = {
     ovConn: { def: "行動背後的數字並無爭議。其餘幾乎一切都有。" }
   }
 };
+
+/* ===== P2: HK map + chart + ground + popovers ===== */
+{
+const SCH = require("../schematics.js");
+const en = module.exports.en, zh = module.exports.zh;
+en.cards.splice(1, 0,
+  { type: "map", data: { title: "Map", mapKey: "hk", schem: SCH.hk,
+      legend: [["#800080", "Rent change, H1"], ["#ec4837", "Steepest district"]],
+      para: { p: "The squeeze is not even. Districts near universities climb fastest, led by [g:Hung Hom at |+6.2%].",
+              c: "The squeeze isn't even. University districts climb fastest — led by [g:Hung Hom at |+6.2%].",
+              e: "Not every district feels it the same. Areas near universities rise fastest — [g:Hung Hom leads at |+6.2%]." } },
+    conn: { def: "That is the where. Here is the climb, month by month.", e5: "🗺️ That's WHERE. Now the climb, month by month. 📆" } },
+  { type: "numbers2", data: { title: "Numbers",
+      banner: { fig: "+3.8%", lab: "Residential rental index, January to July." },
+      cols: [["118", 30, "Jan"], ["120", 38, "Mar"], ["122", 46, "May"], ["123", 52, "Jun"], ["124.5", 58, "Jul", "124.5 — within a whisker of 2016", true]],
+      para: { p: "Seven straight monthly rises. The 2016 record of 124.9 sits [b:one normal month |away].",
+              c: "Seven straight monthly rises — and the 2016 record of 124.9 now sits [b:one normal month |away].",
+              e: "Seven months up in a row. The all-time record from 2016 is [b:one ordinary month |away]." } },
+    conn: { def: "Numbers meet the street here. Three scenes from the queue.", e5: "🔢 Now the numbers hit the street. Three scenes from the queue. 🎬" } },
+  { type: "ground", data: { title: "On the Ground", disps: [
+      ["Hung Hom · Saturday 2PM", "Fifteen viewers queue on the stairs of a walk-up for a 280 sq ft one-bed. It goes over asking within the hour."],
+      ["Sha Tin · Thursday 7PM", "An agent's window reprices twice in one week. Landlords are waiting — every week of waiting has been paying."],
+      ["To Kwa Wan · Sunday 11AM", "A student WhatsApp group with 800 members trades leads on flats before they are listed."]],
+      tiles: ["url('../assets/img/hero-flatshare.jpg') left center/cover", "url('../assets/img/card-flatshare.jpg') center/cover", "url('../assets/img/hero-flatshare.jpg') right center/cover", "url('../assets/img/card-flatshare.jpg') left top/cover"] },
+    conn: { def: "That is the street. The ledger of what is measured comes next.", e5: "🎬 That's the street. Now the measured facts. 📋" } });
+en.tabs = ["The Story", "Map", "Numbers", "On the Ground", "Key Facts", "Then vs Now", "Why This Matters", "What's Next"];
+zh.cards.splice(1, 0,
+  { type: "map", data: { title: "地圖", mapKey: "hk", schem: SCH.hk,
+      legend: [["#800080", "上半年租金變動"], ["#ec4837", "升幅最急地區"]],
+      para: "壓力並不平均。大學周邊地區升得最快，[g:紅磡以+6.2%|領先]。" },
+    conn: { def: "地點講完。接下來是逐月攀升的軌跡。" } },
+  { type: "numbers2", data: { title: "數字",
+      banner: { fig: "+3.8%", lab: "住宅租金指數，1月至7月。" },
+      cols: [["118", 30, "1月"], ["120", 38, "3月"], ["122", 46, "5月"], ["123", 52, "6月"], ["124.5", 58, "7月", "124.5——距2016年高位一步之遙", true]],
+      para: "連升七個月。2016年的紀錄124.9，只差[b:一個普通月份的|升幅]。" },
+    conn: { def: "數字在這裏落地。排隊現場，三個鏡頭。" } },
+  { type: "ground", data: { title: "現場直擊", disps: [
+      ["紅磡 · 星期六 2PM", "一個280呎一房唐樓單位，十五個準租客喺樓梯排隊睇樓。一個鐘之內，高過叫價成交。"],
+      ["沙田 · 星期四 7PM", "地產舖櫥窗一星期改價兩次。經紀話：「業主家陣識得等——等一個禮拜，賺一個禮拜。」"],
+      ["土瓜灣 · 星期日 11AM", "一個800人嘅學生WhatsApp群組，盤未上網先喺群入面流轉。"]],
+      tiles: ["url('../assets/img/hero-flatshare.jpg') left center/cover", "url('../assets/img/card-flatshare.jpg') center/cover", "url('../assets/img/hero-flatshare.jpg') right center/cover", "url('../assets/img/card-flatshare.jpg') left top/cover"] },
+    conn: { def: "現場講完。接下來是量度得到的事實。" } });
+zh.tabs = ["本篇", "地圖", "數字", "現場", "關鍵事實", "今昔對比", "為何重要", "下一步"];
+en.pop = {
+  "which side of a lease you sit": "The same index reads as recovery to owners and squeeze to tenants. The number is one fact; good or bad is a position.",
+  "seven months straight": "Directly readable from the Rating and Valuation Department's published monthly table. Duration separates a trend from a blip.",
+  "rebounding up to 19% over two years": "A widely-cited analyst scenario (Bloomberg Intelligence), not an official forecast — it depends on rental demand converting to purchases.",
+  "still debated": "Government points to talent-scheme approvals; independent economists note regional cycles moved the same way. The two effects arrived together and cannot be cleanly separated yet.",
+  "hung hom at +6.2%": "District-level leasing data compiled by two competing agencies — both publish the same ranking. Universities-first identifies the marginal renter driving the market.",
+  "hung hom leads at +6.2%": "District-level leasing data compiled by two competing agencies — both publish the same ranking.",
+  "one normal month away": "The index has averaged +0.9 points a month since January; the record sits 0.4 above July's print.",
+  "rail lines": "Sha Tin and Tai Wai track cross-boundary commuter demand; Tseung Kwan O absorbs new-town supply faster than completions arrive."
+};
+zh.pop = {
+  "坐在租約的哪一邊": "同一個指數，業主讀作復甦，租客讀作壓力。數字是事實；「好事定壞事」是立場。",
+  "連升七個月": "差餉物業估價署按月數表直接可讀。持續時間，正是趨勢與雜音的分界。",
+  "兩年內反彈最多19%": "被廣泛引用的分析員情景推算（彭博行業研究），並非官方預測——前提是租務需求轉化為置業。",
+  "仍有爭論": "政府引用人才計劃批核；獨立經濟學者指區內周期同步向上。兩股力量同時出現，暫難乾淨分割。",
+  "紅磡以+6.2%領先": "兩間互相競爭的代理行編製的分區租務數據——排名一致。「大學周邊先行」點出推動市場的邊際租客。",
+  "一個普通月份的升幅": "指數自1月起平均每月升0.9點；紀錄只比7月讀數高0.4點。",
+  "鐵路線": "沙田大圍反映跨境通勤需求；將軍澳的新供應被吸納的速度快過落成。"
+};
+}

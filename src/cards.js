@@ -124,6 +124,38 @@ ${d.rows.map(r => `<div class="c-next-row"><div class="c-next-h"><span class="c-
 <div class="stats"><div class="tile tn-then"><div class="tn-lab">${d.then.lab}</div><div class="fig">${d.then.fig}</div><div class="tn-desc">${md(d.then.desc)}</div></div><div class="tile"><div class="tn-lab tn-lab-now">${d.now.lab}</div><div class="fig">${d.now.fig}</div><div class="tn-desc">${md(d.now.desc)}</div></div></div>
 ${vparaDiv(d.para)}</div>`,
 
+  /* ---- P2 kit cards ---- */
+  map: d => `<div class="card c-map">${hd("numbers", d.title || "Map")}
+<div class="mapbox" data-map="${d.mapKey}">${d.schem}<div class="maplive"></div></div>
+<div class="leg">${d.legend.map(l => `<span><i style="background:${l[0]}"></i>${l[1]}</span>`).join("")}</div>
+<p class="attr">© OpenStreetMap contributors © CARTO</p>
+${vparaDiv(d.para)}</div>`,
+
+  numbers2: d => `<div class="card c-numbers">${hd("numbers", d.title || "Numbers")}
+<div class="banner"><div class="fig">${d.banner.fig}</div><p class="banner-cap">${md(d.banner.lab)}</p></div>
+<div class="chart">${d.cols.map(c => `<div class="col" data-val="${c[3] || c[0]}"><span class="bval${c[4] ? " bval-p" : ""}">${c[0]}</span><span class="bar${c[4] ? " bar-p" : ""}" style="height:${c[1]}px"></span><span class="byr">${c[2]}</span></div>`).join("")}</div>
+${vblock([d.para], "block")}</div>`,
+
+  signal: d => `<div class="card c-signal">${hd("impact", d.title || "Signal")}
+${d.rows.map(r => `<div class="sig${r[3] ? " hot" : ""}" data-pct="${r[0]}"><svg viewBox="0 0 44 44"><circle class="tr" cx="22" cy="22" r="18"/><circle class="vl" cx="22" cy="22" r="18"/></svg><span class="sb"><b>${r[1]}</b><span class="note">${md(r[2])}</span></span><span class="pc">${r[0]}%</span></div>`).join("\n")}
+${vparaDiv(d.para)}</div>`,
+
+  timeline: d => `<div class="card c-tl">${hd("next", d.title || "Timeline")}
+<div class="schips"><span class="on"><i></i>${d.chips[0]}</span><span>${d.chips[1]}</span></div>
+${d.rows.map(r => `<div class="row"><span class="t">${r[0]}</span><span class="d"></span><span class="x">${md(r[1])}</span></div>`).join("\n")}</div>`,
+
+  risk2: d => `<div class="card c-risk2">${hd("why", d.title || "Risk")}
+${d.rows.map(r => `<div class="rrow"><span class="lv lv-${r[0]}">${r[1]}</span><span class="rt"><b>${r[2]}</b><span>${md(r[3])}</span></span></div>`).join("\n")}
+${vparaDiv(d.para)}</div>`,
+
+  poll: d => `<div class="card c-poll">${hd("impact", d.title || "Where People Stand")}
+${d.rows.map((r, i) => `<div class="prow${i === 1 ? " alt" : ""}" data-count="${r[3]}"><span class="pt"><span>${r[0]}</span><span class="pv">${r[1]}%</span></span><span class="tk"><i style="--v:${r[1]}%"></i></span><span class="pc2">${md(r[2])}</span></div>`).join("\n")}
+${vparaDiv(d.para)}</div>`,
+
+  ground: d => `<div class="card c-ground">${hd("whos", d.title || "On the Ground")}
+${d.disps.map(x => `<div class="disp"><b>${x[0]}</b><p>${md(x[1])}</p></div>`).join("\n")}
+<div class="strip">${d.tiles.map(t => `<span style="background:${t}"></span>`).join("")}</div></div>`,
+
   hiw: d => `<div class="card c-hiw">${hd("hiw", d.title || "How It Works")}
 <div class="mech"><div class="chain">${d.chain.map((t, i) => `<div class="mtag${i === d.chain.length - 1 ? " on" : ""}"><span>${t}</span></div>`).join(H.ICON.mechArrow)}</div><div class="msub">${md(d.sub)}</div><div class="mdiv"><div class="line"></div>${H.ICON.mechBolt}<div class="line"></div></div><div class="mout"><span>${md(d.out)}</span></div></div>
 ${vparaDiv(d.para)}</div>`,

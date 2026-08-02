@@ -235,3 +235,39 @@ module.exports = {
     ovConn: { def: "改變先出現在價錢牌上，然後才出現在任何條約裏。" }
   }
 };
+
+/* ===== P2: poll card + popovers ===== */
+{
+const en = module.exports.en, zh = module.exports.zh;
+en.cards.splice(3, 0, { type: "poll", data: { title: "Where People Stand", rows: [
+    ["Support the ban", 62, "Say the identity-forming years need protecting", "1,412 of 2,278 polled"],
+    ["Oppose it", 31, "Say it pushes teens somewhere less visible, not safer", "707 of 2,278 polled"]],
+    para: { p: "Tap a bar for raw counts. Polling was taken [o:before the enforcement rules were |published].",
+            c: "Tap a bar to see the raw counts. One caveat: the poll ran [o:before the enforcement rules were |published].",
+            e: "Tap a bar to see the real numbers. Just know: people were asked [o:before the exact rules came |out]." } },
+  conn: { def: "That is the public mood. Now watch the same week get told two ways.",
+          e5: "🗳️ That's the mood. Now watch the same week get spun two ways. 📰" } });
+en.tabs.splice(4, 0, "The Poll");
+zh.cards.splice(3, 0, { type: "poll", data: { title: "民意所向", rows: [
+    ["支持禁令", 62, "認為自我形成的關鍵年歲需要保護", "2,278人中1,412人"],
+    ["反對", 31, "認為只會把青少年推向更隱蔽、而非更安全的角落", "2,278人中707人"]],
+    para: "輕按橫條可查看實際人數。民調在[o:執行細則公布|之前]進行。" },
+  conn: { def: "這是民情。接下來看同一星期如何被寫成兩個故事。" } });
+zh.tabs.splice(4, 0, "民意");
+en.pop = {
+  "verify age": "Checking a user really is the age they claim — usually via ID or a face-estimation scan — rather than trusting a typed birth date. The only way a ban can be enforced, and it applies to every user of every age.",
+  "reasonable steps": "The legal standard platforms must meet: demonstrable, proportionate efforts to detect and remove under-16 accounts. What counts as reasonable is what the courts will end up defining.",
+  "no exemption for parental consent": "Unlike earlier proposals, a parent's approval changes nothing — under 16 means no account, full stop.",
+  "framing": "The choice of which facts to place at the centre of a story. The same vote can be told as protecting children or restricting freedom — both true, each steering the reader differently.",
+  "correlational": "Research showing two things move together without proving one causes the other. Most evidence in this debate is correlational — which is why it stays contested.",
+  "the thing that replaces it": "Both sides agree the old limit of 13 failed. Whether a ban is the right replacement is a judgement, not a settled outcome."
+};
+zh.pop = {
+  "核實年齡": "查證用戶申報的年齡屬實——通常靠身份證明或人臉年齡估算，而非單信自填的出生日期。禁令唯一的執行方法，適用於所有年齡的每一位用戶。",
+  "合理措施": "平台須達到的法律標準：可證明、成比例地偵測及移除16歲以下帳戶。何謂「合理」，最終由法庭定義。",
+  "家長同意也不獲豁免": "與早年方案不同：家長批准也改變不了甚麼——未滿16歲就是不能有帳戶。",
+  "敘事框架": "選擇把哪些事實放在報道中心。同一次表決，可以寫成「保護兒童」，也可以寫成「限制自由」——兩者皆真，卻把讀者引向不同結論。",
+  "相關性": "只顯示兩件事同步變化、卻證明不了因果的研究。這場辯論的證據大多屬此類——所以爭議不散。",
+  "用甚麼取代它": "雙方都同意13歲那條線已失敗。禁令是否正確的替代，是判斷，不是定論。"
+};
+}
