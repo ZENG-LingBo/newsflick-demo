@@ -84,7 +84,7 @@
 
   /* ---- popovers on .kw / .chip spans ---- */
   var pop = null;
-  function norm(s){ return (s||'').replace(/\s+/g,' ').trim().toLowerCase().replace(/[.,;:]+$/,''); }
+  function norm(s){ return (s||'').replace(/\s+/g,' ').trim().toLowerCase().replace(/[.,;:。，；：]+$/,''); }
   function closePop(){ if(pop){ pop.classList.remove('on'); } }
   document.addEventListener('click', function(e){
     var el = e.target.closest ? e.target.closest('.kw,.chip,.chip-i') : null;

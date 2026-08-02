@@ -282,7 +282,8 @@ body{display:block;padding:0;min-height:0}
 *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
 ${zh ? `/* CJK: extend stacks */
 body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
-.voice-calm .para,.voice-calm .conn-t{font-family:var(--serif),'Noto Serif HK',serif!important}` : ""}
+/* Noto Serif HK must precede the generic serif keyword or CJK never reaches it */
+.voice-calm .para,.voice-calm .conn-t{font-family:'New York','Source Serif 4','Noto Serif HK',serif!important}` : ""}
 </style>
 </head>
 <body>`;
