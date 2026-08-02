@@ -17,13 +17,7 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
 .device{position:relative;width:375px;height:812px;background:#e7eae9;overflow:hidden;
   box-shadow:0 30px 80px rgba(0,0,0,.35);border-radius:40px;flex:none}
 .device iframe{position:absolute;inset:0;width:375px;height:812px;border:0;background:transparent}
-#feed{background:#e7eae9}
-#story{transform:translateX(100%);transition:transform .34s cubic-bezier(.4,0,.2,1);z-index:2;background:#e7eae9}
-#story.on{transform:translateX(0)}
-.sheet-layer{position:absolute;inset:0;z-index:5;pointer-events:none}
-.sheet-layer.on{pointer-events:auto}
-.sheet-layer iframe{transform:translateY(100%);transition:transform .36s cubic-bezier(.4,0,.2,1)}
-.sheet-layer.on iframe{transform:translateY(0)}
+#app{background:#e7eae9}
 
 /* ---- opening screen ---- */
 .splash{position:absolute;inset:0;z-index:40;display:flex;flex-direction:column;
@@ -87,10 +81,7 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
 </head>
 <body>
 <div class="device">
-  <iframe id="feed" title="feed"></iframe>
-  <iframe id="story" title="story"></iframe>
-  <div class="sheet-layer" id="layer-confidence"><iframe id="confidence" title="confidence"></iframe></div>
-  <div class="sheet-layer" id="layer-pulse"><iframe id="pulse" title="pulse"></iframe></div>
+  <iframe id="app" title="NewsFlick"></iframe>
   <div class="splash" id="splash">
     <div class="sun"></div>
     <div class="inner">
@@ -116,82 +107,43 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
 (function(){
   var LANGS={en:"en",zh:"zh"};
   var stored=localStorage.getItem("nf-lang");
-  var lang=LANGS[stored] ? stored : (/^zh/i.test(navigator.language||"")?"zh":"en");
-
-  var feedFr=document.getElementById("feed"), storyFr=document.getElementById("story");
+  var lang=LANGS[stored]?stored:(/^zh/i.test(navigator.language||"")?"zh":"en");
+  var app=document.getElementById("app");
   var splash=document.getElementById("splash");
-  var curStory=null, sheetLoaded={confidence:null,pulse:null}, booted=false;
-
-  function page(name){ return lang+"/"+name+".html"; }
+  var booted=false;
 
   function setLangUI(){
     document.querySelectorAll("#langbtn span").forEach(function(s){
       s.classList.toggle("on", s.dataset.lang===lang);
     });
     document.documentElement.lang = lang==="zh"?"zh-Hant-HK":"en";
-    document.getElementById("railnote").textContent = lang==="zh"
-      ? "更冷靜的看新聞方式——點開報道、查可信度、看輿論脈搏。"
-      : "A calmer way to follow the news — tap a story, check the confidence signal, feel the pulse.";
+    var note=document.getElementById("railnote");
+    if(note) note.textContent = lang==="zh"
+      ? "更冷靜的看新聞方式——揀聲線、拉下一篇、查可信度。"
+      : "A calmer way to follow the news — pick a voice, pull the next story open, check the signal.";
   }
-
-  function boot(){
-    if(booted) return; booted=true;
-    setLangUI();
-    feedFr.src=page("feed");
-  }
-  function dismissSplash(){ splash.classList.add("off"); }
-
-  function openStory(id){
-    if(curStory!==id){ storyFr.src=page(id); curStory=id;
-      sheetLoaded.confidence=null; sheetLoaded.pulse=null; }
-    requestAnimationFrame(function(){ storyFr.classList.add("on"); });
-    if(curStory) history.replaceState(null,"","#"+curStory);
-  }
-  function back(){ storyFr.classList.remove("on");
-    history.replaceState(null,"",location.pathname+location.search); }
-  function openSheet(name){
-    var fr=document.getElementById(name), sid=curStory||"s01";
-    if(sheetLoaded[name]!==sid+lang){ fr.src=page(name+"-"+sid); sheetLoaded[name]=sid+lang; }
-    requestAnimationFrame(function(){ document.getElementById("layer-"+name).classList.add("on"); });
-  }
-  function closeSheet(name){ document.getElementById("layer-"+name).classList.remove("on"); }
-
-  window.addEventListener("message",function(e){
-    var m=e.data||{};
-    if(m.nf==="open-story") openStory(m.id||"s01");
-    else if(m.nf==="back") back();
-    else if(m.nf==="open") openSheet(m.sheet);
-    else if(m.nf==="close") closeSheet(m.sheet);
-  });
-
+  function boot(){ if(booted) return; booted=true; setLangUI(); app.src=lang+"/app.html"; }
   function switchLang(l){
     if(!LANGS[l]) return;
     lang=l; localStorage.setItem("nf-lang",l); setLangUI();
     if(!booted){ boot(); return; }
-    feedFr.src=page("feed");
-    if(curStory){ storyFr.src=page(curStory); }
-    closeSheet("confidence"); closeSheet("pulse");
-    sheetLoaded.confidence=null; sheetLoaded.pulse=null;
+    app.src=lang+"/app.html";
   }
-
-  /* opening screen: pick language, then enter */
   splash.addEventListener("click",function(e){
     var b=e.target.closest("[data-lang]"); if(!b) return;
     switchLang(b.dataset.lang);
-    dismissSplash();
+    splash.classList.add("off");
   });
-  document.getElementById("langbtn").addEventListener("click",function(e){
+  var lb=document.getElementById("langbtn");
+  if(lb) lb.addEventListener("click",function(e){
     var t=e.target.closest("[data-lang]"); if(!t||t.dataset.lang===lang) return;
     switchLang(t.dataset.lang);
   });
 
-  /* scale the native 375px device to suit the screen:
-     phone  -> fill edge to edge
-     tablet -> framed, scaled to use the height (rail still fits beside it)
-     desktop-> untouched 375x812 frame */
+  /* scale-to-fit: phone fills, tablet framed-scaled, desktop untouched */
   function fit(){
     var root=document.documentElement;
-    var w=window.innerWidth, h=window.innerHeight;
+    var w=window.innerWidth, h2=window.innerHeight;
     var coarse=window.matchMedia("(hover:none) and (pointer:coarse)").matches;
     var phone = w<=820 || (coarse && w<=900);
     var tablet = !phone && coarse;
@@ -200,10 +152,9 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
     if(phone){
       var s=w/375;
       root.style.setProperty("--s", s);
-      root.style.setProperty("--dh", Math.ceil(h/s)+"px");
+      root.style.setProperty("--dh", Math.ceil(h2/s)+"px");
     } else if(tablet){
-      /* fit the height, leave room for the side rail, never absurdly large */
-      var s2=Math.min((h-32)/812, (w-268)/375, 1.75);
+      var s2=Math.min((h2-32)/812, (w-268)/375, 1.75);
       root.style.setProperty("--s", s2);
       root.style.setProperty("--dh","812px");
     } else {
@@ -215,20 +166,10 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
   window.addEventListener("load",fit);
   window.addEventListener("orientationchange",function(){ setTimeout(fit,150); setTimeout(fit,500); });
   if(window.visualViewport) window.visualViewport.addEventListener("resize",fit);
-  /* ResizeObserver catches viewport changes that never fire `resize`
-     (URL-bar collapse, in-app browsers, some WebViews) */
   if(window.ResizeObserver) new ResizeObserver(fit).observe(document.documentElement);
   [60,250,600,1200].forEach(function(t){ setTimeout(fit,t); });
 
-  /* deep link skips the opening screen; plain visits get it */
-  var h=(location.hash||"").replace("#","");
-  if(/^s0[1-4]$/.test(h)){
-    dismissSplash(); boot();
-    storyFr.src=page(h); curStory=h;
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){ storyFr.classList.add("on"); }); });
-  } else {
-    boot(); /* feed loads behind the splash so entry is instant */
-  }
+  boot(); /* app loads behind the splash so entry is instant */
 })();
 </script>
 </body>

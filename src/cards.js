@@ -1,0 +1,199 @@
+/* Card render library — emits v2-exact markup from content data.
+   Prose mini-markup expanded by md():
+     **bold**            -> <b>bold</b>
+     [kw:text]           -> <span class="kw">text</span>
+     [g:body|end]        -> green two-part chip with check icon   (confirmed)
+     [o:body|end]        -> orange two-part chip                  (caution)
+     [b:body|end]        -> blue two-part chip                    (analysis)
+     [i:text]            -> inline blue chip with icon
+     [he:🙂]             -> hero emoji span (ELI5-only via CSS)
+   Voice fields: string (all voices) or {p, c, e} (missing c/e fall back to p). */
+const H = require("./harvest.js");
+const S = H.S;
+
+function svgAfter(marker, from) {
+  const i = S.indexOf(marker, from || 0);
+  if (i < 0) throw new Error("marker not found: " + marker);
+  const a = S.indexOf("<svg", i);
+  return S.slice(a, S.indexOf("</svg>", a) + 6);
+}
+const CHIP_ICON = {
+  g: H.ICON.chipCheck,
+  o: svgAfter('chip chip-o chip-end'),
+  b: svgAfter('chip chip-b chip-end'),
+  i: svgAfter('class="chip-i"'),
+};
+
+function md(t) {
+  if (t == null) return "";
+  return String(t)
+    .replace(/\*\*([^*]+)\*\*/g, "<b>$1</b>")
+    .replace(/\[kw:([^\]]+)\]/g, '<span class="kw">$1</span>')
+    .replace(/\[([gob]):([^|\]]*)\|([^\]]+)\]/g, (m, c, body, end) =>
+      (body ? `<span class="chip chip-${c}">${body}</span>` : "") +
+      `<span class="chip chip-${c} chip-end">${end}${CHIP_ICON[c]}</span>`)
+    .replace(/\[i:([^\]]+)\]/g, (m, t2) => `<span class="chip-i">${t2}${CHIP_ICON.i}</span>`)
+    .replace(/\[he:([^\]]+)\]/g, '<span class="he">$1</span>');
+}
+function V(f) { return typeof f === "object" && f !== null && ("p" in f) ? f : { p: f }; }
+
+/* inline voice para: one <p>, voice spans inside */
+function vpara(f, cls) {
+  const v = V(f);
+  return `<p class="para${cls ? " " + cls : ""}"><span class="vv vp">${md(v.p)}</span><span class="vv vc">${md(v.c ?? v.p)}</span><span class="vv ve">${md(v.e ?? v.p)}</span></p>`;
+}
+/* div variant (v2 uses div.para in some cards) */
+function vparaDiv(f, cls) {
+  const v = V(f);
+  return `<div class="para${cls ? " " + cls : ""}"><span class="vv vp">${md(v.p)}</span><span class="vv vc">${md(v.c ?? v.p)}</span><span class="vv ve">${md(v.e ?? v.p)}</span></div>`;
+}
+/* block voice group: whole sets of <p class="para"> per voice (hero body, keyfacts bd) */
+function vblock(fields, pcls) {
+  const vs = fields.map(V);
+  const one = k => vs.map(v => `<p class="para${pcls ? " " + pcls : ""}">${md(v[k] ?? v.p)}</p>`).join("\n");
+  return `<div class="vv vp">${one("p")}</div>\n<div class="vv vc">${one("c")}</div>\n<div class="vv ve">${one("e")}</div>`;
+}
+function vspan(f) {
+  const v = V(f);
+  return `<span class="vv vp">${md(v.p)}</span><span class="vv vc">${md(v.c ?? v.p)}</span><span class="vv ve">${md(v.e ?? v.p)}</span>`;
+}
+
+function conn(c) {
+  const def = md(c.def), e5 = md(c.e5 ?? c.def);
+  return `<div class="conn">${H.CONN_DOT}<p class="conn-t"><span class="cv cv-def">${def}</span><span class="cv cv-e5">${e5}</span></p></div>`;
+}
+function hd(iconKey, title) {
+  return `<div class="hd"><div class="hd-ic">${H.ICON[iconKey]}</div><div class="hd-t">${title}</div></div>`;
+}
+
+/* ---------- cards ---------- */
+const T = {
+  story: d => `<div class="c-story">
+  <div class="c-story-hero" style="background-image:url('${d.img}')">
+    <div class="c-story-scrim"></div><div class="c-story-blend"></div>
+    <div class="hero-title">${md(d.title)}</div>
+  </div>
+  <div class="card c-story-body">${vblock(d.paras)}</div>
+</div>`,
+
+  s2story: d => `<div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('${d.img}')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">${md(d.title)}</div></div><div class="card c-s2story-body">${vblock(d.paras)}</div></div>`,
+
+  keyfacts: d => `<div class="card">${hd("keyfacts", d.title || "Key Facts")}
+<div class="stats">${d.tiles.map(t => `<div class="tile"><div class="fig">${t.fig}</div><div class="lab">${t.lab}</div></div>`).join("\n")}</div>
+<div class="bd">${vblock(d.paras, "block")}</div></div>`,
+
+  whos: d => `<div class="card c-whos">${hd("whos", d.title || "Who's Involved")}
+<div class="wi-body"><div class="wi-list">
+${d.items.map(it => `<div class="wi-item"><div class="wi-lab">${it.lab}</div><div class="wi-row"><div class="wi-av">${it.av}</div><div class="wi-txt"><div class="wi-name">${it.name}${it.badge ? `<span class="wi-badge">${svgAfter('class="wi-badge"')}</span>` : ""}</div><div class="wi-desc">${vspan(it.desc)}</div></div></div></div>`).join("\n")}
+</div>${vparaDiv(d.para)}</div></div>`,
+
+  args: d => `<div class="card c-arguments">${hd("args", d.title || "The Arguments")}
+<div class="arg-sep"></div><div class="arg-cols">
+<div class="arg-col"><div class="arg-lab arg-lab-for">${svgAfter('class="arg-lab arg-lab-for"')}<span>${d.for.label}</span></div><div class="arg-cards">${d.for.cards.map(c => `<div class="arg-card arg-card-for"><div class="arg-vis">${c.vis}</div><div class="arg-txt">${vspan(c.txt)}</div></div>`).join("\n")}</div></div>
+<div class="arg-col"><div class="arg-lab arg-lab-against">${svgAfter('class="arg-lab arg-lab-against"')}<span>${d.against.label}</span></div><div class="arg-cards">${d.against.cards.map(c => `<div class="arg-card arg-card-against"><div class="arg-vis">${c.vis}</div><div class="arg-txt">${vspan(c.txt)}</div></div>`).join("\n")}</div></div>
+</div>${vpara(d.para, "block")}</div>`,
+
+  dreads: d => `<div class="card c-dreads">${hd("dreads", d.title || "Different Reads")}
+<div class="dr-body"><div class="dr-cards">
+<div class="dr-src dr-src-a"><div class="dr-head"><div class="dr-av">${d.a.av}</div><div class="dr-lab">${d.a.lab}</div></div><div class="dr-headline">${md(d.a.headline)}</div></div>
+<div class="dr-src dr-src-b"><div class="dr-head"><div class="dr-av">${d.b.av}</div><div class="dr-lab">${d.b.lab}</div></div><div class="dr-headline">${md(d.b.headline)}</div></div>
+</div>${vparaDiv(d.para)}</div></div>`,
+
+  expert: d => `<div class="card c-expert">${hd("expert", d.title || "Expert View")}
+<div class="quote"><div class="qmark"><span>“</span></div><div class="qtext">${md(d.quote)}</div></div>
+<div class="voice"><div class="avatar">${d.av}</div><div class="vtext"><div class="vname">${d.name}</div><div class="vrole">${d.role}</div></div></div>
+<a class="src" href="#">${d.viewSource || "View source ↗"}</a><div class="sep"></div>
+${vparaDiv(d.para)}</div>`,
+
+  impact: d => `<div class="card c-impact">${hd("impact", d.title || "Impact")}
+<div class="c-impact-body"><div class="c-impact-rows">
+${d.rows.map(r => `<div class="c-impact-row"><div class="c-impact-h"><span class="c-impact-ring" style="width:${r.ring[0]}px;height:${r.ring[0]}px"><span class="c-impact-dot" style="width:${r.ring[1]}px;height:${r.ring[1]}px"></span></span><span class="c-impact-lab">${r.lab}</span></div>${vpara(r.para)}</div>`).join("\n")}
+</div>${vpara(d.para)}</div></div>`,
+
+  why: d => `<div class="card c-why">${hd("why", d.title || "Why This Matters")}
+<div class="why-list">
+${d.boxes.map(b => `<div class="why-box"><div class="why-hd"><div class="why-vis">${b.vis}</div><div class="why-lab">${b.lab}</div></div>${vparaDiv(b.para)}</div>`).join("\n")}
+</div>${vparaDiv(d.para)}</div>`,
+
+  next: d => `<div class="card c-next">${hd("next", d.title || "What's Next")}
+<div class="c-next-body"><div class="c-next-rows">
+${d.rows.map(r => `<div class="c-next-row"><div class="c-next-h"><span class="c-next-vis">${r.vis}</span><span class="c-next-lab">${r.lab}</span></div>${vpara(r.para)}</div>`).join("\n")}
+</div>${vpara(d.para)}</div></div>`,
+
+  thennow: d => `<div class="card c-thennow">${hd("thennow", d.title || "Then vs Now")}
+<div class="stats"><div class="tile tn-then"><div class="tn-lab">${d.then.lab}</div><div class="fig">${d.then.fig}</div><div class="tn-desc">${md(d.then.desc)}</div></div><div class="tile"><div class="tn-lab tn-lab-now">${d.now.lab}</div><div class="fig">${d.now.fig}</div><div class="tn-desc">${md(d.now.desc)}</div></div></div>
+${vparaDiv(d.para)}</div>`,
+
+  hiw: d => `<div class="card c-hiw">${hd("hiw", d.title || "How It Works")}
+<div class="mech"><div class="chain">${d.chain.map((t, i) => `<div class="mtag${i === d.chain.length - 1 ? " on" : ""}"><span>${t}</span></div>`).join(H.ICON.mechArrow)}</div><div class="msub">${md(d.sub)}</div><div class="mdiv"><div class="line"></div>${H.ICON.mechBolt}<div class="line"></div></div><div class="mout"><span>${md(d.out)}</span></div></div>
+${vparaDiv(d.para)}</div>`,
+};
+
+/* section wrapper + assemblers */
+function section(storyIdx, cardIdx, type, data, connector) {
+  const inner = T[type](data);
+  return `<section class="nf-card" id="sec-${storyIdx}-${cardIdx}">${inner}${connector ? conn(connector) : ""}</section>`;
+}
+
+function bottomBar(d) {
+  const tabs = d.tabs.map((t, i) =>
+    `<button class="nf-tab${i === 0 ? " on" : ""}" data-tab="${i}" type="button"><span class="nf-tab-sel"></span><span class="nf-tab-lbl">${t}</span></button>`).join("");
+  let ab = H.ACTIONBAR
+    .replace('data-social="1"', `data-social="1" data-story="${d.story}"`)
+    .replace(/(<span class="nf-pill-t">)\d+(<\/span>)/, `$1${d.voices}$2`);
+  return `<div class="nf-bottom">
+<div class="nf-tabs"><div class="nf-tabs-inner">${tabs}</div></div>
+<div class="nf-next"><div class="nf-next-pill"><span class="nf-next-ic">${H.ICON.nextPill}</span><span class="nf-next-t">${md(d.nextTitle)}</span></div></div>
+${ab}
+<div class="nf-home"></div></div>`;
+}
+
+/* a story stage. cards = [{type, data, conn}] */
+function stage(i, d) {
+  const secs = d.cards.map((c, k) => section(i - 1, k, c.type, c.data, c.conn)).join("\n");
+  return `<div class="stage" id="stage-${i}" data-stage="${i}" data-next="${d.next}" data-prev="${d.prev}">
+<div class="nf-phone" data-voice="Plain"><div class="nf-scroll">
+<div class="nf-navwrap"><div class="nf-topnav">${H.STATUSBAR}${H.navrow({ tagLabel: d.tag, conf: d.conf, count: d.cards.length, story: d.story })}</div></div>
+<div class="cards voice-plain">
+${secs}
+<div class="nf-pull" aria-hidden="true"></div>
+</div>
+${bottomBar({ tabs: d.tabs, nextTitle: d.nextTitle, story: d.story, voices: d.voices })}
+</div></div></div>`;
+}
+
+/* grow overlay for stage i: preview of the NEXT story.
+   The harvested v2 overlay (ov-src-1) is used as a template — its structure and
+   inert action bar are exactly what engine.js queries — and only content swapped. */
+const OV_TMPL = H.OVERLAY_1;
+function replaceEl(html, openMarker, replacement) {
+  const a = html.indexOf(openMarker);
+  if (a < 0) throw new Error("overlay marker missing: " + openMarker);
+  const frag = H.element(html, a);
+  return html.slice(0, a) + replacement + html.slice(a + frag.length);
+}
+function overlay(i, d) {
+  let h = OV_TMPL;
+  h = h.replace(/id="ov-src-\d+"/, `id="ov-src-${i}"`);
+  h = h.replace(/(<div class="s2-hero" style="background-image:url\(')[^']+('\)")/, `$1${d.img}$2`);
+  h = h.replace(/(<span class="s2-pill-t">)[^<]*(<\/span>)/, `$1${md(d.title)}$2`);
+  h = h.replace(/(<div class="s2-title">)[^<]*(<\/div>)/, `$1${md(d.title)}$2`);
+  h = replaceEl(h, '<div class="card s2-card">', `<div class="card s2-card">${vblock(d.paras)}</div>`);
+  // the connector inside s2-below
+  h = replaceEl(h, '<div class="conn">', conn(d.conn));
+  // overlay topnav texts
+  h = h.replace(/(<span class="nf-tag-t">)[^<]*(<\/span>)/, `$1${d.tag}$2`);
+  h = h.replace(/(<span class="nf-conf-t">)[^<]*(<\/span>)/, `$1${d.conf}$2`);
+  h = h.replace(/(<span class="nf-news-t">)[^<]*(<\/span>)/, `$1${d.count}$2`);
+  // tabs strip (next story's tabs)
+  h = replaceEl(h, '<div class="nf-tabs-inner">',
+    `<div class="nf-tabs-inner">` + d.tabs.map((t, k) =>
+      `<button class="nf-tab${k === 0 ? " on" : ""}" type="button"><span class="nf-tab-sel"></span><span class="nf-tab-lbl">${t}</span></button>`).join("") + `</div>`);
+  // next-pill title (the story AFTER the previewed one)
+  h = h.replace(/(<span class="nf-next-t">)[^<]*(<\/span>)/, `$1${md(d.nextTitle)}$2`);
+  // social count on the inert action bar
+  h = h.replace(/(<span class="nf-pill-t">)\d+(<\/span>)/, `$1${d.voices}$2`);
+  return h;
+}
+
+module.exports = { md, V, vpara, vparaDiv, vblock, vspan, conn, hd, T, section, stage, overlay, bottomBar, CHIP_ICON };
