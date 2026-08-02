@@ -667,6 +667,9 @@ body{margin:0;background:#c9ccc9;min-height:100vh;display:flex;align-items:cente
 #stage-3 .conn.end::after{content:"第 3 / 15 篇讀畢"}
 #stage-4 .conn.end::after{content:"第 4 / 15 篇讀畢"}
 
+/* nf-noscrollbars: simulated phone — never show scrollbars anywhere */
+*{scrollbar-width:none;-ms-overflow-style:none}
+*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
 /* CJK: extend stacks */
 body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 .voice-calm .para,.voice-calm .conn-t{font-family:var(--serif),'Noto Serif HK',serif!important}

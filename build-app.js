@@ -210,6 +210,9 @@ function head(lang) {
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=Noto+Sans+HK:wght@300..900&family=Noto+Serif+HK:wght@400..700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap" rel="stylesheet">
 <style>${APP_CSS}
 ${COUNTER_CSS(lang)}
+/* nf-noscrollbars: simulated phone — never show scrollbars anywhere */
+*{scrollbar-width:none;-ms-overflow-style:none}
+*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
 ${zh ? `/* CJK: extend stacks */
 body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 .voice-calm .para,.voice-calm .conn-t{font-family:var(--serif),'Noto Serif HK',serif!important}` : ""}
