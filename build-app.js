@@ -210,6 +210,12 @@ function head(lang) {
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=Noto+Sans+HK:wght@300..900&family=Noto+Serif+HK:wght@400..700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap" rel="stylesheet">
 <style>${APP_CSS}
 ${COUNTER_CSS(lang)}
+/* nf-flush: inside the shell iframe the frame sits at 0,0 with no page chrome —
+   v2 centered itself with body padding, which made the document 48px taller than
+   the viewport and produced a root scrollbar on classic-scrollbar platforms */
+html,body{height:100%;overflow:hidden}
+body{display:block;padding:0;min-height:0}
+.nf-frame{margin:0;border-radius:0;box-shadow:none}
 /* nf-noscrollbars: simulated phone — never show scrollbars anywhere */
 *{scrollbar-width:none;-ms-overflow-style:none}
 *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}

@@ -667,6 +667,12 @@ body{margin:0;background:#c9ccc9;min-height:100vh;display:flex;align-items:cente
 #stage-3 .conn.end::after{content:"Story 3 / 15 read"}
 #stage-4 .conn.end::after{content:"Story 4 / 15 read"}
 
+/* nf-flush: inside the shell iframe the frame sits at 0,0 with no page chrome —
+   v2 centered itself with body padding, which made the document 48px taller than
+   the viewport and produced a root scrollbar on classic-scrollbar platforms */
+html,body{height:100%;overflow:hidden}
+body{display:block;padding:0;min-height:0}
+.nf-frame{margin:0;border-radius:0;box-shadow:none}
 /* nf-noscrollbars: simulated phone — never show scrollbars anywhere */
 *{scrollbar-width:none;-ms-overflow-style:none}
 *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
