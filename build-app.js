@@ -266,7 +266,7 @@ function head(lang) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NewsFlick</title>
+<title>Fliq</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=Noto+Sans+HK:wght@300..900&family=Noto+Serif+HK:wght@400..700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap" rel="stylesheet">
 ${LEAFLET_TAGS}
@@ -280,6 +280,9 @@ ${COUNTER_CSS(lang)}
 html,body{height:100%;overflow:hidden}
 body{display:block;padding:0;min-height:0}
 .nf-frame{margin:0;border-radius:0;box-shadow:none}
+/* conf pill: Medium variant matches the feed's conf-med palette; third bar dims */
+.nf-conf--med{background:#ab5c2b}
+.nf-conf--med .cbars path:last-of-type{fill-opacity:.3;stroke-opacity:.3}
 /* nf-noscrollbars: simulated phone — never show scrollbars anywhere */
 *{scrollbar-width:none;-ms-overflow-style:none}
 *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}

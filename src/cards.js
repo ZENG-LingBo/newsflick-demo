@@ -183,9 +183,11 @@ ${ab}
 /* a story stage. cards = [{type, data, conn}] */
 function stage(i, d) {
   const secs = d.cards.map((c, k) => section(i - 1, k, c.type, c.data, c.conn)).join("\n");
+  let nav = H.navrow({ tagLabel: d.tag, conf: d.conf, count: d.cards.length, story: d.story });
+  if (d.conf === "Medium" || d.conf === "中") nav = nav.replace('class="nf-conf"', 'class="nf-conf nf-conf--med"');
   return `<div class="stage" id="stage-${i}" data-stage="${i}" data-next="${d.next}" data-prev="${d.prev}">
 <div class="nf-phone" data-voice="Plain"><div class="nf-scroll">
-<div class="nf-navwrap"><div class="nf-topnav">${H.STATUSBAR}${H.navrow({ tagLabel: d.tag, conf: d.conf, count: d.cards.length, story: d.story })}</div></div>
+<div class="nf-navwrap"><div class="nf-topnav">${H.STATUSBAR}${nav}</div></div>
 <div class="cards voice-plain">
 ${secs}
 <div class="nf-pull" aria-hidden="true"></div>
@@ -216,6 +218,7 @@ function overlay(i, d) {
   // overlay topnav texts
   h = h.replace(/(<span class="nf-tag-t">)[^<]*(<\/span>)/, `$1${d.tag}$2`);
   h = h.replace(/(<span class="nf-conf-t">)[^<]*(<\/span>)/, `$1${d.conf}$2`);
+  if (d.conf === "Medium" || d.conf === "中") h = h.replace('class="nf-conf"', 'class="nf-conf nf-conf--med"');
   h = h.replace(/(<span class="nf-news-t">)[^<]*(<\/span>)/, `$1${d.count}$2`);
   // tabs strip (next story's tabs)
   h = replaceEl(h, '<div class="nf-tabs-inner">',

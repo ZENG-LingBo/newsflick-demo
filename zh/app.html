@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NewsFlick</title>
+<title>Fliq</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=Noto+Sans+HK:wght@300..900&family=Noto+Serif+HK:wght@400..700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 @font-face{font-family:'Space Grotesk';font-weight:400;font-style:normal;src:url('file:///tmp/fonts/package/files/space-grotesk-latin-400-normal.woff2') format('woff2')}@font-face{font-family:'Space Grotesk';font-weight:500;font-style:normal;src:url('file:///tmp/fonts/package/files/space-grotesk-latin-500-normal.woff2') format('woff2')}@font-face{font-family:'Space Grotesk';font-weight:600;font-style:normal;src:url('file:///tmp/fonts/package/files/space-grotesk-latin-600-normal.woff2') format('woff2')}@font-face{font-family:'Space Grotesk';font-weight:700;font-style:normal;src:url('file:///tmp/fonts/package/files/space-grotesk-latin-700-normal.woff2') format('woff2')}@font-face{font-family:'Inter';font-weight:400;font-style:normal;src:url('file:///tmp/fonts/package/files/inter-latin-400-normal.woff2') format('woff2')}@font-face{font-family:'Inter';font-weight:500;font-style:normal;src:url('file:///tmp/fonts/package/files/inter-latin-500-normal.woff2') format('woff2')}@font-face{font-family:'Inter';font-weight:600;font-style:normal;src:url('file:///tmp/fonts/package/files/inter-latin-600-normal.woff2') format('woff2')}@font-face{font-family:'Inter';font-weight:700;font-style:normal;src:url('file:///tmp/fonts/package/files/inter-latin-700-normal.woff2') format('woff2')}
-/* NewsFlick card library — SHARED base CSS. Every card uses these classes.
+/* Fliq card library — SHARED base CSS. Every card uses these classes.
    Card-specific CSS must be namespaced under the card's type class (e.g. .c-timeline …). */
 :root{
   --ink:#1d201d; --sub:#26292a; --purple:#800080; --purpleL:rgba(128,0,128,.1);
@@ -809,6 +809,9 @@ body{margin:0;background:#c9ccc9;min-height:100vh;display:flex;align-items:cente
 html,body{height:100%;overflow:hidden}
 body{display:block;padding:0;min-height:0}
 .nf-frame{margin:0;border-radius:0;box-shadow:none}
+/* conf pill: Medium variant matches the feed's conf-med palette; third bar dims */
+.nf-conf--med{background:#ab5c2b}
+.nf-conf--med .cbars path:last-of-type{fill-opacity:.3;stroke-opacity:.3}
 /* nf-noscrollbars: simulated phone — never show scrollbars anywhere */
 *{scrollbar-width:none;-ms-overflow-style:none}
 *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
@@ -835,7 +838,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
       <div class="appbar" id="feed-appbar">
         <div class="statusbar"><div class="time">9:41</div><div class="sysicons"><svg width="18" height="12" viewBox="0 0 18 12" fill="none"><rect x="0" y="7" width="3" height="5" rx="1" fill="#272a27"/><rect x="4.5" y="4.5" width="3" height="7.5" rx="1" fill="#272a27"/><rect x="9" y="2.2" width="3" height="9.8" rx="1" fill="#272a27"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#272a27"/></svg><svg width="17" height="12" viewBox="0 0 17 12" fill="none"><path d="M8.5 2.4c2.3 0 4.4.9 6 2.3l1.3-1.4C13.9 1.5 11.3.5 8.5.5S3.1 1.5 1.2 3.3l1.3 1.4c1.6-1.4 3.7-2.3 6-2.3Z" fill="#272a27"/><path d="M8.5 6c1.3 0 2.5.5 3.4 1.3l1.3-1.4C11.9 4.7 10.3 4 8.5 4S5.1 4.7 3.8 5.9l1.3 1.4C6 6.5 7.2 6 8.5 6Z" fill="#272a27"/><path d="M8.5 9.2c.7 0 1.3.3 1.8.8l-1.8 2-1.8-2c.5-.5 1.1-.8 1.8-.8Z" fill="#272a27"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x="1" y="1" width="22" height="11" rx="3" stroke="#272a27" stroke-opacity=".4"/><rect x="2.5" y="2.5" width="18" height="8" rx="1.5" fill="#272a27"/><rect x="24" y="4.5" width="2" height="4" rx="1" fill="#272a27" fill-opacity=".5"/></svg></div></div>
         <div class="navbar">
-          <div class="logo" aria-label="NewsFlick"><img src="../assets/img/v2-04-04d0cbaa75.png" alt="NewsFlick" width="30" height="30" style="display:block"></div>
+          <div class="logo" aria-label="Fliq"><img src="../assets/img/v2-04-04d0cbaa75.png" alt="Fliq" width="30" height="30" style="display:block"></div>
           <div class="navright">
             <div class="pill news"><svg class="ico i20" aria-hidden="true"><use href="#ic-news"/></svg><span>15</span></div>
             <div class="pill energy"><svg class="ico i20" aria-hidden="true"><use href="#ic-streak"/></svg><span>4</span></div>
@@ -974,7 +977,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 </span><span class="nf-tag-t">必讀</span></span>
         </div>
         <div class="nf-navright">
-          <div class="nf-conf" data-conf="1" data-story="s01">
+          <div class="nf-conf nf-conf--med" data-conf="1" data-story="s01">
             <span class="cbars"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.98047 15.3564C7.98047 17.3851 6.46197 19.0577 4.5 19.3037V8.64355C4.5 6.6147 6.01823 4.94109 7.98047 4.69531V15.3564Z" fill="#FFFFFF" stroke="#FFFFFF"/>
 <path d="M13.7406 15.5195C13.7406 17.5482 12.2221 19.2208 10.2601 19.4668V8.48047C10.2601 6.45161 11.7784 4.77801 13.7406 4.53223V15.5195Z" fill="#FFFFFF" stroke="#FFFFFF"/>
@@ -988,7 +991,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
         </div>
       </div></div></div>
 <div class="cards voice-plain">
-<section class="nf-card" id="sec-0-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../assets/img/hero-hormuz.svg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">為全球定價的 <span class="he">🌊</span> 海峽，<span class="he">🛢️</span> 封了。<span class="he">🚫</span></div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">十二日空襲，擊中伊朗境內<b>逾5,000個目標</b>；報復之下，<span class="kw">霍爾木茲海峽</span>宣告封鎖——全球五分之一的石油，平日正是取道這條水道。</p>
+<section class="nf-card" id="sec-0-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../assets/img/hero-hormuz.svg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">為全球定價的海峽，封了。</div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">十二日空襲，擊中伊朗境內<b>逾5,000個目標</b>；報復之下，<span class="kw">霍爾木茲海峽</span>宣告封鎖——全球五分之一的石油，平日正是取道這條水道。</p>
 <p class="para">官員把行動形容為「施壓」。但十二日以來，沒有任何一場簡報講過<b>這一切如何收科</b>。</p></div>
 <div class="vv vc"><p class="para">先講清楚發生了甚麼：十二日空襲，伊朗境內<b>逾5,000個目標</b>被擊中；作為報復，<span class="kw">霍爾木茲海峽</span>宣告封鎖。全球五分之一的石油，平日正是取道這條水道。</p>
 <p class="para">官員口中，這是一場「施壓」行動。只是十二日下來，沒有一場簡報談過<b>這一切如何收科</b>。</p></div>
@@ -1164,7 +1167,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 </span><span class="nf-tag-t">必讀</span></span>
         </div>
         <div class="nf-navright">
-          <div class="nf-conf" data-conf="1" data-story="s02">
+          <div class="nf-conf nf-conf--med" data-conf="1" data-story="s02">
             <span class="cbars"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.98047 15.3564C7.98047 17.3851 6.46197 19.0577 4.5 19.3037V8.64355C4.5 6.6147 6.01823 4.94109 7.98047 4.69531V15.3564Z" fill="#FFFFFF" stroke="#FFFFFF"/>
 <path d="M13.7406 15.5195C13.7406 17.5482 12.2221 19.2208 10.2601 19.4668V8.48047C10.2601 6.45161 11.7784 4.77801 13.7406 4.53223V15.5195Z" fill="#FFFFFF" stroke="#FFFFFF"/>
@@ -1181,7 +1184,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 <section class="nf-card" id="sec-1-0"><div class="c-story">
   <div class="c-story-hero" style="background-image:url('../assets/img/hero-teens.jpg')">
     <div class="c-story-scrim"></div><div class="c-story-blend"></div>
-    <div class="hero-title">16歲以下 <span class="he">👶</span> 應否禁用 <span class="he">❌</span> 社交媒體？<span class="he">📵</span></div>
+    <div class="hero-title">16歲以下應否禁用社交媒體？</div>
   </div>
   <div class="card c-story-body"><div class="vv vp"><p class="para">法國已立法禁止16歲以下持有社交媒體<b>帳戶</b>，要求平台<span class="kw">核實年齡</span>、關閉未足齡用戶的帳戶——是歐盟首個全面禁令。</p>
 <p class="para">支持者認為，11至15歲正是一個人<b>自我意識</b>仍在成形的年紀。反對者則說，禁令只會把年輕人推向更隱蔽、審核更少的網絡角落。</p></div>
@@ -1474,7 +1477,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
         </div>
       </div></div></div>
 <div class="cards voice-plain">
-<section class="nf-card" id="sec-2-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../assets/img/hero-tariffs.svg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">盟友之間，<span class="he">📦</span> 50%關稅。<span class="he">🧾</span></div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">行政命令已簽署：<b>對大部分加拿大貨品徵收50%關稅</b>，點名汽車、酒類及乳製品。這是近代史上兩個盟友經濟體之間最高的關稅牆。</p>
+<section class="nf-card" id="sec-2-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../assets/img/hero-tariffs.svg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">盟友之間，50%關稅。</div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">行政命令已簽署：<b>對大部分加拿大貨品徵收50%關稅</b>，點名汽車、酒類及乳製品。這是近代史上兩個盟友經濟體之間最高的關稅牆。</p>
 <p class="para">渥太華斥之為「經濟脅迫」，正草擬反制。但價格效應不會等<span class="kw">政治</span>先埋單。</p></div>
 <div class="vv vc"><p class="para">正式落實了：<b>大部分加拿大貨品，將被徵收50%關稅</b>——汽車、酒類及乳製品被點名。兩個盟友經濟體之間，從未築過這麼高的牆。</p>
 <p class="para">渥太華斥之為「經濟脅迫」，正在草擬回應。但價格效應，不會等<span class="kw">政治</span>先埋單。</p></div>
@@ -1667,7 +1670,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
         </div>
       </div></div></div>
 <div class="cards voice-plain">
-<section class="nf-card" id="sec-3-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../assets/img/hero-flatshare.jpg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">十年來最急的 <span class="he">🏠</span> 夏季升浪。<span class="he">📈</span><span class="he">🇭🇰</span></div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">香港住宅租金上半年<b>升近4%</b>——有望創2016年以來最大的夏季升幅。推手有數可依：內地專才與學生、回流外派人員，加上供應緊絀。</p>
+<section class="nf-card" id="sec-3-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../assets/img/hero-flatshare.jpg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">十年來最急的夏季升浪。</div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">香港住宅租金上半年<b>升近4%</b>——有望創2016年以來最大的夏季升幅。推手有數可依：內地專才與學生、回流外派人員，加上供應緊絀。</p>
 <p class="para">這是復甦還是壓力，視乎你<span class="kw">坐在租約的哪一邊</span>。</p></div>
 <div class="vv vc"><p class="para">香港住宅租金這半年<b>升了近4%</b>——是2016年以來最快的夏季步伐。推手全都有數可依：內地專才與學生到港、外派人員回流，加上新供應少之又少。</p>
 <p class="para">說它是復甦還是壓力，視乎你<span class="kw">坐在租約的哪一邊</span>。</p></div>
@@ -1852,8 +1855,8 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
         <div class="s2-pill"><span class="s2-pill-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.9998 3.25C12.414 3.25 12.7498 3.58579 12.7498 4V13.25H12.7615C13.6977 13.25 14.4904 13.2476 15.0779 13.3379C15.6647 13.4281 16.3162 13.6509 16.6179 14.332C16.9116 14.9952 16.6669 15.6351 16.365 16.1553C16.0585 16.6834 15.5542 17.3207 14.9529 18.084L14.1912 19.0498C13.8343 19.5029 13.5177 19.9074 13.2234 20.1885C12.9168 20.4813 12.5244 20.75 11.9998 20.75C11.4752 20.7499 11.0827 20.4813 10.7761 20.1885C10.4819 19.9074 10.1653 19.5028 9.80837 19.0498L9.04665 18.083V18.084C8.44534 17.3207 7.94103 16.6834 7.63454 16.1553C7.33274 15.6351 7.08809 14.9951 7.38161 14.332C7.68322 13.6508 8.33492 13.4281 8.92165 13.3379C9.50909 13.2476 10.3018 13.25 11.2381 13.25H11.2498V4C11.2498 3.58586 11.5857 3.25012 11.9998 3.25ZM11.2381 14.75C10.2481 14.75 9.59525 14.7518 9.14919 14.8203C8.93372 14.8535 8.82571 14.8952 8.77614 14.9229C8.7559 14.9342 8.75024 14.9401 8.75173 14.9385C8.75433 14.9357 8.7549 14.9345 8.75271 14.9395C8.7507 14.944 8.75004 14.9463 8.74978 14.9492C8.74939 14.9541 8.74927 14.9702 8.75564 15.002C8.77037 15.0754 8.81572 15.2013 8.93239 15.4023C9.05231 15.609 9.21737 15.8467 9.43142 16.1328L10.2254 17.1553L10.9861 18.1221C11.3717 18.6116 11.6131 18.9143 11.8123 19.1045C11.9048 19.1928 11.9609 19.2297 11.989 19.2441C11.9932 19.2463 11.9973 19.247 11.9998 19.248C12.0022 19.247 12.0063 19.2462 12.0105 19.2441C12.0385 19.2297 12.0947 19.1929 12.1873 19.1045C12.3864 18.9143 12.6278 18.6116 13.0134 18.1221L13.7742 17.1553C14.406 16.3532 14.8272 15.8158 15.0672 15.4023C15.1839 15.2012 15.2292 15.0754 15.2439 15.002C15.2503 14.9701 15.2502 14.9541 15.2498 14.9492L15.2468 14.9395C15.245 14.9378 15.2386 14.9313 15.2234 14.9229C15.1737 14.8952 15.0657 14.8534 14.8504 14.8203C14.4043 14.7518 13.7514 14.75 12.7615 14.75H11.2381Z" fill="#FFFFFF"/>
 </svg>
-</span><span class="s2-pill-t">16歲以下 應否禁用 社交媒體？</span></div>
-        <div class="s2-title">16歲以下 應否禁用 社交媒體？</div>
+</span><span class="s2-pill-t">16歲以下應否禁用社交媒體？</span></div>
+        <div class="s2-title">16歲以下應否禁用社交媒體？</div>
       </div>
       <div class="s2-below">
         <div class="card s2-card"><div class="vv vp"><p class="para">法國已立法禁止16歲以下持有社交媒體<b>帳戶</b>，要求平台<span class="kw">核實年齡</span>、關閉未足齡用戶的帳戶——是歐盟首個全面禁令。</p>
@@ -1888,7 +1891,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 </svg>
 </span><span class="nf-tag-t">必讀</span></span>
           <div class="nf-navright">
-            <div class="nf-conf"><span class="cbars"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="nf-conf nf-conf--med"><span class="cbars"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.98047 15.3564C7.98047 17.3851 6.46197 19.0577 4.5 19.3037V8.64355C4.5 6.6147 6.01823 4.94109 7.98047 4.69531V15.3564Z" fill="#FFFFFF" stroke="#FFFFFF"/>
 <path d="M13.7406 15.5195C13.7406 17.5482 12.2221 19.2208 10.2601 19.4668V8.48047C10.2601 6.45161 11.7784 4.77801 13.7406 4.53223V15.5195Z" fill="#FFFFFF" stroke="#FFFFFF"/>
 <path d="M19.5005 14.3774C19.5004 16.406 17.9819 18.0777 16.02 18.3237V9.62354C16.02 7.59468 17.5383 5.92107 19.5005 5.67529V14.3774Z" fill="#FFFFFF" stroke="#FFFFFF"/>
@@ -1938,8 +1941,8 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
         <div class="s2-pill"><span class="s2-pill-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.9998 3.25C12.414 3.25 12.7498 3.58579 12.7498 4V13.25H12.7615C13.6977 13.25 14.4904 13.2476 15.0779 13.3379C15.6647 13.4281 16.3162 13.6509 16.6179 14.332C16.9116 14.9952 16.6669 15.6351 16.365 16.1553C16.0585 16.6834 15.5542 17.3207 14.9529 18.084L14.1912 19.0498C13.8343 19.5029 13.5177 19.9074 13.2234 20.1885C12.9168 20.4813 12.5244 20.75 11.9998 20.75C11.4752 20.7499 11.0827 20.4813 10.7761 20.1885C10.4819 19.9074 10.1653 19.5028 9.80837 19.0498L9.04665 18.083V18.084C8.44534 17.3207 7.94103 16.6834 7.63454 16.1553C7.33274 15.6351 7.08809 14.9951 7.38161 14.332C7.68322 13.6508 8.33492 13.4281 8.92165 13.3379C9.50909 13.2476 10.3018 13.25 11.2381 13.25H11.2498V4C11.2498 3.58586 11.5857 3.25012 11.9998 3.25ZM11.2381 14.75C10.2481 14.75 9.59525 14.7518 9.14919 14.8203C8.93372 14.8535 8.82571 14.8952 8.77614 14.9229C8.7559 14.9342 8.75024 14.9401 8.75173 14.9385C8.75433 14.9357 8.7549 14.9345 8.75271 14.9395C8.7507 14.944 8.75004 14.9463 8.74978 14.9492C8.74939 14.9541 8.74927 14.9702 8.75564 15.002C8.77037 15.0754 8.81572 15.2013 8.93239 15.4023C9.05231 15.609 9.21737 15.8467 9.43142 16.1328L10.2254 17.1553L10.9861 18.1221C11.3717 18.6116 11.6131 18.9143 11.8123 19.1045C11.9048 19.1928 11.9609 19.2297 11.989 19.2441C11.9932 19.2463 11.9973 19.247 11.9998 19.248C12.0022 19.247 12.0063 19.2462 12.0105 19.2441C12.0385 19.2297 12.0947 19.1929 12.1873 19.1045C12.3864 18.9143 12.6278 18.6116 13.0134 18.1221L13.7742 17.1553C14.406 16.3532 14.8272 15.8158 15.0672 15.4023C15.1839 15.2012 15.2292 15.0754 15.2439 15.002C15.2503 14.9701 15.2502 14.9541 15.2498 14.9492L15.2468 14.9395C15.245 14.9378 15.2386 14.9313 15.2234 14.9229C15.1737 14.8952 15.0657 14.8534 14.8504 14.8203C14.4043 14.7518 13.7514 14.75 12.7615 14.75H11.2381Z" fill="#FFFFFF"/>
 </svg>
-</span><span class="s2-pill-t">盟友之間， 50%關稅。</span></div>
-        <div class="s2-title">盟友之間， 50%關稅。</div>
+</span><span class="s2-pill-t">盟友之間，50%關稅。</span></div>
+        <div class="s2-title">盟友之間，50%關稅。</div>
       </div>
       <div class="s2-below">
         <div class="card s2-card"><div class="vv vp"><p class="para">行政命令已簽署：<b>對大部分加拿大貨品徵收50%關稅</b>，點名汽車、酒類及乳製品。這是近代史上兩個盟友經濟體之間最高的關稅牆。</p>
@@ -2024,8 +2027,8 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
         <div class="s2-pill"><span class="s2-pill-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.9998 3.25C12.414 3.25 12.7498 3.58579 12.7498 4V13.25H12.7615C13.6977 13.25 14.4904 13.2476 15.0779 13.3379C15.6647 13.4281 16.3162 13.6509 16.6179 14.332C16.9116 14.9952 16.6669 15.6351 16.365 16.1553C16.0585 16.6834 15.5542 17.3207 14.9529 18.084L14.1912 19.0498C13.8343 19.5029 13.5177 19.9074 13.2234 20.1885C12.9168 20.4813 12.5244 20.75 11.9998 20.75C11.4752 20.7499 11.0827 20.4813 10.7761 20.1885C10.4819 19.9074 10.1653 19.5028 9.80837 19.0498L9.04665 18.083V18.084C8.44534 17.3207 7.94103 16.6834 7.63454 16.1553C7.33274 15.6351 7.08809 14.9951 7.38161 14.332C7.68322 13.6508 8.33492 13.4281 8.92165 13.3379C9.50909 13.2476 10.3018 13.25 11.2381 13.25H11.2498V4C11.2498 3.58586 11.5857 3.25012 11.9998 3.25ZM11.2381 14.75C10.2481 14.75 9.59525 14.7518 9.14919 14.8203C8.93372 14.8535 8.82571 14.8952 8.77614 14.9229C8.7559 14.9342 8.75024 14.9401 8.75173 14.9385C8.75433 14.9357 8.7549 14.9345 8.75271 14.9395C8.7507 14.944 8.75004 14.9463 8.74978 14.9492C8.74939 14.9541 8.74927 14.9702 8.75564 15.002C8.77037 15.0754 8.81572 15.2013 8.93239 15.4023C9.05231 15.609 9.21737 15.8467 9.43142 16.1328L10.2254 17.1553L10.9861 18.1221C11.3717 18.6116 11.6131 18.9143 11.8123 19.1045C11.9048 19.1928 11.9609 19.2297 11.989 19.2441C11.9932 19.2463 11.9973 19.247 11.9998 19.248C12.0022 19.247 12.0063 19.2462 12.0105 19.2441C12.0385 19.2297 12.0947 19.1929 12.1873 19.1045C12.3864 18.9143 12.6278 18.6116 13.0134 18.1221L13.7742 17.1553C14.406 16.3532 14.8272 15.8158 15.0672 15.4023C15.1839 15.2012 15.2292 15.0754 15.2439 15.002C15.2503 14.9701 15.2502 14.9541 15.2498 14.9492L15.2468 14.9395C15.245 14.9378 15.2386 14.9313 15.2234 14.9229C15.1737 14.8952 15.0657 14.8534 14.8504 14.8203C14.4043 14.7518 13.7514 14.75 12.7615 14.75H11.2381Z" fill="#FFFFFF"/>
 </svg>
-</span><span class="s2-pill-t">十年來最急的 夏季升浪。</span></div>
-        <div class="s2-title">十年來最急的 夏季升浪。</div>
+</span><span class="s2-pill-t">十年來最急的夏季升浪。</span></div>
+        <div class="s2-title">十年來最急的夏季升浪。</div>
       </div>
       <div class="s2-below">
         <div class="card s2-card"><div class="vv vp"><p class="para">香港住宅租金上半年<b>升近4%</b>——有望創2016年以來最大的夏季升幅。推手有數可依：內地專才與學生、回流外派人員，加上供應緊絀。</p>
@@ -2110,8 +2113,8 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
         <div class="s2-pill"><span class="s2-pill-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M11.9998 3.25C12.414 3.25 12.7498 3.58579 12.7498 4V13.25H12.7615C13.6977 13.25 14.4904 13.2476 15.0779 13.3379C15.6647 13.4281 16.3162 13.6509 16.6179 14.332C16.9116 14.9952 16.6669 15.6351 16.365 16.1553C16.0585 16.6834 15.5542 17.3207 14.9529 18.084L14.1912 19.0498C13.8343 19.5029 13.5177 19.9074 13.2234 20.1885C12.9168 20.4813 12.5244 20.75 11.9998 20.75C11.4752 20.7499 11.0827 20.4813 10.7761 20.1885C10.4819 19.9074 10.1653 19.5028 9.80837 19.0498L9.04665 18.083V18.084C8.44534 17.3207 7.94103 16.6834 7.63454 16.1553C7.33274 15.6351 7.08809 14.9951 7.38161 14.332C7.68322 13.6508 8.33492 13.4281 8.92165 13.3379C9.50909 13.2476 10.3018 13.25 11.2381 13.25H11.2498V4C11.2498 3.58586 11.5857 3.25012 11.9998 3.25ZM11.2381 14.75C10.2481 14.75 9.59525 14.7518 9.14919 14.8203C8.93372 14.8535 8.82571 14.8952 8.77614 14.9229C8.7559 14.9342 8.75024 14.9401 8.75173 14.9385C8.75433 14.9357 8.7549 14.9345 8.75271 14.9395C8.7507 14.944 8.75004 14.9463 8.74978 14.9492C8.74939 14.9541 8.74927 14.9702 8.75564 15.002C8.77037 15.0754 8.81572 15.2013 8.93239 15.4023C9.05231 15.609 9.21737 15.8467 9.43142 16.1328L10.2254 17.1553L10.9861 18.1221C11.3717 18.6116 11.6131 18.9143 11.8123 19.1045C11.9048 19.1928 11.9609 19.2297 11.989 19.2441C11.9932 19.2463 11.9973 19.247 11.9998 19.248C12.0022 19.247 12.0063 19.2462 12.0105 19.2441C12.0385 19.2297 12.0947 19.1929 12.1873 19.1045C12.3864 18.9143 12.6278 18.6116 13.0134 18.1221L13.7742 17.1553C14.406 16.3532 14.8272 15.8158 15.0672 15.4023C15.1839 15.2012 15.2292 15.0754 15.2439 15.002C15.2503 14.9701 15.2502 14.9541 15.2498 14.9492L15.2468 14.9395C15.245 14.9378 15.2386 14.9313 15.2234 14.9229C15.1737 14.8952 15.0657 14.8534 14.8504 14.8203C14.4043 14.7518 13.7514 14.75 12.7615 14.75H11.2381Z" fill="#FFFFFF"/>
 </svg>
-</span><span class="s2-pill-t">為全球定價的 海峽， 封了。</span></div>
-        <div class="s2-title">為全球定價的 海峽， 封了。</div>
+</span><span class="s2-pill-t">為全球定價的海峽，封了。</span></div>
+        <div class="s2-title">為全球定價的海峽，封了。</div>
       </div>
       <div class="s2-below">
         <div class="card s2-card"><div class="vv vp"><p class="para">十二日空襲，擊中伊朗境內<b>逾5,000個目標</b>；報復之下，<span class="kw">霍爾木茲海峽</span>宣告封鎖——全球五分之一的石油，平日正是取道這條水道。</p>
@@ -2146,7 +2149,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 </svg>
 </span><span class="nf-tag-t">必讀</span></span>
           <div class="nf-navright">
-            <div class="nf-conf"><span class="cbars"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="nf-conf nf-conf--med"><span class="cbars"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.98047 15.3564C7.98047 17.3851 6.46197 19.0577 4.5 19.3037V8.64355C4.5 6.6147 6.01823 4.94109 7.98047 4.69531V15.3564Z" fill="#FFFFFF" stroke="#FFFFFF"/>
 <path d="M13.7406 15.5195C13.7406 17.5482 12.2221 19.2208 10.2601 19.4668V8.48047C10.2601 6.45161 11.7784 4.77801 13.7406 4.53223V15.5195Z" fill="#FFFFFF" stroke="#FFFFFF"/>
 <path d="M19.5005 14.3774C19.5004 16.406 17.9819 18.0777 16.02 18.3237V9.62354C16.02 7.59468 17.5383 5.92107 19.5005 5.67529V14.3774Z" fill="#FFFFFF" stroke="#FFFFFF"/>
@@ -2735,7 +2738,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
     next: "Next", start: "Start tour", done: "Done", skip: "Skip tour", hint: "Try it →"
   };
   var TXT = ZH ? [
-    ["歡迎嚟到 NewsFlick", "用大約兩分鐘，互動式行一次這個示範的功能。之後隨時可按 ? 重播。"],
+    ["歡迎嚟到 Fliq", "用大約兩分鐘，互動式行一次這個示範的功能。之後隨時可按 ? 重播。"],
     ["今日一眼睇晒", "即時概覽把今日必讀濃縮成一張卡。時鐘與日期都是實時的——示範永遠不過期。"],
     ["每單新聞都是一疊卡", "封面標明可信度、卡數與題材。<b>輕按這單新聞打開它。</b>"],
     ["分頁跟住你讀", "一路碌，分頁一路亮；點一下即可跳去地圖、數字或下一步。"],
@@ -2753,7 +2756,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
     ["冇死胡同", "碌到最後一張卡再往上拉——下一單新聞原地展開。在頂部往下拉即可返回。"],
     ["導覽完畢", "四單新聞、兩種語言、三把聲線——全部即場任試。隨時在動態頁按 ? 重播。"]
   ] : [
-    ["Welcome to NewsFlick", "A quick interactive tour of what this demo can do — about two minutes. Replay it anytime with the ? button."],
+    ["Welcome to Fliq", "A quick interactive tour of what this demo can do — about two minutes. Replay it anytime with the ? button."],
     ["Today at a glance", "The snapshot condenses today's essentials into one card. The clock and dates are live — the demo never goes stale."],
     ["Every story is a stack of cards", "Each cover shows a confidence read, card count and topics. <b>Tap this story to open it.</b>"],
     ["Tabs follow your reading", "They light up as you scroll — or tap one to jump straight to Map, Numbers or What's Next."],

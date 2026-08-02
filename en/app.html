@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NewsFlick</title>
+<title>Fliq</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=Noto+Sans+HK:wght@300..900&family=Noto+Serif+HK:wght@400..700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 @font-face{font-family:'Space Grotesk';font-weight:400;font-style:normal;src:url('file:///tmp/fonts/package/files/space-grotesk-latin-400-normal.woff2') format('woff2')}@font-face{font-family:'Space Grotesk';font-weight:500;font-style:normal;src:url('file:///tmp/fonts/package/files/space-grotesk-latin-500-normal.woff2') format('woff2')}@font-face{font-family:'Space Grotesk';font-weight:600;font-style:normal;src:url('file:///tmp/fonts/package/files/space-grotesk-latin-600-normal.woff2') format('woff2')}@font-face{font-family:'Space Grotesk';font-weight:700;font-style:normal;src:url('file:///tmp/fonts/package/files/space-grotesk-latin-700-normal.woff2') format('woff2')}@font-face{font-family:'Inter';font-weight:400;font-style:normal;src:url('file:///tmp/fonts/package/files/inter-latin-400-normal.woff2') format('woff2')}@font-face{font-family:'Inter';font-weight:500;font-style:normal;src:url('file:///tmp/fonts/package/files/inter-latin-500-normal.woff2') format('woff2')}@font-face{font-family:'Inter';font-weight:600;font-style:normal;src:url('file:///tmp/fonts/package/files/inter-latin-600-normal.woff2') format('woff2')}@font-face{font-family:'Inter';font-weight:700;font-style:normal;src:url('file:///tmp/fonts/package/files/inter-latin-700-normal.woff2') format('woff2')}
-/* NewsFlick card library — SHARED base CSS. Every card uses these classes.
+/* Fliq card library — SHARED base CSS. Every card uses these classes.
    Card-specific CSS must be namespaced under the card's type class (e.g. .c-timeline …). */
 :root{
   --ink:#1d201d; --sub:#26292a; --purple:#800080; --purpleL:rgba(128,0,128,.1);
@@ -809,6 +809,9 @@ body{margin:0;background:#c9ccc9;min-height:100vh;display:flex;align-items:cente
 html,body{height:100%;overflow:hidden}
 body{display:block;padding:0;min-height:0}
 .nf-frame{margin:0;border-radius:0;box-shadow:none}
+/* conf pill: Medium variant matches the feed's conf-med palette; third bar dims */
+.nf-conf--med{background:#ab5c2b}
+.nf-conf--med .cbars path:last-of-type{fill-opacity:.3;stroke-opacity:.3}
 /* nf-noscrollbars: simulated phone — never show scrollbars anywhere */
 *{scrollbar-width:none;-ms-overflow-style:none}
 *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
@@ -832,7 +835,7 @@ body{display:block;padding:0;min-height:0}
       <div class="appbar" id="feed-appbar">
         <div class="statusbar"><div class="time">9:41</div><div class="sysicons"><svg width="18" height="12" viewBox="0 0 18 12" fill="none"><rect x="0" y="7" width="3" height="5" rx="1" fill="#272a27"/><rect x="4.5" y="4.5" width="3" height="7.5" rx="1" fill="#272a27"/><rect x="9" y="2.2" width="3" height="9.8" rx="1" fill="#272a27"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#272a27"/></svg><svg width="17" height="12" viewBox="0 0 17 12" fill="none"><path d="M8.5 2.4c2.3 0 4.4.9 6 2.3l1.3-1.4C13.9 1.5 11.3.5 8.5.5S3.1 1.5 1.2 3.3l1.3 1.4c1.6-1.4 3.7-2.3 6-2.3Z" fill="#272a27"/><path d="M8.5 6c1.3 0 2.5.5 3.4 1.3l1.3-1.4C11.9 4.7 10.3 4 8.5 4S5.1 4.7 3.8 5.9l1.3 1.4C6 6.5 7.2 6 8.5 6Z" fill="#272a27"/><path d="M8.5 9.2c.7 0 1.3.3 1.8.8l-1.8 2-1.8-2c.5-.5 1.1-.8 1.8-.8Z" fill="#272a27"/></svg><svg width="27" height="13" viewBox="0 0 27 13" fill="none"><rect x="1" y="1" width="22" height="11" rx="3" stroke="#272a27" stroke-opacity=".4"/><rect x="2.5" y="2.5" width="18" height="8" rx="1.5" fill="#272a27"/><rect x="24" y="4.5" width="2" height="4" rx="1" fill="#272a27" fill-opacity=".5"/></svg></div></div>
         <div class="navbar">
-          <div class="logo" aria-label="NewsFlick"><img src="../assets/img/v2-04-04d0cbaa75.png" alt="NewsFlick" width="30" height="30" style="display:block"></div>
+          <div class="logo" aria-label="Fliq"><img src="../assets/img/v2-04-04d0cbaa75.png" alt="Fliq" width="30" height="30" style="display:block"></div>
           <div class="navright">
             <div class="pill news"><svg class="ico i20" aria-hidden="true"><use href="#ic-news"/></svg><span>15</span></div>
             <div class="pill energy"><svg class="ico i20" aria-hidden="true"><use href="#ic-streak"/></svg><span>4</span></div>
@@ -971,7 +974,7 @@ body{display:block;padding:0;min-height:0}
 </span><span class="nf-tag-t">Essential</span></span>
         </div>
         <div class="nf-navright">
-          <div class="nf-conf" data-conf="1" data-story="s01">
+          <div class="nf-conf nf-conf--med" data-conf="1" data-story="s01">
             <span class="cbars"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.98047 15.3564C7.98047 17.3851 6.46197 19.0577 4.5 19.3037V8.64355C4.5 6.6147 6.01823 4.94109 7.98047 4.69531V15.3564Z" fill="#FFFFFF" stroke="#FFFFFF"/>
 <path d="M13.7406 15.5195C13.7406 17.5482 12.2221 19.2208 10.2601 19.4668V8.48047C10.2601 6.45161 11.7784 4.77801 13.7406 4.53223V15.5195Z" fill="#FFFFFF" stroke="#FFFFFF"/>
@@ -985,7 +988,7 @@ body{display:block;padding:0;min-height:0}
         </div>
       </div></div></div>
 <div class="cards voice-plain">
-<section class="nf-card" id="sec-0-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../assets/img/hero-hormuz.svg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">The strait that <span class="he">🌊</span> prices the world <span class="he">🛢️</span> is closed. <span class="he">🚫</span></div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">Twelve days of strikes have hit <b>more than 5,000 targets</b> across Iran, and the response has shut the <span class="kw">Strait of Hormuz</span> — the channel a fifth of the world's oil passes through.</p>
+<section class="nf-card" id="sec-0-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../assets/img/hero-hormuz.svg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">The strait that prices the world is closed.</div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">Twelve days of strikes have hit <b>more than 5,000 targets</b> across Iran, and the response has shut the <span class="kw">Strait of Hormuz</span> — the channel a fifth of the world's oil passes through.</p>
 <p class="para">Officials describe the campaign as pressure. What no briefing has offered is <b>any description of how it ends</b>.</p></div>
 <div class="vv vc"><p class="para">Here's where things stand: twelve days of strikes, <b>more than 5,000 targets</b> hit — and in response, the <span class="kw">Strait of Hormuz</span> has been closed. A fifth of the world's oil normally sails through it.</p>
 <p class="para">Officials keep calling the campaign 'pressure'. What nobody has offered yet is <b>any picture of how it ends</b>.</p></div>
@@ -1161,7 +1164,7 @@ body{display:block;padding:0;min-height:0}
 </span><span class="nf-tag-t">Essential</span></span>
         </div>
         <div class="nf-navright">
-          <div class="nf-conf" data-conf="1" data-story="s02">
+          <div class="nf-conf nf-conf--med" data-conf="1" data-story="s02">
             <span class="cbars"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.98047 15.3564C7.98047 17.3851 6.46197 19.0577 4.5 19.3037V8.64355C4.5 6.6147 6.01823 4.94109 7.98047 4.69531V15.3564Z" fill="#FFFFFF" stroke="#FFFFFF"/>
 <path d="M13.7406 15.5195C13.7406 17.5482 12.2221 19.2208 10.2601 19.4668V8.48047C10.2601 6.45161 11.7784 4.77801 13.7406 4.53223V15.5195Z" fill="#FFFFFF" stroke="#FFFFFF"/>
@@ -1178,7 +1181,7 @@ body{display:block;padding:0;min-height:0}
 <section class="nf-card" id="sec-1-0"><div class="c-story">
   <div class="c-story-hero" style="background-image:url('../assets/img/hero-teens.jpg')">
     <div class="c-story-scrim"></div><div class="c-story-blend"></div>
-    <div class="hero-title">Should <span class="he">👶</span> under-16s be <span class="he">❌</span> banned from social media? <span class="he">📵</span></div>
+    <div class="hero-title">Should under-16s be banned from social media?</div>
   </div>
   <div class="card c-story-body"><div class="vv vp"><p class="para">France has passed a law barring under-16s from holding a social-media <b>account</b>, requiring platforms to <span class="kw">verify age</span> and close the accounts of anyone younger — the first blanket ban in the EU.</p>
 <p class="para">Supporters say the years between 11 and 15 are when a person's sense of <b>self</b> is still forming. Critics say a ban simply pushes young people onto quieter, less-moderated corners of the web.</p></div>
@@ -1471,7 +1474,7 @@ body{display:block;padding:0;min-height:0}
         </div>
       </div></div></div>
 <div class="cards voice-plain">
-<section class="nf-card" id="sec-2-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../assets/img/hero-tariffs.svg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">50% tariffs, <span class="he">📦</span> between allies. <span class="he">🧾</span></div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">The order is signed: <b>50% tariffs on most Canadian goods</b>, citing autos, alcohol and dairy. It is the steepest tariff wall between two allied economies in modern history.</p>
+<section class="nf-card" id="sec-2-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../assets/img/hero-tariffs.svg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">50% tariffs, between allies.</div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">The order is signed: <b>50% tariffs on most Canadian goods</b>, citing autos, alcohol and dairy. It is the steepest tariff wall between two allied economies in modern history.</p>
 <p class="para">Ottawa calls it 'economic coercion' and is drafting retaliation. The price effects will not wait for the <span class="kw">politics</span>.</p></div>
 <div class="vv vc"><p class="para">It's official: <b>50% tariffs on most Canadian goods</b> — autos, alcohol and dairy singled out. No two allied economies have ever raised a wall this steep.</p>
 <p class="para">Ottawa calls it 'economic coercion' and is writing up its response. The price effects won't wait for the <span class="kw">politics</span> to settle.</p></div>
@@ -1664,7 +1667,7 @@ body{display:block;padding:0;min-height:0}
         </div>
       </div></div></div>
 <div class="cards voice-plain">
-<section class="nf-card" id="sec-3-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../assets/img/hero-flatshare.jpg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">The steepest <span class="he">🏠</span> summer climb <span class="he">📈</span> in a decade. <span class="he">🇭🇰</span></div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">Hong Kong rents rose <b>almost 4% in the first half</b> — on pace for the biggest summer gain since 2016. The drivers are measurable: mainland professionals and students, returning expats, and thin supply.</p>
+<section class="nf-card" id="sec-3-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../assets/img/hero-flatshare.jpg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">The steepest summer climb in a decade.</div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">Hong Kong rents rose <b>almost 4% in the first half</b> — on pace for the biggest summer gain since 2016. The drivers are measurable: mainland professionals and students, returning expats, and thin supply.</p>
 <p class="para">Whether this is recovery or squeeze depends on <span class="kw">which side of a lease you sit</span>.</p></div>
 <div class="vv vc"><p class="para">Hong Kong rents are up <b>almost 4% this half-year</b> — the fastest summer pace since 2016. The drivers are all measurable: mainland professionals and students arriving, expats returning, and very little new supply.</p>
 <p class="para">Whether you call it a recovery or a squeeze depends on <span class="kw">which side of the lease you're on</span>.</p></div>
@@ -1885,7 +1888,7 @@ body{display:block;padding:0;min-height:0}
 </svg>
 </span><span class="nf-tag-t">Essential</span></span>
           <div class="nf-navright">
-            <div class="nf-conf"><span class="cbars"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="nf-conf nf-conf--med"><span class="cbars"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.98047 15.3564C7.98047 17.3851 6.46197 19.0577 4.5 19.3037V8.64355C4.5 6.6147 6.01823 4.94109 7.98047 4.69531V15.3564Z" fill="#FFFFFF" stroke="#FFFFFF"/>
 <path d="M13.7406 15.5195C13.7406 17.5482 12.2221 19.2208 10.2601 19.4668V8.48047C10.2601 6.45161 11.7784 4.77801 13.7406 4.53223V15.5195Z" fill="#FFFFFF" stroke="#FFFFFF"/>
 <path d="M19.5005 14.3774C19.5004 16.406 17.9819 18.0777 16.02 18.3237V9.62354C16.02 7.59468 17.5383 5.92107 19.5005 5.67529V14.3774Z" fill="#FFFFFF" stroke="#FFFFFF"/>
@@ -2143,7 +2146,7 @@ body{display:block;padding:0;min-height:0}
 </svg>
 </span><span class="nf-tag-t">Essential</span></span>
           <div class="nf-navright">
-            <div class="nf-conf"><span class="cbars"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="nf-conf nf-conf--med"><span class="cbars"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.98047 15.3564C7.98047 17.3851 6.46197 19.0577 4.5 19.3037V8.64355C4.5 6.6147 6.01823 4.94109 7.98047 4.69531V15.3564Z" fill="#FFFFFF" stroke="#FFFFFF"/>
 <path d="M13.7406 15.5195C13.7406 17.5482 12.2221 19.2208 10.2601 19.4668V8.48047C10.2601 6.45161 11.7784 4.77801 13.7406 4.53223V15.5195Z" fill="#FFFFFF" stroke="#FFFFFF"/>
 <path d="M19.5005 14.3774C19.5004 16.406 17.9819 18.0777 16.02 18.3237V9.62354C16.02 7.59468 17.5383 5.92107 19.5005 5.67529V14.3774Z" fill="#FFFFFF" stroke="#FFFFFF"/>
@@ -2732,7 +2735,7 @@ body{display:block;padding:0;min-height:0}
     next: "Next", start: "Start tour", done: "Done", skip: "Skip tour", hint: "Try it →"
   };
   var TXT = ZH ? [
-    ["歡迎嚟到 NewsFlick", "用大約兩分鐘，互動式行一次這個示範的功能。之後隨時可按 ? 重播。"],
+    ["歡迎嚟到 Fliq", "用大約兩分鐘，互動式行一次這個示範的功能。之後隨時可按 ? 重播。"],
     ["今日一眼睇晒", "即時概覽把今日必讀濃縮成一張卡。時鐘與日期都是實時的——示範永遠不過期。"],
     ["每單新聞都是一疊卡", "封面標明可信度、卡數與題材。<b>輕按這單新聞打開它。</b>"],
     ["分頁跟住你讀", "一路碌，分頁一路亮；點一下即可跳去地圖、數字或下一步。"],
@@ -2750,7 +2753,7 @@ body{display:block;padding:0;min-height:0}
     ["冇死胡同", "碌到最後一張卡再往上拉——下一單新聞原地展開。在頂部往下拉即可返回。"],
     ["導覽完畢", "四單新聞、兩種語言、三把聲線——全部即場任試。隨時在動態頁按 ? 重播。"]
   ] : [
-    ["Welcome to NewsFlick", "A quick interactive tour of what this demo can do — about two minutes. Replay it anytime with the ? button."],
+    ["Welcome to Fliq", "A quick interactive tour of what this demo can do — about two minutes. Replay it anytime with the ? button."],
     ["Today at a glance", "The snapshot condenses today's essentials into one card. The clock and dates are live — the demo never goes stale."],
     ["Every story is a stack of cards", "Each cover shows a confidence read, card count and topics. <b>Tap this story to open it.</b>"],
     ["Tabs follow your reading", "They light up as you scroll — or tap one to jump straight to Map, Numbers or What's Next."],

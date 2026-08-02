@@ -7,7 +7,7 @@ module.exports = {
     tabs: ["The Story", "Key Facts", "How It Works", "Then vs Now", "Why This Matters", "What's Next"],
     hero: {
       img: "../assets/img/hero-tariffs.svg",
-      title: "50% tariffs, [he:📦] between allies. [he:🧾]",
+      title: "50% tariffs, between allies.",
       paras: [
         { p: "The order is signed: **50% tariffs on most Canadian goods**, citing autos, alcohol and dairy. It is the steepest tariff wall between two allied economies in modern history.",
           c: "It's official: **50% tariffs on most Canadian goods** — autos, alcohol and dairy singled out. No two allied economies have ever raised a wall this steep.",
@@ -73,7 +73,7 @@ module.exports = {
     tabs: ["本篇", "關鍵事實", "運作機制", "今昔對比", "為何重要", "下一步"],
     hero: {
       img: "../assets/img/hero-tariffs.svg",
-      title: "盟友之間，[he:📦] 50%關稅。[he:🧾]",
+      title: "盟友之間，50%關稅。",
       paras: [
         "行政命令已簽署：**對大部分加拿大貨品徵收50%關稅**，點名汽車、酒類及乳製品。這是近代史上兩個盟友經濟體之間最高的關稅牆。",
         "渥太華斥之為「經濟脅迫」，正草擬反制。但價格效應不會等[kw:政治]先埋單。"

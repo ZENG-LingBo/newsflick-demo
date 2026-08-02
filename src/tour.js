@@ -14,7 +14,7 @@
     next: "Next", start: "Start tour", done: "Done", skip: "Skip tour", hint: "Try it →"
   };
   var TXT = ZH ? [
-    ["歡迎嚟到 NewsFlick", "用大約兩分鐘，互動式行一次這個示範的功能。之後隨時可按 ? 重播。"],
+    ["歡迎嚟到 Fliq", "用大約兩分鐘，互動式行一次這個示範的功能。之後隨時可按 ? 重播。"],
     ["今日一眼睇晒", "即時概覽把今日必讀濃縮成一張卡。時鐘與日期都是實時的——示範永遠不過期。"],
     ["每單新聞都是一疊卡", "封面標明可信度、卡數與題材。<b>輕按這單新聞打開它。</b>"],
     ["分頁跟住你讀", "一路碌，分頁一路亮；點一下即可跳去地圖、數字或下一步。"],
@@ -32,7 +32,7 @@
     ["冇死胡同", "碌到最後一張卡再往上拉——下一單新聞原地展開。在頂部往下拉即可返回。"],
     ["導覽完畢", "四單新聞、兩種語言、三把聲線——全部即場任試。隨時在動態頁按 ? 重播。"]
   ] : [
-    ["Welcome to NewsFlick", "A quick interactive tour of what this demo can do — about two minutes. Replay it anytime with the ? button."],
+    ["Welcome to Fliq", "A quick interactive tour of what this demo can do — about two minutes. Replay it anytime with the ? button."],
     ["Today at a glance", "The snapshot condenses today's essentials into one card. The clock and dates are live — the demo never goes stale."],
     ["Every story is a stack of cards", "Each cover shows a confidence read, card count and topics. <b>Tap this story to open it.</b>"],
     ["Tabs follow your reading", "They light up as you scroll — or tap one to jump straight to Map, Numbers or What's Next."],
