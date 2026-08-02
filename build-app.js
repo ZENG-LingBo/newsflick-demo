@@ -280,6 +280,11 @@ ${COUNTER_CSS(lang)}
 html,body{height:100%;overflow:hidden}
 body{display:block;padding:0;min-height:0}
 .nf-frame{margin:0;border-radius:0;box-shadow:none}
+/* tariff hero is portrait with a caption baked into its lower third:
+   anchor its crop to the top so the subject shows and the caption crops away */
+.mcard[data-story="3"] .media{background-position:center top!important}
+#stage-3 .c-s2story-hero{background-position:center top!important}
+#ov-src-2 .s2-hero{background-position:center top!important}
 /* conf pill: Medium variant matches the feed's conf-med palette; third bar dims */
 .nf-conf--med{background:#ab5c2b}
 .nf-conf--med .cbars path:last-of-type{fill-opacity:.3;stroke-opacity:.3}
