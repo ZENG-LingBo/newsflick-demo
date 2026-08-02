@@ -781,9 +781,7 @@ body{margin:0;background:#c9ccc9;min-height:100vh;display:flex;align-items:cente
 .tour-tip .tt-text{font-size:13px;line-height:1.5;color:#4a4f4a;margin:0}
 .tour-tip .tt-text b{color:#0a7d43}
 .tour-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
-.tour-dots{display:flex;gap:4px;flex:none}
-.tour-dots i{width:5px;height:5px;border-radius:99px;background:#dfe3df}
-.tour-dots i.on{background:#141613}
+.tour-count{font-size:11px;font-weight:600;color:#8a908a;flex:none;font-variant-numeric:tabular-nums}
 .tour-btns{display:flex;align-items:center;gap:8px}
 .tour-hint{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#0a7d43;white-space:nowrap}
 .tour-hint i{width:7px;height:7px;border-radius:99px;background:#0fae5f;animation:tourPulse 1.2s ease infinite}
@@ -2737,27 +2735,39 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
     next: "Next", start: "Start tour", done: "Done", skip: "Skip tour", hint: "Try it →"
   };
   var TXT = ZH ? [
-    ["歡迎嚟到 NewsFlick", "用大約一分鐘，互動式行一次這個示範的功能。之後隨時可按 ? 重播。"],
+    ["歡迎嚟到 NewsFlick", "用大約兩分鐘，互動式行一次這個示範的功能。之後隨時可按 ? 重播。"],
     ["今日一眼睇晒", "即時概覽把今日必讀濃縮成一張卡。時鐘與日期都是實時的——示範永遠不過期。"],
     ["每單新聞都是一疊卡", "封面標明可信度、卡數與題材。<b>輕按這單新聞打開它。</b>"],
     ["分頁跟住你讀", "一路碌，分頁一路亮；點一下即可跳去地圖、數字或下一步。"],
-    ["呢單新聞有幾可信？", "<b>按可信度標籤</b>——來源、已證實、有爭議、未知數。睇完關閉便繼續。"],
-    ["社會脈搏", "<b>按脈搏標籤</b>看社交反應——立場、熱度與引言。關閉後繼續。"],
-    ["一個故事，三把聲", "<b>按「聲線」</b>揀「淡定解說」或「朋友仔」——每段文字即時重新演繹。關閉後繼續。"],
-    ["圈住的詞語識自己解釋", "<b>輕按發光的字詞</b>，即彈出來源註解——證據、前提、定義。"],
-    ["卡片任你玩", "地圖可拖可縮、圖表按柱有數、訊號按開有解說、民調一按翻出實數。一路讀一路試。"],
+    ["可信度訊號", "<b>按可信度標籤</b>——每單新聞都帶住核實層：來源、已證實、有爭議、未知數。關閉後繼續。"],
+    ["輿論脈搏層", "<b>按脈搏標籤</b>——平台上嘅反應：立場、熱度、引言。關閉後繼續。"],
+    ["聲線：一個故事，三把聲", "<b>按「聲線」</b>揀「淡定解說」或「朋友仔」——每段文字即時重新演繹。關閉後繼續。"],
+    ["行間透明", "<b>輕按發光的字詞</b>——關鍵說法就喺行文入面交代出處、證據同前提。"],
+    ["實時地圖", "真地圖，不是截圖——可拖可縮。<b>㩒一下標記</b>睇吓嗰一點發生咗乜。"],
+    ["事件時序", "今日逐個鐘睇——標籤標明邊啲突發、邊啲仲發展緊。"],
+    ["識答你嘅數字", "<b>㩒一下柱形</b>——每條柱都答返你準確數字同背景。"],
+    ["前瞻訊號", "模型推算嘅走勢概率。<b>㩒一下錶盤</b>睇吓佢點解郁。"],
+    ["風險階梯", "可能升級嘅情況，由高至低排——等級會隨事實更新。"],
+    ["民意所向", "<b>㩒一下橫條</b>，百分比即翻出實際人數——樣本睇得見。"],
+    ["現場直擊", "街頭層面嘅現場報道——數字背後嘅質感。"],
     ["冇死胡同", "碌到最後一張卡再往上拉——下一單新聞原地展開。在頂部往下拉即可返回。"],
     ["導覽完畢", "四單新聞、兩種語言、三把聲線——全部即場任試。隨時在動態頁按 ? 重播。"]
   ] : [
-    ["Welcome to NewsFlick", "A quick interactive tour of what this demo can do — about a minute. Replay it anytime with the ? button."],
+    ["Welcome to NewsFlick", "A quick interactive tour of what this demo can do — about two minutes. Replay it anytime with the ? button."],
     ["Today at a glance", "The snapshot condenses today's essentials into one card. The clock and dates are live — the demo never goes stale."],
     ["Every story is a stack of cards", "Each cover shows a confidence read, card count and topics. <b>Tap this story to open it.</b>"],
     ["Tabs follow your reading", "They light up as you scroll — or tap one to jump straight to Map, Numbers or What's Next."],
-    ["How verified is this story?", "<b>Tap the confidence pill</b> — sources, confirmed facts, disputes and unknowns. Close the sheet when you're done."],
-    ["What people are saying", "<b>Tap the pulse pill</b> for social reaction — stances, heat and quotes. Close it to continue."],
-    ["One story, three voices", "<b>Tap Voices</b> and pick Calm or the ELI5 friend — every paragraph re-tells itself in that register. Close to continue."],
-    ["Highlighted terms explain themselves", "<b>Tap the glowing term</b> for a quick source note — evidence, caveats, definitions."],
-    ["Cards you can touch", "Maps pan and zoom, chart bars answer taps, signals open up, polls flip to raw counts. Try them as you read."],
+    ["The Confidence Signal", "<b>Tap the confidence pill</b> — every story carries its verification layer: sources, confirmed, disputed, unknown. Close it to continue."],
+    ["The Social Layer", "<b>Tap the pulse pill</b> — reaction from the platforms: stances, heat and quotes. Close it to continue."],
+    ["Voices: one story, three tellings", "<b>Tap Voices</b> and pick Calm or the ELI5 friend — every paragraph re-tells itself in that register. Close to continue."],
+    ["Inline transparency", "<b>Tap the glowing term</b> — key claims explain their sourcing, evidence and caveats right in the text."],
+    ["The live map", "A real map, not a screenshot — drag to pan, pinch to zoom. <b>Tap a marker</b> to see what happened at that spot."],
+    ["The timeline", "Today hour by hour — the chips flag what's breaking versus still developing."],
+    ["Numbers that answer back", "<b>Tap a bar</b> — each column replies with its exact figure and context."],
+    ["Forward signals", "Model-estimated odds on what happens next. <b>Tap a gauge</b> to see why it's moving."],
+    ["The risk ladder", "What could escalate, ranked high to low — levels move as facts land."],
+    ["Where people stand", "<b>Tap a bar</b> to flip percentages into raw counts — polling with its sample visible."],
+    ["On the ground", "Dispatches from street level — the texture behind the numbers."],
     ["Never a dead end", "Scroll past the last card and keep pulling — the next story grows open in place. Overscroll at the top to go back."],
     ["That's the tour", "Four stories, two languages, three voices — all live. Replay this anytime with the ? button on the feed."]
   ];
@@ -2767,14 +2777,6 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
   function visibleKw(){
     var kws = document.querySelectorAll('.stage.active .kw');
     for (var i = 0; i < kws.length; i++) if (kws[i].getClientRects().length) return kws[i];
-    return null;
-  }
-  function kitCard(){
-    var sels = ['.c-map', '.c-numbers', '.c-poll', '.c-signal'];
-    for (var i = 0; i < sels.length; i++) {
-      var el = document.querySelector('.stage.active ' + sels[i]);
-      if (el) return el;
-    }
     return null;
   }
   function toTop(el){ var p = document.querySelector('.stage.active .nf-phone'); if (p) p.scrollTop = 0; }
@@ -2794,7 +2796,14 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
     { el: q('.stage.active .nf-actionbar [data-social]'), await: 'pulse' },
     { el: q('.stage.active .js-voicebtn'), await: 'voice' },
     { el: visibleKw, pre: toCenter, await: 'pop', pad: 8 },
-    { el: kitCard, pre: toCenter },
+    /* per-card steps: each skips itself when the opened story lacks that card */
+    { el: q('.stage.active .c-map'), pre: toCenter, await: 'mappop' },
+    { el: q('.stage.active .c-tl'), pre: toCenter },
+    { el: q('.stage.active .c-numbers'), pre: toCenter, await: 'tip' },
+    { el: q('.stage.active .c-signal'), pre: toCenter, await: 'sigopen' },
+    { el: q('.stage.active .c-risk2'), pre: toCenter },
+    { el: q('.stage.active .c-poll'), pre: toCenter, await: 'pollflip' },
+    { el: q('.stage.active .c-ground'), pre: toCenter },
     { el: q('.stage.active .nf-next'), pre: toCenter },
     { center: 1, doneBtn: 1 }
   ];
@@ -2802,15 +2811,25 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
   function mkAwait(kind){
     if (kind === 'story') return { test: function(){ return !!document.querySelector('.stage.active:not(#stage-0)'); } };
     if (kind === 'pop') return { test: function(){ var p = document.querySelector('.kit-pop'); return !!(p && p.classList.contains('on')); } };
+    if (kind === 'mappop') return { test: function(){ return !!document.querySelector('.stage.active .leaflet-popup'); } };
+    if (kind === 'tip') return { test: function(){ return !!document.querySelector('.stage.active .kit-tip'); } };
+    if (kind === 'sigopen') return { test: function(){ return !!document.querySelector('.stage.active .c-signal .sig.open'); } };
+    if (kind === 'pollflip') return { test: function(){
+      var pv = document.querySelector('.stage.active .c-poll .pv');
+      return !!(pv && pv.textContent.indexOf('%') < 0);
+    } };
+    /* open->close cycles: a MutationObserver flags the open state the moment it
+       happens — polling alone can miss a quick open/close between ticks */
     var id = kind === 'conf' ? 'layer-confidence' : kind === 'pulse' ? 'layer-pulse' : 'nf-vsheet';
     var cls = kind === 'voice' ? 'open' : 'on';
-    var seen = false;
-    return { test: function(){
-      var el = document.getElementById(id); if (!el) return false;
-      var on = el.classList.contains(cls);
-      if (on) seen = true;
-      return seen && !on;
-    } };
+    var el = document.getElementById(id);
+    var seen = !!(el && el.classList.contains(cls)), mo = null;
+    if (el) {
+      mo = new MutationObserver(function(){ if (el.classList.contains(cls)) seen = true; });
+      mo.observe(el, { attributes: true, attributeFilter: ['class'] });
+    }
+    return { test: function(){ return !!el && seen && !el.classList.contains(cls); },
+             dispose: function(){ if (mo) mo.disconnect(); } };
   }
 
   /* ---------- DOM ---------- */
@@ -2821,16 +2840,15 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
     '<div class="tour-shade" data-p="l"></div><div class="tour-shade" data-p="r"></div>' +
     '<div class="tour-ring"></div>' +
     '<div class="tour-tip"><p class="tt-title"></p><p class="tt-text"></p>' +
-    '<div class="tour-foot"><div class="tour-dots">' +
-    STEPS.map(function(){ return '<i></i>'; }).join('') +
-    '</div><div class="tour-btns"><span class="tour-hint" hidden><i></i><span>' + W.hint + '</span></span>' +
+    '<div class="tour-foot"><span class="tour-count"></span>' +
+    '<div class="tour-btns"><span class="tour-hint" hidden><i></i><span>' + W.hint + '</span></span>' +
     '<button class="tour-skip" type="button">' + W.skip + '</button>' +
     '<button class="tour-next" type="button">' + W.next + '</button></div></div></div>';
   frame.appendChild(overlay);
   var sh = {}, ring = overlay.querySelector('.tour-ring'), tip = overlay.querySelector('.tour-tip');
   ['t', 'b', 'l', 'r'].forEach(function(p){ sh[p] = overlay.querySelector('[data-p="' + p + '"]'); });
   var elTitle = overlay.querySelector('.tt-title'), elText = overlay.querySelector('.tt-text'),
-      dots = overlay.querySelectorAll('.tour-dots i'), hint = overlay.querySelector('.tour-hint'),
+      count = overlay.querySelector('.tour-count'), hint = overlay.querySelector('.tour-hint'),
       btnSkip = overlay.querySelector('.tour-skip'), btnNext = overlay.querySelector('.tour-next');
 
   var fab = document.createElement('button');
@@ -2884,10 +2902,11 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
       if (!el || !document.contains(el)) { next(); return; } /* target missing -> skip step */
       if (step.pre) step.pre(el);
     }
+    if (curAwait && curAwait.dispose) curAwait.dispose();
     curAwait = step.await ? mkAwait(step.await) : null;
     elTitle.textContent = TXT[idx][0];
     elText.innerHTML = TXT[idx][1];
-    for (var i = 0; i < dots.length; i++) dots[i].className = i === idx ? 'on' : '';
+    count.textContent = (idx + 1) + ' / ' + STEPS.length;
     hint.hidden = !step.await;
     btnSkip.style.display = step.doneBtn ? 'none' : '';
     btnNext.textContent = step.startBtn ? W.start : step.doneBtn ? W.done : W.next;
@@ -2916,7 +2935,9 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
   }
   function end(markDone){
     overlay.classList.remove('on');
-    clearInterval(ticker); ticker = null; curAwait = null;
+    clearInterval(ticker); ticker = null;
+    if (curAwait && curAwait.dispose) curAwait.dispose();
+    curAwait = null;
     if (markDone) try { localStorage.setItem('nf-tour-done', '1'); } catch (e) {}
     syncFab();
   }
