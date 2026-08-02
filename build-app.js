@@ -214,7 +214,7 @@ const APPENDIX = `
 (function(){
   function openSheet(kind, sid){
     var fr = document.getElementById(kind);
-    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html'; fr.setAttribute('data-for', sid); }
+    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=__NF_BUILD__'; fr.setAttribute('data-for', sid); }
     document.getElementById('layer-' + kind).classList.add('on');
   }
   document.querySelectorAll('.nf-conf[data-story]').forEach(function(el){
@@ -309,8 +309,16 @@ function buildApp(lang) {
     `<script>window.NF_KIT=${JSON.stringify(kitConfig(lang))};</scr` + `ipt>\n<script>${KIT_JS}</scr` + `ipt>\n<script>${TOUR_JS}</scr` + `ipt>\n</body></html>`;
 }
 
+/* build stamp: gives every deploy fresh URLs for the app and sheet documents,
+   so GitHub Pages' 10-minute edge cache can't serve a stale app once the shell
+   itself has refreshed (query strings are distinct cache keys on the CDN) */
+const STAMP = Date.now().toString(36);
 for (const lang of ["en", "zh"]) {
-  const html = buildApp(lang);
+  const html = buildApp(lang).split("__NF_BUILD__").join(STAMP);
   fs.writeFileSync(`${lang}/app.html`, html);
   console.log(`${lang}/app.html`, Math.round(html.length / 1024) + "KB");
 }
+const shell = fs.readFileSync("index.html", "utf8")
+  .replace(/var NF_BUILD="[^"]*"/, `var NF_BUILD="${STAMP}"`);
+fs.writeFileSync("index.html", shell);
+console.log("index.html stamped", STAMP);

@@ -125,12 +125,13 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
       ? "更冷靜的看新聞方式——揀聲線、拉下一篇、查可信度。"
       : "A calmer way to follow the news — pick a voice, pull the next story open, check the signal.";
   }
-  function boot(){ if(booted) return; booted=true; setLangUI(); app.src=lang+"/app.html"; }
+  var NF_BUILD="msc1gdyj";
+  function boot(){ if(booted) return; booted=true; setLangUI(); app.src=lang+"/app.html?b="+NF_BUILD; }
   function switchLang(l){
     if(!LANGS[l]) return;
     lang=l; localStorage.setItem("nf-lang",l); setLangUI();
     if(!booted){ boot(); return; }
-    app.src=lang+"/app.html";
+    app.src=lang+"/app.html?b="+NF_BUILD;
   }
   splash.addEventListener("click",function(e){
     var b=e.target.closest("[data-lang]"); if(!b) return;
