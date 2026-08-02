@@ -251,6 +251,8 @@ const ENGINE = fs.readFileSync("src/engine.js", "utf8");
 const APP_CSS = fs.readFileSync("src/app.css", "utf8");
 const KIT_CSS = fs.readFileSync("src/kit.css", "utf8");
 const KIT_JS = fs.readFileSync("src/kit.js", "utf8");
+const TOUR_CSS = fs.readFileSync("src/tour.css", "utf8");
+const TOUR_JS = fs.readFileSync("src/tour.js", "utf8");
 
 const COUNTER_CSS = lang => `
 /* 4-story counter overrides */
@@ -270,6 +272,7 @@ function head(lang) {
 ${LEAFLET_TAGS}
 <style>${APP_CSS}
 ${KIT_CSS}
+${TOUR_CSS}
 ${COUNTER_CSS(lang)}
 /* nf-flush: inside the shell iframe the frame sits at 0,0 with no page chrome —
    v2 centered itself with body padding, which made the document 48px taller than
@@ -300,7 +303,7 @@ function buildApp(lang) {
     `<div class="sheet-layer" id="layer-confidence"><iframe id="confidence"></iframe></div>\n` +
     `<div class="sheet-layer" id="layer-pulse"><iframe id="pulse"></iframe></div>\n` +
     `</div>\n<script>${ENGINE}</scr` + `ipt>\n<script>${APPENDIX}</scr` + `ipt>\n` +
-    `<script>window.NF_KIT=${JSON.stringify(kitConfig(lang))};</scr` + `ipt>\n<script>${KIT_JS}</scr` + `ipt>\n</body></html>`;
+    `<script>window.NF_KIT=${JSON.stringify(kitConfig(lang))};</scr` + `ipt>\n<script>${KIT_JS}</scr` + `ipt>\n<script>${TOUR_JS}</scr` + `ipt>\n</body></html>`;
 }
 
 for (const lang of ["en", "zh"]) {
