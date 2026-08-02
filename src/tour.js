@@ -70,20 +70,22 @@
     { center: 1, startBtn: 1 },
     { el: q('#stage-0 .snapshot') },
     { el: q('#stage-0 .mcard'), pre: toCenter, await: 'story', pad: 8 },
-    { el: q('.stage.active .nf-tabs'), pre: toTop },
-    { el: q('.stage.active .nf-conf'), pre: toTop, await: 'conf' },
-    { el: q('.stage.active .nf-actionbar [data-social]'), await: 'pulse' },
-    { el: q('.stage.active .js-voicebtn'), await: 'voice' },
-    { el: visibleKw, pre: toCenter, await: 'pop', pad: 8 },
+    /* story-scoped steps: if no story is open (user pressed Next instead of
+       tapping the card), enter() opens one rather than cascade-skipping */
+    { el: q('.stage.active .nf-tabs'), pre: toTop, story: 1 },
+    { el: q('.stage.active .nf-conf'), pre: toTop, await: 'conf', story: 1 },
+    { el: q('.stage.active .nf-actionbar [data-social]'), await: 'pulse', story: 1 },
+    { el: q('.stage.active .js-voicebtn'), await: 'voice', story: 1 },
+    { el: visibleKw, pre: toCenter, await: 'pop', pad: 8, story: 1 },
     /* per-card steps: each skips itself when the opened story lacks that card */
-    { el: q('.stage.active .c-map'), pre: toCenter, await: 'mappop' },
-    { el: q('.stage.active .c-tl'), pre: toCenter },
-    { el: q('.stage.active .c-numbers'), pre: toCenter, await: 'tip' },
-    { el: q('.stage.active .c-signal'), pre: toCenter, await: 'sigopen' },
-    { el: q('.stage.active .c-risk2'), pre: toCenter },
-    { el: q('.stage.active .c-poll'), pre: toCenter, await: 'pollflip' },
-    { el: q('.stage.active .c-ground'), pre: toCenter },
-    { el: q('.stage.active .nf-next'), pre: toCenter },
+    { el: q('.stage.active .c-map'), pre: toCenter, await: 'mappop', story: 1 },
+    { el: q('.stage.active .c-tl'), pre: toCenter, story: 1 },
+    { el: q('.stage.active .c-numbers'), pre: toCenter, await: 'tip', story: 1 },
+    { el: q('.stage.active .c-signal'), pre: toCenter, await: 'sigopen', story: 1 },
+    { el: q('.stage.active .c-risk2'), pre: toCenter, story: 1 },
+    { el: q('.stage.active .c-poll'), pre: toCenter, await: 'pollflip', story: 1 },
+    { el: q('.stage.active .c-ground'), pre: toCenter, story: 1 },
+    { el: q('.stage.active .nf-next'), pre: toCenter, story: 1 },
     { center: 1, doneBtn: 1 }
   ];
 
@@ -136,7 +138,7 @@
   frame.appendChild(fab);
 
   /* ---------- placement ---------- */
-  var idx = -1, curAwait = null, ticker = null, advancing = false;
+  var idx = -1, curAwait = null, ticker = null, advancing = false, retries = 0;
 
   function box(el, x, y, w, h){ el.style.left = x + 'px'; el.style.top = y + 'px'; el.style.width = w + 'px'; el.style.height = h + 'px'; }
   function place(){
@@ -176,6 +178,22 @@
 
   function enter(){
     var step = STEPS[idx];
+    if (step.story && !document.querySelector('.stage.active:not(#stage-0)')) {
+      /* user advanced past the "tap this story" step without opening one —
+         open the first story for them and retry this SAME step */
+      if (retries < 4) {
+        /* clear any stale await (e.g. the story await from the card step) so the
+           ticker can't fire a second advance while the retry is pending */
+        if (curAwait && curAwait.dispose) curAwait.dispose();
+        curAwait = null;
+        var mc = document.querySelector('#stage-0 .mcard');
+        if (retries === 0 && mc) mc.click(); else if (window.__activate) window.__activate(1);
+        retries++;
+        setTimeout(enter, 500);
+        return;
+      }
+      /* engine wedged: fall through to the normal missing-target skip */
+    }
     if (step.el) {
       var el = step.el();
       if (!el || !document.contains(el)) { next(); return; } /* target missing -> skip step */
@@ -195,6 +213,7 @@
   }
   function next(){
     idx++;
+    retries = 0;
     if (idx >= STEPS.length) { end(true); return; }
     enter();
   }
