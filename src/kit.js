@@ -30,6 +30,7 @@
       L.marker(p[0], { icon:L.divIcon({ className:'kit-diamond', html:'<span></span>', iconSize:[16,16] }) })
         .addTo(map).bindPopup('<b>'+p[1]+'</b><br>'+p[2]);
     });
+    box.__map = map; /* exposed for scripted walkthroughs (tour / demo film) */
     setTimeout(function(){ map.invalidateSize();
       if(pts.length) map.fitBounds(L.latLngBounds(pts), { padding:[32,32], animate:false }); }, 120);
   }

@@ -2543,7 +2543,8 @@ body{display:block;padding:0;min-height:0}
     document.querySelectorAll('.nf-story2').forEach(function(o){
       o.classList.remove('voice-plain','voice-calm','voice-eli5'); o.classList.add(cls); });
     document.querySelectorAll('.nf-phone').forEach(function(p){ p.setAttribute('data-voice', vname); });
-    var short = (vname === 'Calm explainer') ? 'Calm' : (vname === 'ELI5 friend') ? 'Friend' : 'Plain';
+    var SHORT = window.NF_VOICE_SHORT || {};
+    var short = SHORT[vname] || ((vname === 'Calm explainer') ? 'Calm' : (vname === 'ELI5 friend') ? 'Friend' : 'Plain');
     document.querySelectorAll('.js-voicelbl').forEach(function(l){ l.textContent = short; });
     requestAnimationFrame(fitAll);
   }
@@ -2574,7 +2575,7 @@ body{display:block;padding:0;min-height:0}
 (function(){
   function openSheet(kind, sid){
     var fr = document.getElementById(kind);
-    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=msc1m67f'; fr.setAttribute('data-for', sid); }
+    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=msc42upa'; fr.setAttribute('data-for', sid); }
     document.getElementById('layer-' + kind).classList.add('on');
   }
   document.querySelectorAll('.nf-conf[data-story]').forEach(function(el){
@@ -2637,6 +2638,7 @@ body{display:block;padding:0;min-height:0}
       L.marker(p[0], { icon:L.divIcon({ className:'kit-diamond', html:'<span></span>', iconSize:[16,16] }) })
         .addTo(map).bindPopup('<b>'+p[1]+'</b><br>'+p[2]);
     });
+    box.__map = map; /* exposed for scripted walkthroughs (tour / demo film) */
     setTimeout(function(){ map.invalidateSize();
       if(pts.length) map.fitBounds(L.latLngBounds(pts), { padding:[32,32], animate:false }); }, 120);
   }

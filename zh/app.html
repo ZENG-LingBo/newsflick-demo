@@ -2546,7 +2546,8 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
     document.querySelectorAll('.nf-story2').forEach(function(o){
       o.classList.remove('voice-plain','voice-calm','voice-eli5'); o.classList.add(cls); });
     document.querySelectorAll('.nf-phone').forEach(function(p){ p.setAttribute('data-voice', vname); });
-    var short = (vname === 'Calm explainer') ? 'Calm' : (vname === 'ELI5 friend') ? 'Friend' : 'Plain';
+    var SHORT = window.NF_VOICE_SHORT || {};
+    var short = SHORT[vname] || ((vname === 'Calm explainer') ? 'Calm' : (vname === 'ELI5 friend') ? 'Friend' : 'Plain');
     document.querySelectorAll('.js-voicelbl').forEach(function(l){ l.textContent = short; });
     requestAnimationFrame(fitAll);
   }
@@ -2577,7 +2578,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 (function(){
   function openSheet(kind, sid){
     var fr = document.getElementById(kind);
-    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=msc1m67f'; fr.setAttribute('data-for', sid); }
+    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=msc42upa'; fr.setAttribute('data-for', sid); }
     document.getElementById('layer-' + kind).classList.add('on');
   }
   document.querySelectorAll('.nf-conf[data-story]').forEach(function(el){
@@ -2607,6 +2608,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
                        : W_EN[now.getDay()] + ', ' + now.getDate() + ' ' + M_EN[now.getMonth()];
   });
 })();</script>
+<script>window.NF_VOICE_SHORT={"Plain":"平實","Calm explainer":"淡定","ELI5 friend":"朋友仔"};</script>
 <script>window.NF_KIT={"maps":{"gulf":{"center":[30.8,53.6],"zoom":5,"zones":[[[33.72,51.72],60,"納坦茲一帶","首週起多次空襲濃縮相關設施。"],[[32.65,51.67],50,"伊斯法罕省","工業及防空目標；第9晚攻勢最猛烈。"],[[27.18,56.28],45,"阿巴斯港","今日港口設施被擊中——迄今最貼近海峽的一輪。"],[[29.6,52.5],55,"法爾斯省","第4至11日間指揮及雷達設施接連被擊中。"],[[35.7,51.4],50,"德黑蘭省","首日起針對指揮及通訊目標。"]],"points":[[[26.6,56.25],"霍爾木茲海峽","已對商船封閉。全球五分之一的石油平日取道此處。"]]},"hk":{"center":[22.36,114.13],"zoom":10,"zones":[[[22.306,114.185],2.2,"紅磡／何文田","上半年+6.2%——大學周邊學生湧入，唐樓睇樓要排隊。"],[[22.312,114.263],2.5,"將軍澳","上半年+5.3%——新市鎮供應被吸納的速度快過落成。"],[[22.382,114.19],2.5,"沙田／大圍","上半年+4.8%——鐵路沿線受跨境通勤需求帶動。"],[[22.284,114.22],2.2,"港島東","上半年+4.1%——回流外派租約集中於此。"],[[22.39,113.973],2.6,"屯門","上半年+2.9%——暫時落後，代理估計下一浪到此。"]],"points":[[[22.306,114.185],"升幅最急：紅磡","半年+6.2%——2016年以來最快的地區升幅。"]]}},"pop":{"霍爾木茲海峽":"伊朗與阿曼之間一條闊33公里的水道，是波斯灣唯一出海口。全球約五分之一的石油平日取道於此。此前從未全面封鎖。","已經封鎖":"油輪通航數據連續七日歸零，兩國政府均承認封鎖——這是各方罕有一致同意的事實。","重建威懾":"行動方自第二週起的官方說法——是姿態，不是目標清單。措辭由「核設施」轉變有紀錄可查；意圖為何則屬解讀。","雙方統計相差三千":"兩邊官方各自公布對己有利的數字；獨立監察無法進入空襲區，數字無從釐清。","霍爾木茲海峽已對商船封閉":"由第三方獨立量度：航運追蹤顯示油輪連續七日零通過。","核實年齡":"查證用戶申報的年齡屬實——通常靠身份證明或人臉年齡估算，而非單信自填的出生日期。禁令唯一的執行方法，適用於所有年齡的每一位用戶。","合理措施":"平台須達到的法律標準：可證明、成比例地偵測及移除16歲以下帳戶。何謂「合理」，最終由法庭定義。","家長同意也不獲豁免":"與早年方案不同：家長批准也改變不了甚麼——未滿16歲就是不能有帳戶。","敘事框架":"選擇把哪些事實放在報道中心。同一次表決，可以寫成「保護兒童」，也可以寫成「限制自由」——兩者皆真，卻把讀者引向不同結論。","相關性":"只顯示兩件事同步變化、卻證明不了因果的研究。這場辯論的證據大多屬此類——所以爭議不散。","用甚麼取代它":"雙方都同意13歲那條線已失敗。禁令是否正確的替代，是判斷，不是定論。","政治":"反制清單、《美墨加》仲裁、緊急會談——正式的機器。它以月計運轉；供應鏈以週計重新定價。","絕大部分貨品類別":"命令附表覆蓋絕大多數貿易項目，能源獲豁免。近乎全面的稅率與針對性關稅性質迥異——根本無路可繞。","兩國各執一詞":"渥太華指協定明顯適用；華府稱安全豁免令命令置身協定之外。這條豁免從未在此規模下受考驗。","六至八星期內浮現":"零售分析師按庫存周期估算——現貨賣完、關稅貨上架，大約就是這個時間。","轉嫁":"關稅有多少反映在消費物價上。2018年一輪的研究發現，數月內轉嫁近乎完全。","翻倍":"由25%到50%——盟友經濟體之間有紀錄以來最陡的一步。","不可能一季之內搬回本土":"回流時間表按過往案例推算：建廠選址、審批、施工以年計，不是以月計。","坐在租約的哪一邊":"同一個指數，業主讀作復甦，租客讀作壓力。數字是事實；「好事定壞事」是立場。","連升七個月":"差餉物業估價署按月數表直接可讀。持續時間，正是趨勢與雜音的分界。","兩年內反彈最多19%":"被廣泛引用的分析員情景推算（彭博行業研究），並非官方預測——前提是租務需求轉化為置業。","仍有爭論":"政府引用人才計劃批核；獨立經濟學者指區內周期同步向上。兩股力量同時出現，暫難乾淨分割。","紅磡以+6.2%領先":"兩間互相競爭的代理行編製的分區租務數據——排名一致。「大學周邊先行」點出推動市場的邊際租客。","一個普通月份的升幅":"指數自1月起平均每月升0.9點；紀錄只比7月讀數高0.4點。","鐵路線":"沙田大圍反映跨境通勤需求；將軍澳的新供應被吸納的速度快過落成。"}};</script>
 <script>/* Kit runtime: Leaflet maps, chart tooltips, gauges, poll flips, popovers.
    Runs inside the app document, after engine.js. Config injected as NF_KIT. */
@@ -2640,6 +2642,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
       L.marker(p[0], { icon:L.divIcon({ className:'kit-diamond', html:'<span></span>', iconSize:[16,16] }) })
         .addTo(map).bindPopup('<b>'+p[1]+'</b><br>'+p[2]);
     });
+    box.__map = map; /* exposed for scripted walkthroughs (tour / demo film) */
     setTimeout(function(){ map.invalidateSize();
       if(pts.length) map.fitBounds(L.latLngBounds(pts), { padding:[32,32], animate:false }); }, 120);
   }

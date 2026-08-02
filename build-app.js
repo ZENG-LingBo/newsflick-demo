@@ -311,6 +311,7 @@ function buildApp(lang) {
     `<div class="sheet-layer" id="layer-confidence"><iframe id="confidence"></iframe></div>\n` +
     `<div class="sheet-layer" id="layer-pulse"><iframe id="pulse"></iframe></div>\n` +
     `</div>\n<script>${ENGINE}</scr` + `ipt>\n<script>${APPENDIX}</scr` + `ipt>\n` +
+    (lang === "zh" ? `<script>window.NF_VOICE_SHORT=${JSON.stringify({ "Plain": "平實", "Calm explainer": "淡定", "ELI5 friend": "朋友仔" })};</scr` + `ipt>\n` : "") +
     `<script>window.NF_KIT=${JSON.stringify(kitConfig(lang))};</scr` + `ipt>\n<script>${KIT_JS}</scr` + `ipt>\n<script>${TOUR_JS}</scr` + `ipt>\n</body></html>`;
 }
 

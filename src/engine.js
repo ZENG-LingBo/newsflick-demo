@@ -343,7 +343,8 @@
     document.querySelectorAll('.nf-story2').forEach(function(o){
       o.classList.remove('voice-plain','voice-calm','voice-eli5'); o.classList.add(cls); });
     document.querySelectorAll('.nf-phone').forEach(function(p){ p.setAttribute('data-voice', vname); });
-    var short = (vname === 'Calm explainer') ? 'Calm' : (vname === 'ELI5 friend') ? 'Friend' : 'Plain';
+    var SHORT = window.NF_VOICE_SHORT || {};
+    var short = SHORT[vname] || ((vname === 'Calm explainer') ? 'Calm' : (vname === 'ELI5 friend') ? 'Friend' : 'Plain');
     document.querySelectorAll('.js-voicelbl').forEach(function(l){ l.textContent = short; });
     requestAnimationFrame(fitAll);
   }
