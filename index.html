@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#ffe9e0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Fliq — Demo</title>
@@ -24,74 +24,19 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
 
 /* ---- opening screen ---- */
 .splash{position:absolute;inset:0;z-index:40;display:flex;flex-direction:column;
-  background:#000;
+  background:linear-gradient(180deg,#ffe9e0 0%,#ffd3c3 100%);
   transition:transform .5s cubic-bezier(.5,0,.2,1),opacity .5s ease}
 .splash.off{transform:translateY(-102%);opacity:.4;pointer-events:none}
 .splash .sun{position:absolute;top:34%;left:50%;transform:translate(-50%,-50%);
   width:300px;height:300px;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle,rgba(128,0,128,.42) 0%,rgba(128,0,128,.18) 42%,rgba(128,0,128,0) 72%)}
+  background:radial-gradient(circle,#ffab6e 0%,#ffab6e 38%,rgba(255,171,110,0) 74%)}
 .splash .inner{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;
   justify-content:center;gap:10px;padding:32px 28px calc(40px + env(safe-area-inset-bottom))}
-
-/* ---- fliq logo animation: the F is a ribbon that wraps itself.
-   Cycle: pale seed square -> bars unfurl bottom-to-top around the left spine,
-   saturating from lilac to brand purple, flutter-settle -> hold ->
-   bars flick away top-first, paling out -> seed beat -> repeat. ---- */
-.fliq-logo{width:64px;height:64px;margin-bottom:6px;display:block}
-.fliq-logo .fl-bar{fill:#800080;transform-box:fill-box;transform-origin:0 100%;
-  filter:drop-shadow(0 2px 8px rgba(178,64,178,.35))}
-.fliq-logo .fl-seed{fill:#ecd9ee;opacity:0;transform-box:fill-box;transform-origin:50% 50%}
-.fliq-logo .fl-seed{animation:fl-seed 4.6s linear infinite}
-.fliq-logo .fl-b3{animation:fl-b3 4.6s cubic-bezier(.3,.1,.25,1) infinite}
-.fliq-logo .fl-b2{animation:fl-b2 4.6s cubic-bezier(.3,.1,.25,1) infinite}
-.fliq-logo .fl-b1{animation:fl-b1 4.6s cubic-bezier(.3,.1,.25,1) infinite}
-.splash.off .fliq-logo .fl-bar,.splash.off .fliq-logo .fl-seed{animation-play-state:paused}
-@keyframes fl-b3{
-  0%,2%{transform:rotate(80deg);fill:#ecd9ee;opacity:0;animation-timing-function:cubic-bezier(.2,.7,.3,1)}
-  5%{opacity:1}
-  12%{transform:rotate(-3deg);animation-timing-function:ease-in-out}
-  16%{transform:rotate(1.4deg);fill:#b44cb4;animation-timing-function:ease-in-out}
-  20%{transform:rotate(0deg)}
-  34%{fill:#800080}
-  80%{transform:translateX(0) rotate(0);fill:#800080;opacity:1;animation-timing-function:cubic-bezier(.5,0,.8,.4)}
-  90%{transform:translateX(64px) rotate(-8deg);fill:#ecd9ee;opacity:0}
-  100%{transform:rotate(80deg);fill:#ecd9ee;opacity:0}
-}
-@keyframes fl-b2{
-  0%,10%{transform:rotate(80deg);fill:#ecd9ee;opacity:0;animation-timing-function:cubic-bezier(.2,.7,.3,1)}
-  13%{opacity:1}
-  20%{transform:rotate(-3deg);animation-timing-function:ease-in-out}
-  24%{transform:rotate(1.4deg);fill:#b44cb4;animation-timing-function:ease-in-out}
-  28%{transform:rotate(0deg)}
-  38%{fill:#800080}
-  76%{transform:translateX(0) rotate(0);fill:#800080;opacity:1;animation-timing-function:cubic-bezier(.5,0,.8,.4)}
-  86%{transform:translateX(84px) rotate(-8deg);fill:#ecd9ee;opacity:0}
-  100%{transform:rotate(80deg);fill:#ecd9ee;opacity:0}
-}
-@keyframes fl-b1{
-  0%,18%{transform:rotate(80deg);fill:#ecd9ee;opacity:0;animation-timing-function:cubic-bezier(.2,.7,.3,1)}
-  21%{opacity:1}
-  28%{transform:rotate(-4deg);animation-timing-function:ease-in-out}
-  32%{transform:rotate(1.6deg);fill:#b44cb4;animation-timing-function:ease-in-out}
-  36%{transform:rotate(0deg)}
-  44%{fill:#800080}
-  72%{transform:translateX(0) rotate(0);fill:#800080;opacity:1;animation-timing-function:cubic-bezier(.5,0,.8,.4)}
-  82%{transform:translateX(104px) rotate(-8deg);fill:#ecd9ee;opacity:0}
-  100%{transform:rotate(80deg);fill:#ecd9ee;opacity:0}
-}
-@keyframes fl-seed{
-  0%,8%{opacity:1;transform:scale(1)}
-  16%{opacity:0}
-  84%{opacity:0;transform:scale(.85)}
-  92%,100%{opacity:1;transform:scale(1)}
-}
-@media (prefers-reduced-motion:reduce){
-  .fliq-logo .fl-bar,.fliq-logo .fl-seed{animation:none}
-}
+.splash img{width:64px;height:64px;margin-bottom:6px}
 .splash h1{font-family:'Space Grotesk','Noto Sans HK',sans-serif;font-weight:700;font-size:40px;
-  line-height:44px;color:#fff;letter-spacing:-.02em}
-.splash .tag{font-size:15px;line-height:22px;color:#a9a1ad;text-align:center;max-width:270px}
-.splash .tag b{display:block;color:#fff;font-weight:600}
+  line-height:44px;color:#272a27;letter-spacing:-.02em}
+.splash .tag{font-size:15px;line-height:22px;color:#61443a;text-align:center;max-width:270px}
+.splash .tag b{display:block;color:#272a27;font-weight:600}
 .splash .langs{margin-top:38px;display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px}
 .langbig{display:flex;align-items:center;justify-content:space-between;width:100%;
   background:#fff;border:1px solid rgba(67,71,66,.12);border-radius:999px;padding:16px 22px;
@@ -101,7 +46,7 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
 .langbig .arr{color:#800080;font-weight:700}
 .langbig--zh{background:#800080;border-color:transparent;color:#fff}
 .langbig--zh .arr{color:#c9fa85}
-.splash .foot{position:relative;text-align:center;font-size:11.5px;color:#6f6a73;
+.splash .foot{position:relative;text-align:center;font-size:11.5px;color:#8a6a5c;
   padding-bottom:calc(14px + env(safe-area-inset-bottom))}
 
 /* ---- desktop side rail ---- */
@@ -143,12 +88,7 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
   <div class="splash" id="splash">
     <div class="sun"></div>
     <div class="inner">
-      <svg class="fliq-logo" viewBox="0 0 120 120" aria-hidden="true">
-        <rect class="fl-seed" x="2" y="84" width="16" height="16" rx="5"/>
-        <g transform="translate(0,74)"><path class="fl-bar fl-b3" d="M26 0 H72 V16 C72 24 68 30 61 30 L26 30 C16 33 6 38 0 46 L0 28 C8 20 16 8 26 0 Z"/></g>
-        <g transform="translate(0,38)"><path class="fl-bar fl-b2" d="M26 0 H120 V16 C120 24 116 30 109 30 L26 30 C16 33 6 38 0 45 L0 28 C8 20 16 8 26 0 Z"/></g>
-        <g><path class="fl-bar fl-b1" d="M26 0 H120 V16 C120 24 116 30 109 30 L26 30 C16 33 6 38 0 45 L0 28 C8 20 16 8 26 0 Z"/></g>
-      </svg>
+      <img src="assets/img/logo.png" alt="">
       <h1>Fliq</h1>
       <p class="tag"><b>A calmer way to follow the news.</b>更冷靜的看新聞方式。</p>
       <div class="langs">
