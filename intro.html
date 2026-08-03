@@ -8,9 +8,9 @@
 <link rel="icon" href="assets/img/logo.png">
 <!--
   Demo-video intro card. Pure black backdrop, official logo mark.
-  The F builds itself like a wrapping ribbon: a pale seed, then the three
-  bars unfurl bottom-to-top around the left spine, saturating from lilac
-  to brand purple. Ends holding the finished mark.
+  The F builds itself like a wrapping ribbon: the three bars unfurl
+  bottom-to-top around the left spine, saturating from lilac to brand
+  purple. Ends holding the finished mark.
 
   Open fullscreen (F11) and record.
     ?loop     — endless wrap/unwrap cycle instead of the one-shot build
@@ -21,11 +21,10 @@
 html,body{height:100%;overflow:hidden;background:#000}
 body{display:flex;align-items:center;justify-content:center;user-select:none;
   --s:min(46vmin,420px)}
-.mark{width:var(--s);height:auto;display:block}
+.mark{width:var(--s);height:auto;display:block;overflow:visible}
 .mark path{fill:#800080}
 .mark .fl-bar{transform-box:fill-box;transform-origin:0 100%;
   filter:drop-shadow(0 calc(var(--s)*.006) calc(var(--s)*.02) rgba(178,64,178,.35))}
-.mark .fl-seed{fill:#ecd9ee;opacity:0;transform-box:fill-box;transform-origin:50% 50%}
 
 /* ---- one-shot build (default): assemble, then hold ---- */
 .fl-b3{animation:swing3 .8s cubic-bezier(.2,.7,.3,1) .3s both}
@@ -34,7 +33,6 @@ body{display:flex;align-items:center;justify-content:center;user-select:none;
 .fl-b3 path{animation:tint 1.5s ease .3s both}
 .fl-b2 path{animation:tint 1.45s ease .62s both}
 .fl-b1 path{animation:tint 1.4s ease .95s both}
-.fl-seed{animation:seed-once 1.4s ease .05s both}
 @keyframes swing3{
   0%{transform:rotate(80deg);opacity:0}
   10%{opacity:1}
@@ -61,12 +59,6 @@ body{display:flex;align-items:center;justify-content:center;user-select:none;
   55%{fill:#b44cb4}
   100%{fill:#800080}
 }
-@keyframes seed-once{
-  0%{opacity:0;transform:scale(.7)}
-  18%{opacity:1;transform:scale(1)}
-  62%{opacity:1}
-  100%{opacity:0;transform:scale(1)}
-}
 
 /* ---- ?loop: endless wrap / unwrap cycle ---- */
 .loop .fl-b3{animation:loop3 4.6s cubic-bezier(.3,.1,.25,1) infinite}
@@ -75,7 +67,6 @@ body{display:flex;align-items:center;justify-content:center;user-select:none;
 .loop .fl-b3 path{animation:loop-tint3 4.6s linear infinite}
 .loop .fl-b2 path{animation:loop-tint2 4.6s linear infinite}
 .loop .fl-b1 path{animation:loop-tint1 4.6s linear infinite}
-.loop .fl-seed{animation:seed-loop 4.6s linear infinite}
 @keyframes loop3{
   0%,2%{transform:rotate(80deg);opacity:0;animation-timing-function:cubic-bezier(.2,.7,.3,1)}
   5%{opacity:1}
@@ -115,22 +106,13 @@ body{display:flex;align-items:center;justify-content:center;user-select:none;
 @keyframes loop-tint1{
   0%,18%{fill:#ecd9ee} 32%{fill:#b44cb4} 44%,72%{fill:#800080} 82%,100%{fill:#ecd9ee}
 }
-@keyframes seed-loop{
-  0%,8%{opacity:1;transform:scale(1)}
-  16%{opacity:0}
-  84%{opacity:0;transform:scale(.85)}
-  92%,100%{opacity:1;transform:scale(1)}
-}
-
 @media (prefers-reduced-motion:reduce){
   .mark *{animation:none!important}
-  .fl-seed{opacity:0!important}
 }
 </style>
 </head>
 <body>
   <svg class="mark" viewBox="0 0 327 332" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <rect class="fl-seed" x="8" y="240" width="46" height="46" rx="14"/>
     <g class="fl-bar fl-b3">
       <path d="M196.051 244.329V201.05H118.052L107.621 202.907L89.3115 284.676H151.47C183.211 284.676 194.416 257.778 196.051 244.329Z"/>
       <path d="M0.125 291.934V331.835C28.694 294.823 65.5956 284.976 80.4753 284.679L104.644 201.184C23.4266 197.773 1.12406 260.262 0.125 291.934Z"/>
@@ -151,7 +133,7 @@ body{display:flex;align-items:center;justify-content:center;user-select:none;
 (function(){
   if(/[?&]loop\b/.test(location.search)) document.body.classList.add('loop');
   function replay(){
-    var els=document.querySelectorAll('.mark .fl-bar,.mark path,.mark .fl-seed');
+    var els=document.querySelectorAll('.mark .fl-bar,.mark path');
     els.forEach(function(el){ el.style.animation='none'; });
     void document.body.offsetWidth; /* one reflow so the removal commits */
     els.forEach(function(el){ el.style.animation=''; });
