@@ -123,20 +123,20 @@ module.exports = {
 /* ===== P2: animated chart + popovers ===== */
 {
 const en = module.exports.en, zh = module.exports.zh;
-en.cards.splice(1, 0, { type: "numbers2", data: { title: "Numbers",
+en.cards.splice(0, 0, { type: "numbers2", data: { title: "Numbers",
     banner: { fig: "50%", lab: "Average tariff on Canadian goods — up from 2% in January." },
     cols: [["2%", 6, "Jan"], ["10%", 18, "Mar"], ["22%", 32, "May"], ["25%", 36, "Jun"], ["50%", 62, "Jul", "50% — the new blanket order", true]],
     para: { p: "For scale: the 2018 steel dispute peaked at 25%. This week's order [b:doubles |it] in one step.",
             c: "For scale: the 2018 steel dispute peaked at 25%. This week's order [b:doubles |it] in a single step.",
             e: "The last big fight, in 2018, topped out at 25%. This new rule [b:doubles |it] in one go." } },
-  conn: { def: "That is the climb. Here is the machinery that moves it to your receipt.",
-          e5: "📈 That's the climb. Now the machine that moves it onto YOUR receipt. 🧾" } });
+  conn: { def: "That is the climb. Now the ledger — what the order actually covers.",
+          e5: "📈 That's the climb. Now the ledger — what this order actually covers. 📋" } });
 en.tabs.splice(1, 0, "Numbers");
-zh.cards.splice(1, 0, { type: "numbers2", data: { title: "數字",
+zh.cards.splice(0, 0, { type: "numbers2", data: { title: "數字",
     banner: { fig: "50%", lab: "對加拿大貨品的平均關稅——1月時僅為2%。" },
     cols: [["2%", 6, "1月"], ["10%", 18, "3月"], ["22%", 32, "5月"], ["25%", 36, "6月"], ["50%", 62, "7月", "50%——全面關稅令生效", true]],
     para: "作個對比：2018年鋼鋁爭端高位是25%。本週的命令一步[b:翻|倍]。" },
-  conn: { def: "升勢講完。接下來是把它搬到你單據上的機器。" } });
+  conn: { def: "升勢講完。接下來看帳目——這道命令實際涵蓋甚麼。" } });
 zh.tabs.splice(1, 0, "數字");
 en.pop = {
   "politics": "Retaliation lists, USMCA panels, emergency talks — the formal machinery. It moves in months; supply chains reprice in weeks.",

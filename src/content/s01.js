@@ -17,8 +17,8 @@ module.exports = {
           e: "The people in charge call it 'pressure'. But nobody — not one briefing — has said **how this is supposed to end**." }
       ]
     },
-    heroConn: { def: "The numbers behind the campaign are not in dispute. Almost everything else is.",
-                e5: "🔢 The numbers aren't in doubt — almost everything else is. 🤷" },
+    heroConn: { def: "Start with where. Five provinces struck, and one channel that prices the world.",
+                e5: "🗺️ Let's start with WHERE. Five provinces hit — and one channel that prices the world. 🌍" },
     cards: [
       { type: "keyfacts", data: {
           tiles: [{ fig: "5,000+", lab: "targets struck" }, { fig: "$140", lab: "Brent crude, past" }],
@@ -30,8 +30,8 @@ module.exports = {
               c: "The two sides' casualty counts are [o:three thousand lives |apart], and the stated goal has drifted — from nuclear sites to [kw:restoring deterrence].",
               e: "The two sides can't agree how many people have died — their counts are [o:three thousand |apart]. And the goal keeps changing: first nuclear sites, now [kw:restoring deterrence]." }
           ] },
-        conn: { def: "Those are the facts on the record. Here's why they reach your wallet.",
-                e5: "📋 Those are the facts. Now here's why they reach YOUR wallet. 👛" } },
+        conn: { def: "Those are the facts on the record. Here's what could still go wrong.",
+                e5: "📋 Those are the facts. Now — what could still go wrong? ⚠️" } },
       { type: "why", data: {
           boxes: [
             { vis: "⛽", lab: "Your fuel",
@@ -88,7 +88,7 @@ module.exports = {
         "官員把行動形容為「施壓」。但十二日以來，沒有任何一場簡報講過**這一切如何收科**。"
       ]
     },
-    heroConn: { def: "行動背後的數字並無爭議。其餘幾乎一切都有。" },
+    heroConn: { def: "先由地點講起。五個省份被襲，一條為全球定價的水道。" },
     cards: [
       { type: "keyfacts", data: {
           tiles: [{ fig: "5,000+", lab: "個目標被擊中" }, { fig: "$140", lab: "布蘭特期油升穿" }],
@@ -96,7 +96,7 @@ module.exports = {
             "[g:霍爾木茲海峽已對商船|封閉]——歷史上首次全面封鎖。油輪通航量連續七日歸零，保險商已全面撤保。",
             "死亡數字[o:雙方統計相差|三千]，而宣稱目標已由核設施轉為[kw:重建威懾]。"
           ] },
-        conn: { def: "這些是紀錄在案的事實。接下來看它們如何摸到你的錢包。" } },
+        conn: { def: "這些是紀錄在案的事實。接下來看還有甚麼可以出錯。" } },
       { type: "why", data: {
           boxes: [
             { vis: "⛽", lab: "你的燃油", para: "全球五分之一的石油平日取道此峽。一旦封鎖，**每一桶油都要重新定價**——包括你油缸裏那一桶。" },
@@ -121,7 +121,7 @@ module.exports = {
 /* ===== P2: interactive kit cards ===== */
 const SCH = require("../schematics.js");
 const en = module.exports.en, zh = module.exports.zh;
-en.cards.splice(1, 0,
+en.cards.splice(0, 0,
   { type: "map", data: { title: "Map", mapKey: "gulf", schem: SCH.gulf,
       legend: [["#800080", "Strike zones"], ["#ec4837", "Chokepoint"]],
       para: { p: "Strikes cluster across five provinces. The pivotal point is the Strait of Hormuz, [g:now |closed].",
@@ -134,7 +134,7 @@ en.cards.splice(1, 0,
       ["11:52", "Oman confirms a third round of quiet mediation \"remains open\"."],
       ["14:30", "Brent crude passes $140; surcharges appear in retail freight quotes."]] },
     conn: { def: "That is the day so far. Step back for the ledger of what is known.", e5: "🕐 That's today so far. Now zoom out for the big picture. 🔭" } });
-en.cards.splice(5, 0,
+en.cards.splice(3, 0,
   { type: "risk2", data: { title: "Risk", rows: [
       ["high", "High", "A prolonged closure", "Supply strain spreads to nearby markets within weeks; surcharges reach shelf prices."],
       ["med", "Medium", "The conflict widens", "One miscalculation pulls in a third party; the risk does not stay inside a border."],
@@ -150,7 +150,7 @@ en.cards.splice(5, 0,
               e: "Tap a dial to see why it's moving. The numbers are smart guesses, not promises." } },
     conn: { def: "Those are the dials. Here is why they reach your wallet.", e5: "🎛️ Those are the dials. Here's why they reach YOUR wallet. 👛" } });
 en.tabs = ["The Story", "Map", "Timeline", "Key Facts", "Risk", "Signal", "Why This Matters", "What's Next"];
-zh.cards.splice(1, 0,
+zh.cards.splice(0, 0,
   { type: "map", data: { title: "地圖", mapKey: "gulf", schem: SCH.gulf,
       legend: [["#800080", "空襲區"], ["#ec4837", "咽喉要道"]],
       para: "空襲集中於五個省份。整場危機的支點，是[g:已經|封鎖]的霍爾木茲海峽。" },
@@ -161,7 +161,7 @@ zh.cards.splice(1, 0,
       ["11:52", "阿曼證實第三輪低調斡旋「渠道仍然打開」。"],
       ["14:30", "布蘭特期油升穿140美元；附加費現身零售運費報價。"]] },
     conn: { def: "這是今日的進度。退一步，看看已知的帳目。" } });
-zh.cards.splice(5, 0,
+zh.cards.splice(3, 0,
   { type: "risk2", data: { title: "風險", rows: [
       ["high", "高", "封鎖持續", "供應壓力數星期內波及鄰近市場；附加費直達零售價。"],
       ["med", "中", "衝突擴大", "一次誤判就足以捲入第三方；風險不會乖乖留在國界之內。"],

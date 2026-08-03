@@ -17,8 +17,8 @@ module.exports = {
           e: "Good news or bad news? Depends whether [kw:you own the flat or rent it]." }
       ]
     },
-    heroConn: { def: "The numbers, measured — from two independent indices.",
-                e5: "📏 The numbers — measured twice, by two different rulers. 📊" },
+    heroConn: { def: "Start with where. The squeeze has a shape, district by district.",
+                e5: "🗺️ Start with WHERE — the squeeze has a shape, district by district. 🏙️" },
     cards: [
       { type: "keyfacts", data: {
           tiles: [{ fig: "+3.8%", lab: "rents, H1" }, { fig: "$18.9K", lab: "median 1-bed, urban" }],
@@ -34,8 +34,8 @@ module.exports = {
           para: { p: "The pattern is district-led: **Hung Hom is up 6.2%**, fastest since 2016 — universities first, then the [b:rail |lines].",
                   c: "It's district-led: **Hung Hom leads at +6.2%**, the fastest since 2016 — university areas first, then the [b:rail |lines].",
                   e: "Some districts move first: **Hung Hom is up 6.2%**, the fastest anywhere. First near the universities, then along the [b:train |lines]." } },
-        conn: { def: "A number at a record is one thing. Queuing on a staircase is another.",
-                e5: "📈 A record number is one thing. Queuing on a staircase for a flat is another. 🪜" } },
+        conn: { def: "A number at a record is one thing. What it does to you is another.",
+                e5: "📈 A record number is one thing. What it does to YOU is another. 🫵" } },
       { type: "why", data: {
           boxes: [
             { vis: "✍️", lab: "Your lease", para: "Renewal letters now open **$1,500–2,000 higher**; agents call waiting 'paying'." },
@@ -70,7 +70,7 @@ module.exports = {
         "這是復甦還是壓力，視乎你[kw:坐在租約的哪一邊]。"
       ]
     },
-    heroConn: { def: "實測的數字——來自兩個獨立指數。" },
+    heroConn: { def: "先由地點講起。這股壓力，逐區有形有狀。" },
     cards: [
       { type: "keyfacts", data: {
           tiles: [{ fig: "+3.8%", lab: "上半年租金" }, { fig: "$18.9K", lab: "市區一房月租中位數" }],
@@ -83,7 +83,7 @@ module.exports = {
           then: { lab: "2016", fig: "124.9", desc: "指數高位——上一次業主週中改價的年份" },
           now: { lab: "現在", fig: "124.5", desc: "連升七個月後，距離紀錄只差一個普通月份的升幅" },
           para: "格局由地區帶動：**紅磡升6.2%**、全港最快——大學周邊先行，然後沿[b:鐵路|線]擴散。" },
-        conn: { def: "數字迫近紀錄是一回事，喺樓梯排隊睇樓係另一回事。" } },
+        conn: { def: "數字迫近紀錄是一回事，它對你有甚麼影響，是另一回事。" } },
       { type: "why", data: {
           boxes: [
             { vis: "✍️", lab: "你的租約", para: "續約信開價**貴$1,500至2,000**；代理話：等，就係付鈔。" },
@@ -109,7 +109,7 @@ module.exports = {
 {
 const SCH = require("../schematics.js");
 const en = module.exports.en, zh = module.exports.zh;
-en.cards.splice(1, 0,
+en.cards.splice(0, 0,
   { type: "map", data: { title: "Map", mapKey: "hk", schem: SCH.hk,
       legend: [["#800080", "Rent change, H1"], ["#ec4837", "Steepest district"]],
       para: { p: "The squeeze is not even. Districts near universities climb fastest, led by [g:Hung Hom at |+6.2%].",
@@ -130,7 +130,7 @@ en.cards.splice(1, 0,
       tiles: ["url('../assets/img/hero-flatshare.jpg') left center/cover", "url('../assets/img/card-flatshare.jpg') center/cover", "url('../assets/img/hero-flatshare.jpg') right center/cover", "url('../assets/img/card-flatshare.jpg') left top/cover"] },
     conn: { def: "That is the street. The ledger of what is measured comes next.", e5: "🎬 That's the street. Now the measured facts. 📋" } });
 en.tabs = ["The Story", "Map", "Numbers", "On the Ground", "Key Facts", "Then vs Now", "Why This Matters", "What's Next"];
-zh.cards.splice(1, 0,
+zh.cards.splice(0, 0,
   { type: "map", data: { title: "地圖", mapKey: "hk", schem: SCH.hk,
       legend: [["#800080", "上半年租金變動"], ["#ec4837", "升幅最急地區"]],
       para: "壓力並不平均。大學周邊地區升得最快，[g:紅磡以+6.2%|領先]。" },
