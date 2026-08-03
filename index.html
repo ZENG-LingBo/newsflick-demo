@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#ffe9e0">
+<meta name="theme-color" content="#000000">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Fliq — Demo</title>
@@ -24,12 +24,12 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
 
 /* ---- opening screen ---- */
 .splash{position:absolute;inset:0;z-index:40;display:flex;flex-direction:column;
-  background:linear-gradient(180deg,#ffe9e0 0%,#ffd3c3 100%);
+  background:#000;
   transition:transform .5s cubic-bezier(.5,0,.2,1),opacity .5s ease}
 .splash.off{transform:translateY(-102%);opacity:.4;pointer-events:none}
 .splash .sun{position:absolute;top:34%;left:50%;transform:translate(-50%,-50%);
   width:300px;height:300px;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle,#ffab6e 0%,#ffab6e 38%,rgba(255,171,110,0) 74%)}
+  background:radial-gradient(circle,rgba(128,0,128,.42) 0%,rgba(128,0,128,.18) 42%,rgba(128,0,128,0) 72%)}
 .splash .inner{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;
   justify-content:center;gap:10px;padding:32px 28px calc(40px + env(safe-area-inset-bottom))}
 
@@ -39,7 +39,7 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
    bars flick away top-first, paling out -> seed beat -> repeat. ---- */
 .fliq-logo{width:64px;height:64px;margin-bottom:6px;display:block}
 .fliq-logo .fl-bar{fill:#800080;transform-box:fill-box;transform-origin:0 100%;
-  filter:drop-shadow(0 1.5px 2px rgba(61,0,61,.16))}
+  filter:drop-shadow(0 2px 8px rgba(178,64,178,.35))}
 .fliq-logo .fl-seed{fill:#ecd9ee;opacity:0;transform-box:fill-box;transform-origin:50% 50%}
 .fliq-logo .fl-seed{animation:fl-seed 4.6s linear infinite}
 .fliq-logo .fl-b3{animation:fl-b3 4.6s cubic-bezier(.3,.1,.25,1) infinite}
@@ -89,9 +89,9 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
   .fliq-logo .fl-bar,.fliq-logo .fl-seed{animation:none}
 }
 .splash h1{font-family:'Space Grotesk','Noto Sans HK',sans-serif;font-weight:700;font-size:40px;
-  line-height:44px;color:#272a27;letter-spacing:-.02em}
-.splash .tag{font-size:15px;line-height:22px;color:#61443a;text-align:center;max-width:270px}
-.splash .tag b{display:block;color:#272a27;font-weight:600}
+  line-height:44px;color:#fff;letter-spacing:-.02em}
+.splash .tag{font-size:15px;line-height:22px;color:#a9a1ad;text-align:center;max-width:270px}
+.splash .tag b{display:block;color:#fff;font-weight:600}
 .splash .langs{margin-top:38px;display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px}
 .langbig{display:flex;align-items:center;justify-content:space-between;width:100%;
   background:#fff;border:1px solid rgba(67,71,66,.12);border-radius:999px;padding:16px 22px;
@@ -101,7 +101,7 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
 .langbig .arr{color:#800080;font-weight:700}
 .langbig--zh{background:#800080;border-color:transparent;color:#fff}
 .langbig--zh .arr{color:#c9fa85}
-.splash .foot{position:relative;text-align:center;font-size:11.5px;color:#8a6a5c;
+.splash .foot{position:relative;text-align:center;font-size:11.5px;color:#6f6a73;
   padding-bottom:calc(14px + env(safe-area-inset-bottom))}
 
 /* ---- desktop side rail ---- */
