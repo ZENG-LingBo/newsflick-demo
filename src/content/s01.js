@@ -265,3 +265,40 @@ nx.conn.e5 = "🌊 海峽講完。下一單嘢：你屋企細路上網可以同�
 
 zh.ovConn.e5 = "📱 細路上網嘅世界唔係一夜之間變咗——變咗嘅，係大人終於落場處理。🤯";
 }
+
+/* ===== typed inline-transparency entries (design from the single-file demo) ===== */
+{
+const en = module.exports.en, zh = module.exports.zh;
+const CLOSED_EN = { rows: [
+  ["Who confirmed it", "Transit trackers show zero tanker passages for seven straight days, and both governments acknowledge the closure."],
+  ["Why we're sure", "The tracking data is measured independently of either side."],
+  ["Why it matters", "It is one of the few points in this story every party agrees on."]],
+  src: ["Independent transit trackers", "Frontline Wire"] };
+en.pop = {
+  "strait of hormuz": { def: "A 33km-wide channel between Iran and Oman — the only sea route out of the Persian Gulf. About a fifth of global oil normally passes through it. It has never been fully closed before now." },
+  "restoring deterrence": { def: "The campaign's stated aim since week two — a posture, not a target list. The language shift from 'nuclear sites' is documented; what it means about intent is interpretation." },
+  "now closed": CLOSED_EN,
+  "strait of hormuz has closed to shipping": CLOSED_EN,
+  "disputed by three thousand lives": { rows: [
+    ["What's disputed", "How many people the campaign has killed."],
+    ["Who says what", "Officials on each side publish figures that serve their case — the counts differ by roughly three thousand."],
+    ["Why the gap exists", "No independent monitor can reach the strike zones, so nobody can settle the number."]],
+    src: ["Frontline Wire"] }
+};
+const CLOSED_ZH = { rows: [
+  ["誰證實", "航運追蹤數據連續七日錄得零通航，兩國政府均承認封鎖。"],
+  ["為何可信", "數據由第三方獨立量度，不受任何一方左右。"],
+  ["為何重要", "這是全篇報道中，各方罕有一致同意的事實。"]],
+  src: ["獨立航運追蹤機構", "Frontline Wire"] };
+zh.pop = {
+  "霍爾木茲海峽": { def: "伊朗與阿曼之間一條闊33公里的水道，是波斯灣唯一出海口。全球約五分之一的石油平日取道於此。此前從未全面封鎖。" },
+  "重建威懾": { def: "行動方自第二週起的官方說法——是姿態，不是目標清單。措辭由「核設施」轉變有紀錄可查；意圖為何則屬解讀。" },
+  "已經封鎖": CLOSED_ZH,
+  "霍爾木茲海峽已對商船封閉": CLOSED_ZH,
+  "雙方統計相差三千": { rows: [
+    ["爭議所在", "這場行動到底造成多少人死亡。"],
+    ["各方說法", "兩邊官方各自公布對己有利的數字——相差約三千。"],
+    ["分歧因何而生", "獨立監察無法進入空襲區，數字無從釐清。"]],
+    src: ["Frontline Wire"] }
+};
+}

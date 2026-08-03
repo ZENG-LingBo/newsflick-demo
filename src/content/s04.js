@@ -243,3 +243,71 @@ nx.conn.e5 = "🏁 四篇讀晒——今日嘅必讀，收工！🎉";
 
 zh.ovConn.e5 = "🔢 啲數字冇得拗——其餘樣樣都拗緊。🤷";
 }
+
+/* ===== typed inline-transparency entries (design from the single-file demo) ===== */
+{
+const en = module.exports.en, zh = module.exports.zh;
+const HUNGHOM_EN = { rows: [
+  ["Who confirmed it", "District-level leasing data compiled by two competing agencies — both publish the same ranking."],
+  ["Why we're sure", "Rivals with no reason to agree, agreeing."],
+  ["Why it matters", "Universities-first identifies the marginal renter driving the market."]],
+  src: ["District leasing reports"] };
+en.pop = {
+  "which side of a lease you sit": { def: "The same index reads as recovery to owners and squeeze to tenants. The number is one fact; good or bad is a position." },
+  "seven months straight": { rows: [
+    ["Who confirmed it", "The Rating and Valuation Department's published monthly table shows seven consecutive rises."],
+    ["Why we're sure", "Directly readable from the official series, cross-checked against Centaline's leading index."],
+    ["Why it matters", "Duration is what separates a trend from a blip."]],
+    src: ["RVD monthly index", "Centaline leading index"] },
+  "rebounding up to 19% over two years": { rows: [
+    ["Whose view this is", "A widely cited analyst scenario (Bloomberg Intelligence), not an official forecast."],
+    ["Why it's analysis, not fact", "It depends entirely on rental demand converting into purchases — a handover that has not happened yet."]],
+    src: ["Bloomberg Intelligence"] },
+  "still debated": { rows: [
+    ["What's disputed", "How much of the rise comes from policy-driven inflow versus the regional cycle."],
+    ["Who says what", "Government points to talent-scheme approvals; independent economists note regional markets moved the same way."],
+    ["Why the gap exists", "The two effects arrived together and cannot be cleanly separated yet."]],
+    src: ["Government statements", "Independent economists"] },
+  "hung hom at +6.2%": HUNGHOM_EN,
+  "hung hom leads at +6.2%": HUNGHOM_EN,
+  "one normal month away": { rows: [
+    ["Whose view this is", "Simple arithmetic on the official series."],
+    ["Why it's analysis, not fact", "The index has averaged +0.9 points a month since January; the record sits 0.4 above July's print. 'The average holds' is the assumption."]],
+    src: ["RVD monthly index"] },
+  "rail lines": { rows: [
+    ["Whose view this is", "District agents reading where demand lands next."],
+    ["Why it's analysis, not fact", "Sha Tin and Tai Wai track commuter demand, Tseung Kwan O absorbs new supply — the sequence is observed, the extrapolation is not."]],
+    src: ["District leasing reports"] }
+};
+const HUNGHOM_ZH = { rows: [
+  ["誰證實", "兩間互相競爭的代理行編製的分區租務數據——排名一致。"],
+  ["為何可信", "無理由夾口供的對手，得出同一結論。"],
+  ["為何重要", "「大學周邊先行」點出推動市場的邊際租客。"]],
+  src: ["分區租務報告"] };
+zh.pop = {
+  "坐在租約的哪一邊": { def: "同一個指數，業主讀作復甦，租客讀作壓力。數字是事實；「好事定壞事」是立場。" },
+  "連升七個月": { rows: [
+    ["誰證實", "差餉物業估價署按月數表錄得連升七個月。"],
+    ["為何可信", "官方數列直接可讀，並與中原領先指數互相核對。"],
+    ["為何重要", "持續時間，正是趨勢與雜音的分界。"]],
+    src: ["差估署按月指數", "中原領先指數"] },
+  "兩年內反彈最多19%": { rows: [
+    ["這是誰的觀點", "被廣泛引用的分析員情景推算（彭博行業研究），並非官方預測。"],
+    ["為何屬分析而非事實", "前提是租務需求轉化為置業——這一步接力至今未發生。"]],
+    src: ["彭博行業研究"] },
+  "仍有爭論": { rows: [
+    ["爭議所在", "升幅有幾多來自政策輸入人才、幾多屬區域周期。"],
+    ["各方說法", "政府引用人才計劃批核；獨立經濟學者指區內市場同步向上。"],
+    ["分歧因何而生", "兩股力量同時出現，暫難乾淨分割。"]],
+    src: ["政府聲明", "獨立經濟學者"] },
+  "紅磡以+6.2%領先": HUNGHOM_ZH,
+  "一個普通月份的升幅": { rows: [
+    ["這是誰的觀點", "對官方數列的簡單算術。"],
+    ["為何屬分析而非事實", "指數自1月起平均每月升0.9點；紀錄只比7月讀數高0.4點。「平均持續」正是假設所在。"]],
+    src: ["差估署按月指數"] },
+  "鐵路線": { rows: [
+    ["這是誰的觀點", "地區代理按需求落點推斷下一浪去向。"],
+    ["為何屬分析而非事實", "沙田大圍反映通勤需求、將軍澳吸納新供應——排序是觀察，外推不是。"]],
+    src: ["分區租務報告"] }
+};
+}

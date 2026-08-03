@@ -91,13 +91,30 @@
 .c-ground .strip{display:flex;gap:8px;overflow-x:auto;margin-top:10px;padding-bottom:4px;max-width:100%}
 .c-ground .strip span{flex:none;width:156px;height:104px;border-radius:10px;background-size:cover;background-position:center}
 
-/* ---- popover (NF_POP on .kw and .chip spans) ---- */
+/* ---- inline transparency popover (typed; design from the single-file demo) ---- */
 .kw,.chip,.chip-i{cursor:pointer}
-.kit-pop{position:absolute;z-index:60;max-width:290px;background:#fff;border:1px solid rgba(67,71,66,.12);
-  border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);padding:12px;display:none;
-  font-family:'Inter','Noto Sans HK',sans-serif}
+.kit-pop{position:absolute;z-index:60;width:300px;max-width:calc(100% - 16px);background:#1c1f1c;color:#fff;
+  padding:14px 15px 15px;border-radius:16px;box-shadow:0 16px 46px rgba(0,0,0,.42);display:none;
+  font-family:'Inter','Noto Sans HK',sans-serif;font-size:13px;line-height:1.46}
 .kit-pop.on{display:block}
-.kit-pop .hd2{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.kit-pop .lbl{font-size:11px;font-weight:700;letter-spacing:.06em;color:#616460}
-.kit-pop .x{border:0;background:none;font-size:16px;color:#8e918e;cursor:pointer;padding:2px}
-.kit-pop .def{font-size:13px;line-height:19px;color:#1d201d}
+.kit-pop .hd2{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.kit-pop .lbl{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase}
+.kit-pop .lbl .dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.kit-pop .x{background:none;border:0;color:rgba(255,255,255,.55);font-size:19px;line-height:1;
+  cursor:pointer;padding:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center}
+.kit-pop .row{margin:0 0 8px;color:rgba(255,255,255,.86)}
+.kit-pop .row:last-of-type{margin-bottom:0}
+.kit-pop .row b{font-weight:600;color:#fff}
+.kit-pop .def{margin:0;color:rgba(255,255,255,.9)}
+.kit-pop .src{margin:10px 0 0;color:rgba(255,255,255,.62);font-size:12px}
+.kit-pop .src .pchip{color:#fff;font-weight:500;white-space:nowrap}
+.kit-pop .src .pchip .cd{display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:currentColor;margin-right:5px;vertical-align:1px;opacity:.85}
+.kit-pop .save{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:#fff;color:#1c1f1c;
+  border:0;border-radius:999px;padding:8px 13px;font-family:inherit;font-weight:600;font-size:12px;cursor:pointer}
+.kit-pop .save:disabled{opacity:.75;cursor:default}
+.kit-pop.t-keyword .lbl{color:#c6a4ff}
+.kit-pop.t-confirmed .lbl{color:#7fd39a}
+.kit-pop.t-disputed .lbl{color:#f2867f}
+.kit-pop.t-analysis .lbl{color:#8ab6ff}

@@ -83,9 +83,13 @@
     });
   });
 
-  /* ---- popovers on .kw / .chip spans ---- */
+  /* ---- inline transparency popovers on .kw / .chip spans ----
+     Typed, matching the original single-file demo: the span's colour decides the
+     type; entries are {def} for key terms or {rows:[[label,text]...], src:[...]}
+     for evidence notes. Untyped strings render as a plain definition. */
   var pop = null;
-  function norm(s){ return (s||'').replace(/\s+/g,' ').trim().toLowerCase().replace(/[.,;:。，；：]+$/,''); }
+  function norm(s){ return (s||'').replace(/’/g,"'").replace(/\s+/g,' ').trim().toLowerCase().replace(/[.,;:。，；：]+$/,''); }
+  function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function closePop(){ if(pop){ pop.classList.remove('on'); } }
   /* two-part chips render as body+end sibling spans; keys are the full phrase,
      so a tap on either half must resolve against the joined text */
@@ -101,32 +105,51 @@
     }
     return t;
   }
-  /* honest fallback for chips without an authored note: explain what the colour
-     itself asserts, and point at the Confidence Signal. [label, body] pairs. */
+  var LBL = ZH
+    ? { keyword:'關鍵詞', confirmed:'已證實', disputed:'有爭議', analysis:'分析' }
+    : { keyword:'Key term', confirmed:'Confirmed', disputed:'Disputed', analysis:'Analysis' };
+  /* honest fallback rows for spans without an authored note */
   var FB = ZH ? {
-    g: ['已證實', '綠色標示＝已證實的事實，有多個獨立來源支持。完整出處請看本篇的可信度訊號。'],
-    o: ['注意', '橙色標示＝仍有保留：數字或說法有爭議、或屬暫時估計。可信度訊號列出各方說法。'],
-    b: ['分析', '藍色標示＝分析：推算或解讀，並非已定案的事實。'],
-    i: ['分析', '藍色標示＝分析：推算或解讀，並非已定案的事實。']
+    keyword: '跟進這篇報道值得認識的詞語。',
+    confirmed: '此處標示為已證實：有多個獨立來源支持。完整出處見本篇的可信度訊號。',
+    disputed: '此處標示為有爭議：數字或說法仍在爭論——可信度訊號列出各方說法。',
+    analysis: '此處標示為分析：推算或解讀，並非已定案的事實。'
   } : {
-    g: ['CONFIRMED', 'Green marks a confirmed fact, supported by multiple independent sources. The Confidence Signal has the sourcing.'],
-    o: ['CAUTION', 'Orange marks a contested or provisional figure — the Confidence Signal lays out both sides.'],
-    b: ['ANALYSIS', 'Blue marks analysis: a projection or interpretation, not a settled fact.'],
-    i: ['ANALYSIS', 'Blue marks analysis: a projection or interpretation, not a settled fact.']
+    keyword: 'A term worth knowing to follow this story.',
+    confirmed: 'Marked confirmed in this story — supported by multiple independent sources. The Confidence Signal has the sourcing.',
+    disputed: 'Marked disputed in this story — the figure or claim is contested. The Confidence Signal lays out both sides.',
+    analysis: 'Marked analysis in this story — a projection or interpretation, not a settled fact.'
   };
-  function fallbackFor(el){
-    if(el.classList.contains('chip-i')) return FB.i;
-    if(el.classList.contains('chip-g')) return FB.g;
-    if(el.classList.contains('chip-o')) return FB.o;
-    if(el.classList.contains('chip-b')) return FB.b;
-    return null; /* a bare .kw with no entry stays silent */
+  function typeOf(el){
+    if(el.classList.contains('kw')) return 'keyword';
+    if(el.classList.contains('chip-g')) return 'confirmed';
+    if(el.classList.contains('chip-o')) return 'disputed';
+    return 'analysis'; /* chip-b and chip-i */
+  }
+  function srcHtml(src){
+    if(!src || !src.length) return '';
+    var chips = src.map(function(n){ return '<span class="pchip"><span class="cd"></span>' + esc(n) + '</span>'; });
+    var joined = chips.length > 1
+      ? chips.slice(0, -1).join(ZH ? '、' : ', ') + (ZH ? ' 及 ' : ' and ') + chips[chips.length - 1]
+      : chips[0];
+    return '<p class="src">' + (ZH ? '來源：' : 'Sources: ') + joined + '</p>';
+  }
+  function bodyHtml(type, entry){
+    if(typeof entry === 'string') entry = { def: entry };
+    if(entry.rows){
+      return entry.rows.map(function(r){
+        return '<p class="row">' + (r[0] ? '<b>' + esc(r[0]) + ':</b> ' : '') + esc(r[1]) + '</p>';
+      }).join('') + srcHtml(entry.src);
+    }
+    var def = '<p class="def">' + esc(entry.def || FB[type]) + '</p>';
+    if(type === 'keyword') def += '<button class="save" type="button">' + (ZH ? '存入詞彙日記' : 'Save to keyword diary') + '</button>';
+    return def;
   }
   document.addEventListener('click', function(e){
     var el = e.target.closest ? e.target.closest('.kw,.chip,.chip-i') : null;
     if(!el){ closePop(); return; }
-    var key = norm(chipText(el));
-    var entry = K.pop[key] || fallbackFor(el);
-    if(!entry) return;
+    var type = typeOf(el);
+    var entry = K.pop[norm(chipText(el))] || (type === 'keyword' ? { def: FB.keyword } : { rows: [['', FB[type]]] });
     e.stopPropagation();
     var host = el.closest('.nf-phone') || document.body;
     if(!pop || pop.parentNode !== host){
@@ -135,12 +158,14 @@
       pop.addEventListener('click', function(ev){ ev.stopPropagation(); });
       host.appendChild(pop);
     }
-    var lbl = ZH ? '關鍵詞' : 'KEY TERM', def = entry;
-    if (Object.prototype.toString.call(entry) === '[object Array]'){ lbl = entry[0]; def = entry[1]; }
-    pop.innerHTML = '<div class="hd2"><span class="lbl">' + lbl +
-      '</span><button class="x" type="button">×</button></div><p class="def"></p>';
-    pop.querySelector('.def').textContent = def;
+    pop.className = 'kit-pop t-' + type;
+    pop.innerHTML = '<div class="hd2"><span class="lbl"><span class="dot"></span>' + LBL[type] +
+      '</span><button class="x" type="button">×</button></div>' + bodyHtml(type, entry);
     pop.querySelector('.x').addEventListener('click', function(ev){ ev.stopPropagation(); closePop(); });
+    var save = pop.querySelector('.save');
+    if(save) save.addEventListener('click', function(ev){
+      ev.stopPropagation(); save.textContent = ZH ? '已儲存 ✓' : 'Saved ✓'; save.disabled = true;
+    });
     pop.classList.add('on');
     var hr = host.getBoundingClientRect(), r = el.getBoundingClientRect();
     var top = r.top - hr.top + host.scrollTop - pop.offsetHeight - 10;

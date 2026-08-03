@@ -389,3 +389,38 @@ nx.conn.e5 = "🗓️ 一條死線，幾個懸念——成個歐洲攞緊筆記�
 
 zh.ovConn.e5 = "🏷️ 改變會先上價錢牌，之後先寫入條約。🧾";
 }
+
+/* ===== typed inline-transparency entries (design from the single-file demo) ===== */
+{
+const en = module.exports.en, zh = module.exports.zh;
+en.pop = {
+  "verify age": { def: "Checking a user really is the age they claim — usually via ID or a face-estimation scan — rather than trusting a typed birth date. The only way a ban can be enforced, and it applies to every user of every age." },
+  "reasonable steps": { def: "The legal standard platforms must meet: demonstrable, proportionate efforts to detect and remove under-16 accounts. What counts as reasonable is what the courts will end up defining." },
+  "framing": { def: "The choice of which facts to place at the centre of a story. The same vote can be told as protecting children or restricting freedom — both true, each steering the reader differently." },
+  "correlational": { def: "Correlational research shows two things move together — more social media, lower wellbeing — without proving one causes the other. Most evidence in this debate is correlational, which is why the average effect is real but small and hard to act on." },
+  "no exemption for parental consent": { rows: [
+    ["Who confirmed it", "The exemption's absence is written into the promulgated statute."],
+    ["Why we're sure", "The legislative text is public record."],
+    ["Why it matters", "Unlike earlier proposals, a parent's approval changes nothing — under 16 means no account, full stop."]],
+    src: ["CNIL", "Frontline Wire"] },
+  "the thing that replaces it": { rows: [
+    ["Whose view this is", "Policy analysts framing the debate as a choice of replacement, not a defence of the status quo."],
+    ["Why it's analysis, not fact", "Both sides agree 13 failed; whether a ban is the right replacement is a judgement, not a settled outcome."]],
+    src: ["Meridian Institute for Child Wellbeing"] }
+};
+zh.pop = {
+  "核實年齡": { def: "查證用戶申報的年齡屬實——通常靠身份證明或人臉年齡估算，而非單信自填的出生日期。禁令唯一的執行方法，適用於所有年齡的每一位用戶。" },
+  "合理措施": { def: "平台須達到的法律標準：可證明、成比例地偵測及移除16歲以下帳戶。何謂「合理」，最終由法庭定義。" },
+  "敘事框架": { def: "選擇把哪些事實放在報道中心。同一次表決，可以寫成「保護兒童」，也可以寫成「限制自由」——兩者皆真，卻把讀者引向不同結論。" },
+  "相關性": { def: "相關性研究只顯示兩件事同步變化——社交媒體用得多、身心狀態較差——卻證明不了因果。這場辯論的證據大多屬此類，所以平均影響真實存在、但幅度小，亦難以據此行動。" },
+  "家長同意也不獲豁免": { rows: [
+    ["誰證實", "「不設豁免」白紙黑字寫入已頒布的法例。"],
+    ["為何可信", "立法文本屬公開紀錄。"],
+    ["為何重要", "與早年方案不同：家長批准也改變不了甚麼——未滿16歲就是不能有帳戶。"]],
+    src: ["法國資訊自由委員會", "Frontline Wire"] },
+  "用甚麼取代它": { rows: [
+    ["這是誰的觀點", "政策分析者把辯論定性為「選擇替代方案」，而非「捍衛現狀」。"],
+    ["為何屬分析而非事實", "雙方都同意13歲那條線已失敗；禁令是否正確的替代，是判斷，不是定論。"]],
+    src: ["Meridian Institute for Child Wellbeing"] }
+};
+}

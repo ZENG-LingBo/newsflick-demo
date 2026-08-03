@@ -755,16 +755,33 @@ body{margin:0;background:#c9ccc9;min-height:100vh;display:flex;align-items:cente
 .c-ground .strip{display:flex;gap:8px;overflow-x:auto;margin-top:10px;padding-bottom:4px;max-width:100%}
 .c-ground .strip span{flex:none;width:156px;height:104px;border-radius:10px;background-size:cover;background-position:center}
 
-/* ---- popover (NF_POP on .kw and .chip spans) ---- */
+/* ---- inline transparency popover (typed; design from the single-file demo) ---- */
 .kw,.chip,.chip-i{cursor:pointer}
-.kit-pop{position:absolute;z-index:60;max-width:290px;background:#fff;border:1px solid rgba(67,71,66,.12);
-  border-radius:12px;box-shadow:0 12px 28px rgba(0,0,0,.18);padding:12px;display:none;
-  font-family:'Inter','Noto Sans HK',sans-serif}
+.kit-pop{position:absolute;z-index:60;width:300px;max-width:calc(100% - 16px);background:#1c1f1c;color:#fff;
+  padding:14px 15px 15px;border-radius:16px;box-shadow:0 16px 46px rgba(0,0,0,.42);display:none;
+  font-family:'Inter','Noto Sans HK',sans-serif;font-size:13px;line-height:1.46}
 .kit-pop.on{display:block}
-.kit-pop .hd2{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
-.kit-pop .lbl{font-size:11px;font-weight:700;letter-spacing:.06em;color:#616460}
-.kit-pop .x{border:0;background:none;font-size:16px;color:#8e918e;cursor:pointer;padding:2px}
-.kit-pop .def{font-size:13px;line-height:19px;color:#1d201d}
+.kit-pop .hd2{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.kit-pop .lbl{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase}
+.kit-pop .lbl .dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.kit-pop .x{background:none;border:0;color:rgba(255,255,255,.55);font-size:19px;line-height:1;
+  cursor:pointer;padding:0;width:22px;height:22px;display:flex;align-items:center;justify-content:center}
+.kit-pop .row{margin:0 0 8px;color:rgba(255,255,255,.86)}
+.kit-pop .row:last-of-type{margin-bottom:0}
+.kit-pop .row b{font-weight:600;color:#fff}
+.kit-pop .def{margin:0;color:rgba(255,255,255,.9)}
+.kit-pop .src{margin:10px 0 0;color:rgba(255,255,255,.62);font-size:12px}
+.kit-pop .src .pchip{color:#fff;font-weight:500;white-space:nowrap}
+.kit-pop .src .pchip .cd{display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:currentColor;margin-right:5px;vertical-align:1px;opacity:.85}
+.kit-pop .save{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:#fff;color:#1c1f1c;
+  border:0;border-radius:999px;padding:8px 13px;font-family:inherit;font-weight:600;font-size:12px;cursor:pointer}
+.kit-pop .save:disabled{opacity:.75;cursor:default}
+.kit-pop.t-keyword .lbl{color:#c6a4ff}
+.kit-pop.t-confirmed .lbl{color:#7fd39a}
+.kit-pop.t-disputed .lbl{color:#f2867f}
+.kit-pop.t-analysis .lbl{color:#8ab6ff}
 
 /* Onboarding tour: spotlight coach-marks over the live UI.
    Sits at z 16-18: above stage content (<=13), below scrim/vsheet/sheets (20/21/30)
@@ -2578,7 +2595,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 (function(){
   function openSheet(kind, sid){
     var fr = document.getElementById(kind);
-    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=msd83ruf'; fr.setAttribute('data-for', sid); }
+    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=msd9cy3y'; fr.setAttribute('data-for', sid); }
     document.getElementById('layer-' + kind).classList.add('on');
   }
   document.querySelectorAll('.nf-conf[data-story]').forEach(function(el){
@@ -2609,7 +2626,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
   });
 })();</script>
 <script>window.NF_VOICE_SHORT={"Plain":"平實","Calm explainer":"淡定","ELI5 friend":"朋友仔"};</script>
-<script>window.NF_KIT={"maps":{"gulf":{"center":[30.8,53.6],"zoom":5,"zones":[[[33.72,51.72],60,"納坦茲一帶","首週起多次空襲濃縮相關設施。"],[[32.65,51.67],50,"伊斯法罕省","工業及防空目標；第9晚攻勢最猛烈。"],[[27.18,56.28],45,"阿巴斯港","今日港口設施被擊中——迄今最貼近海峽的一輪。"],[[29.6,52.5],55,"法爾斯省","第4至11日間指揮及雷達設施接連被擊中。"],[[35.7,51.4],50,"德黑蘭省","首日起針對指揮及通訊目標。"]],"points":[[[26.6,56.25],"霍爾木茲海峽","已對商船封閉。全球五分之一的石油平日取道此處。"]]},"hk":{"center":[22.36,114.13],"zoom":10,"zones":[[[22.306,114.185],2.2,"紅磡／何文田","上半年+6.2%——大學周邊學生湧入，唐樓睇樓要排隊。"],[[22.312,114.263],2.5,"將軍澳","上半年+5.3%——新市鎮供應被吸納的速度快過落成。"],[[22.382,114.19],2.5,"沙田／大圍","上半年+4.8%——鐵路沿線受跨境通勤需求帶動。"],[[22.284,114.22],2.2,"港島東","上半年+4.1%——回流外派租約集中於此。"],[[22.39,113.973],2.6,"屯門","上半年+2.9%——暫時落後，代理估計下一浪到此。"]],"points":[[[22.306,114.185],"升幅最急：紅磡","半年+6.2%——2016年以來最快的地區升幅。"]]}},"pop":{"霍爾木茲海峽":"伊朗與阿曼之間一條闊33公里的水道，是波斯灣唯一出海口。全球約五分之一的石油平日取道於此。此前從未全面封鎖。","已經封鎖":"油輪通航數據連續七日歸零，兩國政府均承認封鎖——這是各方罕有一致同意的事實。","重建威懾":"行動方自第二週起的官方說法——是姿態，不是目標清單。措辭由「核設施」轉變有紀錄可查；意圖為何則屬解讀。","雙方統計相差三千":"兩邊官方各自公布對己有利的數字；獨立監察無法進入空襲區，數字無從釐清。","霍爾木茲海峽已對商船封閉":"由第三方獨立量度：航運追蹤顯示油輪連續七日零通過。","核實年齡":"查證用戶申報的年齡屬實——通常靠身份證明或人臉年齡估算，而非單信自填的出生日期。禁令唯一的執行方法，適用於所有年齡的每一位用戶。","合理措施":"平台須達到的法律標準：可證明、成比例地偵測及移除16歲以下帳戶。何謂「合理」，最終由法庭定義。","家長同意也不獲豁免":"與早年方案不同：家長批准也改變不了甚麼——未滿16歲就是不能有帳戶。","敘事框架":"選擇把哪些事實放在報道中心。同一次表決，可以寫成「保護兒童」，也可以寫成「限制自由」——兩者皆真，卻把讀者引向不同結論。","相關性":"只顯示兩件事同步變化、卻證明不了因果的研究。這場辯論的證據大多屬此類——所以爭議不散。","用甚麼取代它":"雙方都同意13歲那條線已失敗。禁令是否正確的替代，是判斷，不是定論。","政治":"反制清單、《美墨加》仲裁、緊急會談——正式的機器。它以月計運轉；供應鏈以週計重新定價。","絕大部分貨品類別":"命令附表覆蓋絕大多數貿易項目，能源獲豁免。近乎全面的稅率與針對性關稅性質迥異——根本無路可繞。","兩國各執一詞":"渥太華指協定明顯適用；華府稱安全豁免令命令置身協定之外。這條豁免從未在此規模下受考驗。","六至八星期內浮現":"零售分析師按庫存周期估算——現貨賣完、關稅貨上架，大約就是這個時間。","轉嫁":"關稅有多少反映在消費物價上。2018年一輪的研究發現，數月內轉嫁近乎完全。","翻倍":"由25%到50%——盟友經濟體之間有紀錄以來最陡的一步。","不可能一季之內搬回本土":"回流時間表按過往案例推算：建廠選址、審批、施工以年計，不是以月計。","坐在租約的哪一邊":"同一個指數，業主讀作復甦，租客讀作壓力。數字是事實；「好事定壞事」是立場。","連升七個月":"差餉物業估價署按月數表直接可讀。持續時間，正是趨勢與雜音的分界。","兩年內反彈最多19%":"被廣泛引用的分析員情景推算（彭博行業研究），並非官方預測——前提是租務需求轉化為置業。","仍有爭論":"政府引用人才計劃批核；獨立經濟學者指區內周期同步向上。兩股力量同時出現，暫難乾淨分割。","紅磡以+6.2%領先":"兩間互相競爭的代理行編製的分區租務數據——排名一致。「大學周邊先行」點出推動市場的邊際租客。","一個普通月份的升幅":"指數自1月起平均每月升0.9點；紀錄只比7月讀數高0.4點。","鐵路線":"沙田大圍反映跨境通勤需求；將軍澳的新供應被吸納的速度快過落成。"}};</script>
+<script>window.NF_KIT={"maps":{"gulf":{"center":[30.8,53.6],"zoom":5,"zones":[[[33.72,51.72],60,"納坦茲一帶","首週起多次空襲濃縮相關設施。"],[[32.65,51.67],50,"伊斯法罕省","工業及防空目標；第9晚攻勢最猛烈。"],[[27.18,56.28],45,"阿巴斯港","今日港口設施被擊中——迄今最貼近海峽的一輪。"],[[29.6,52.5],55,"法爾斯省","第4至11日間指揮及雷達設施接連被擊中。"],[[35.7,51.4],50,"德黑蘭省","首日起針對指揮及通訊目標。"]],"points":[[[26.6,56.25],"霍爾木茲海峽","已對商船封閉。全球五分之一的石油平日取道此處。"]]},"hk":{"center":[22.36,114.13],"zoom":10,"zones":[[[22.306,114.185],2.2,"紅磡／何文田","上半年+6.2%——大學周邊學生湧入，唐樓睇樓要排隊。"],[[22.312,114.263],2.5,"將軍澳","上半年+5.3%——新市鎮供應被吸納的速度快過落成。"],[[22.382,114.19],2.5,"沙田／大圍","上半年+4.8%——鐵路沿線受跨境通勤需求帶動。"],[[22.284,114.22],2.2,"港島東","上半年+4.1%——回流外派租約集中於此。"],[[22.39,113.973],2.6,"屯門","上半年+2.9%——暫時落後，代理估計下一浪到此。"]],"points":[[[22.306,114.185],"升幅最急：紅磡","半年+6.2%——2016年以來最快的地區升幅。"]]}},"pop":{"霍爾木茲海峽":{"def":"伊朗與阿曼之間一條闊33公里的水道，是波斯灣唯一出海口。全球約五分之一的石油平日取道於此。此前從未全面封鎖。"},"重建威懾":{"def":"行動方自第二週起的官方說法——是姿態，不是目標清單。措辭由「核設施」轉變有紀錄可查；意圖為何則屬解讀。"},"已經封鎖":{"rows":[["誰證實","航運追蹤數據連續七日錄得零通航，兩國政府均承認封鎖。"],["為何可信","數據由第三方獨立量度，不受任何一方左右。"],["為何重要","這是全篇報道中，各方罕有一致同意的事實。"]],"src":["獨立航運追蹤機構","Frontline Wire"]},"霍爾木茲海峽已對商船封閉":{"rows":[["誰證實","航運追蹤數據連續七日錄得零通航，兩國政府均承認封鎖。"],["為何可信","數據由第三方獨立量度，不受任何一方左右。"],["為何重要","這是全篇報道中，各方罕有一致同意的事實。"]],"src":["獨立航運追蹤機構","Frontline Wire"]},"雙方統計相差三千":{"rows":[["爭議所在","這場行動到底造成多少人死亡。"],["各方說法","兩邊官方各自公布對己有利的數字——相差約三千。"],["分歧因何而生","獨立監察無法進入空襲區，數字無從釐清。"]],"src":["Frontline Wire"]},"核實年齡":{"def":"查證用戶申報的年齡屬實——通常靠身份證明或人臉年齡估算，而非單信自填的出生日期。禁令唯一的執行方法，適用於所有年齡的每一位用戶。"},"合理措施":{"def":"平台須達到的法律標準：可證明、成比例地偵測及移除16歲以下帳戶。何謂「合理」，最終由法庭定義。"},"敘事框架":{"def":"選擇把哪些事實放在報道中心。同一次表決，可以寫成「保護兒童」，也可以寫成「限制自由」——兩者皆真，卻把讀者引向不同結論。"},"相關性":{"def":"相關性研究只顯示兩件事同步變化——社交媒體用得多、身心狀態較差——卻證明不了因果。這場辯論的證據大多屬此類，所以平均影響真實存在、但幅度小，亦難以據此行動。"},"家長同意也不獲豁免":{"rows":[["誰證實","「不設豁免」白紙黑字寫入已頒布的法例。"],["為何可信","立法文本屬公開紀錄。"],["為何重要","與早年方案不同：家長批准也改變不了甚麼——未滿16歲就是不能有帳戶。"]],"src":["法國資訊自由委員會","Frontline Wire"]},"用甚麼取代它":{"rows":[["這是誰的觀點","政策分析者把辯論定性為「選擇替代方案」，而非「捍衛現狀」。"],["為何屬分析而非事實","雙方都同意13歲那條線已失敗；禁令是否正確的替代，是判斷，不是定論。"]],"src":["Meridian Institute for Child Wellbeing"]},"政治":{"def":"反制清單、《美墨加》仲裁、緊急會談——正式的機器。它以月計運轉；供應鏈以週計重新定價。"},"轉嫁":{"def":"關稅有多少反映在消費物價上。2018年一輪的研究發現，數月內轉嫁近乎完全。"},"絕大部分貨品類別":{"rows":[["誰證實","聯邦公報刊載的附表列明涵蓋類別，能源獲豁免。"],["為何可信","命令及附表均屬公開文本。"],["為何重要","近乎全面的稅率與針對性關稅性質迥異——根本無路可繞。"]],"src":["聯邦公報"]},"兩國各執一詞":{"rows":[["爭議所在","《美墨加協定》的爭端機制是否適用於這道命令。"],["各方說法","渥太華指協定明顯適用；華府稱安全豁免令命令置身協定之外。"],["分歧因何而生","這條豁免從未在此規模下受考驗，無先例可援。"]],"src":["Frontline Wire"]},"六至八星期內浮現":{"rows":[["這是誰的觀點","零售分析師按庫存周期推算。"],["為何屬分析而非事實","推算現貨賣完、關稅貨上架所需時間——是估算，不是量度。"]],"src":["零售業分析師"]},"翻倍":{"rows":[["這是誰的觀點","把今次稅率與2018年鋼鋁爭端25%高位直接比較。"],["為何屬分析而非事實","由25%到50%是算術；「有紀錄以來最陡一步」則取決於把哪些先例計算在內。"]],"src":["Frontline Wire"]},"不可能一季之內搬回本土":{"rows":[["這是誰的觀點","供應鏈經濟學者按過往回流案例推算。"],["為何屬分析而非事實","建廠選址、審批、施工以年計——時間表是按先例推算，不是定律。"]],"src":["Frontline Wire"]},"坐在租約的哪一邊":{"def":"同一個指數，業主讀作復甦，租客讀作壓力。數字是事實；「好事定壞事」是立場。"},"連升七個月":{"rows":[["誰證實","差餉物業估價署按月數表錄得連升七個月。"],["為何可信","官方數列直接可讀，並與中原領先指數互相核對。"],["為何重要","持續時間，正是趨勢與雜音的分界。"]],"src":["差估署按月指數","中原領先指數"]},"兩年內反彈最多19%":{"rows":[["這是誰的觀點","被廣泛引用的分析員情景推算（彭博行業研究），並非官方預測。"],["為何屬分析而非事實","前提是租務需求轉化為置業——這一步接力至今未發生。"]],"src":["彭博行業研究"]},"仍有爭論":{"rows":[["爭議所在","升幅有幾多來自政策輸入人才、幾多屬區域周期。"],["各方說法","政府引用人才計劃批核；獨立經濟學者指區內市場同步向上。"],["分歧因何而生","兩股力量同時出現，暫難乾淨分割。"]],"src":["政府聲明","獨立經濟學者"]},"紅磡以+6.2%領先":{"rows":[["誰證實","兩間互相競爭的代理行編製的分區租務數據——排名一致。"],["為何可信","無理由夾口供的對手，得出同一結論。"],["為何重要","「大學周邊先行」點出推動市場的邊際租客。"]],"src":["分區租務報告"]},"一個普通月份的升幅":{"rows":[["這是誰的觀點","對官方數列的簡單算術。"],["為何屬分析而非事實","指數自1月起平均每月升0.9點；紀錄只比7月讀數高0.4點。「平均持續」正是假設所在。"]],"src":["差估署按月指數"]},"鐵路線":{"rows":[["這是誰的觀點","地區代理按需求落點推斷下一浪去向。"],["為何屬分析而非事實","沙田大圍反映通勤需求、將軍澳吸納新供應——排序是觀察，外推不是。"]],"src":["分區租務報告"]}}};</script>
 <script>/* Kit runtime: Leaflet maps, chart tooltips, gauges, poll flips, popovers.
    Runs inside the app document, after engine.js. Config injected as NF_KIT. */
 (function(){
@@ -2695,9 +2712,13 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
     });
   });
 
-  /* ---- popovers on .kw / .chip spans ---- */
+  /* ---- inline transparency popovers on .kw / .chip spans ----
+     Typed, matching the original single-file demo: the span's colour decides the
+     type; entries are {def} for key terms or {rows:[[label,text]...], src:[...]}
+     for evidence notes. Untyped strings render as a plain definition. */
   var pop = null;
-  function norm(s){ return (s||'').replace(/\s+/g,' ').trim().toLowerCase().replace(/[.,;:。，；：]+$/,''); }
+  function norm(s){ return (s||'').replace(/’/g,"'").replace(/\s+/g,' ').trim().toLowerCase().replace(/[.,;:。，；：]+$/,''); }
+  function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function closePop(){ if(pop){ pop.classList.remove('on'); } }
   /* two-part chips render as body+end sibling spans; keys are the full phrase,
      so a tap on either half must resolve against the joined text */
@@ -2713,32 +2734,51 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
     }
     return t;
   }
-  /* honest fallback for chips without an authored note: explain what the colour
-     itself asserts, and point at the Confidence Signal. [label, body] pairs. */
+  var LBL = ZH
+    ? { keyword:'關鍵詞', confirmed:'已證實', disputed:'有爭議', analysis:'分析' }
+    : { keyword:'Key term', confirmed:'Confirmed', disputed:'Disputed', analysis:'Analysis' };
+  /* honest fallback rows for spans without an authored note */
   var FB = ZH ? {
-    g: ['已證實', '綠色標示＝已證實的事實，有多個獨立來源支持。完整出處請看本篇的可信度訊號。'],
-    o: ['注意', '橙色標示＝仍有保留：數字或說法有爭議、或屬暫時估計。可信度訊號列出各方說法。'],
-    b: ['分析', '藍色標示＝分析：推算或解讀，並非已定案的事實。'],
-    i: ['分析', '藍色標示＝分析：推算或解讀，並非已定案的事實。']
+    keyword: '跟進這篇報道值得認識的詞語。',
+    confirmed: '此處標示為已證實：有多個獨立來源支持。完整出處見本篇的可信度訊號。',
+    disputed: '此處標示為有爭議：數字或說法仍在爭論——可信度訊號列出各方說法。',
+    analysis: '此處標示為分析：推算或解讀，並非已定案的事實。'
   } : {
-    g: ['CONFIRMED', 'Green marks a confirmed fact, supported by multiple independent sources. The Confidence Signal has the sourcing.'],
-    o: ['CAUTION', 'Orange marks a contested or provisional figure — the Confidence Signal lays out both sides.'],
-    b: ['ANALYSIS', 'Blue marks analysis: a projection or interpretation, not a settled fact.'],
-    i: ['ANALYSIS', 'Blue marks analysis: a projection or interpretation, not a settled fact.']
+    keyword: 'A term worth knowing to follow this story.',
+    confirmed: 'Marked confirmed in this story — supported by multiple independent sources. The Confidence Signal has the sourcing.',
+    disputed: 'Marked disputed in this story — the figure or claim is contested. The Confidence Signal lays out both sides.',
+    analysis: 'Marked analysis in this story — a projection or interpretation, not a settled fact.'
   };
-  function fallbackFor(el){
-    if(el.classList.contains('chip-i')) return FB.i;
-    if(el.classList.contains('chip-g')) return FB.g;
-    if(el.classList.contains('chip-o')) return FB.o;
-    if(el.classList.contains('chip-b')) return FB.b;
-    return null; /* a bare .kw with no entry stays silent */
+  function typeOf(el){
+    if(el.classList.contains('kw')) return 'keyword';
+    if(el.classList.contains('chip-g')) return 'confirmed';
+    if(el.classList.contains('chip-o')) return 'disputed';
+    return 'analysis'; /* chip-b and chip-i */
+  }
+  function srcHtml(src){
+    if(!src || !src.length) return '';
+    var chips = src.map(function(n){ return '<span class="pchip"><span class="cd"></span>' + esc(n) + '</span>'; });
+    var joined = chips.length > 1
+      ? chips.slice(0, -1).join(ZH ? '、' : ', ') + (ZH ? ' 及 ' : ' and ') + chips[chips.length - 1]
+      : chips[0];
+    return '<p class="src">' + (ZH ? '來源：' : 'Sources: ') + joined + '</p>';
+  }
+  function bodyHtml(type, entry){
+    if(typeof entry === 'string') entry = { def: entry };
+    if(entry.rows){
+      return entry.rows.map(function(r){
+        return '<p class="row">' + (r[0] ? '<b>' + esc(r[0]) + ':</b> ' : '') + esc(r[1]) + '</p>';
+      }).join('') + srcHtml(entry.src);
+    }
+    var def = '<p class="def">' + esc(entry.def || FB[type]) + '</p>';
+    if(type === 'keyword') def += '<button class="save" type="button">' + (ZH ? '存入詞彙日記' : 'Save to keyword diary') + '</button>';
+    return def;
   }
   document.addEventListener('click', function(e){
     var el = e.target.closest ? e.target.closest('.kw,.chip,.chip-i') : null;
     if(!el){ closePop(); return; }
-    var key = norm(chipText(el));
-    var entry = K.pop[key] || fallbackFor(el);
-    if(!entry) return;
+    var type = typeOf(el);
+    var entry = K.pop[norm(chipText(el))] || (type === 'keyword' ? { def: FB.keyword } : { rows: [['', FB[type]]] });
     e.stopPropagation();
     var host = el.closest('.nf-phone') || document.body;
     if(!pop || pop.parentNode !== host){
@@ -2747,12 +2787,14 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
       pop.addEventListener('click', function(ev){ ev.stopPropagation(); });
       host.appendChild(pop);
     }
-    var lbl = ZH ? '關鍵詞' : 'KEY TERM', def = entry;
-    if (Object.prototype.toString.call(entry) === '[object Array]'){ lbl = entry[0]; def = entry[1]; }
-    pop.innerHTML = '<div class="hd2"><span class="lbl">' + lbl +
-      '</span><button class="x" type="button">×</button></div><p class="def"></p>';
-    pop.querySelector('.def').textContent = def;
+    pop.className = 'kit-pop t-' + type;
+    pop.innerHTML = '<div class="hd2"><span class="lbl"><span class="dot"></span>' + LBL[type] +
+      '</span><button class="x" type="button">×</button></div>' + bodyHtml(type, entry);
     pop.querySelector('.x').addEventListener('click', function(ev){ ev.stopPropagation(); closePop(); });
+    var save = pop.querySelector('.save');
+    if(save) save.addEventListener('click', function(ev){
+      ev.stopPropagation(); save.textContent = ZH ? '已儲存 ✓' : 'Saved ✓'; save.disabled = true;
+    });
     pop.classList.add('on');
     var hr = host.getBoundingClientRect(), r = el.getBoundingClientRect();
     var top = r.top - hr.top + host.scrollTop - pop.offsetHeight - 10;

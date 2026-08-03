@@ -231,3 +231,60 @@ nx.conn.e5 = "🌏 關稅係出面嚟嘅壓力。喺香港，擠壓係由樓市�
 
 zh.ovConn.e5 = "🪜 唐樓樓梯嗰條人龍 👀 比任何指數都出現得早。📈";
 }
+
+/* ===== typed inline-transparency entries (design from the single-file demo) ===== */
+{
+const en = module.exports.en, zh = module.exports.zh;
+en.pop = {
+  "politics": { def: "Retaliation lists, USMCA panels, emergency talks — the formal machinery. It moves in months; supply chains reprice in weeks." },
+  "pass-through": { def: "How much of a tariff shows up in consumer prices. Studies of the 2018 round found pass-through was near-complete within months." },
+  "most goods categories": { rows: [
+    ["Who confirmed it", "The published schedule in the Federal Register lists the covered categories, with energy carved out."],
+    ["Why we're sure", "The order and its schedule are public text."],
+    ["Why it matters", "A near-blanket rate behaves differently from targeted tariffs — there is nowhere to reroute."]],
+    src: ["Federal Register"] },
+  "contested by both capitals": { rows: [
+    ["What's disputed", "Whether USMCA's dispute process applies to this order at all."],
+    ["Who says what", "Ottawa says the pact plainly applies; Washington says the security carve-out puts the order outside it."],
+    ["Why the gap exists", "The carve-out has never been tested at this scale, so there is no precedent to point to."]],
+    src: ["Frontline Wire"] },
+  "within six to eight weeks": { rows: [
+    ["Whose view this is", "Retail analysts estimating from inventory cycles."],
+    ["Why it's analysis, not fact", "It projects how long current stock lasts before tariffed goods reach shelves — an estimate, not a measurement."]],
+    src: ["Retail inventory analysts"] },
+  "doubles it": { rows: [
+    ["Whose view this is", "A comparison against the 2018 steel round's 25% peak."],
+    ["Why it's analysis, not fact", "From 25% to 50% is arithmetic; calling it the steepest step on record is a judgement about which precedents count."]],
+    src: ["Frontline Wire"] },
+  "cannot re-shore in a season": { rows: [
+    ["Whose view this is", "Supply-chain economists projecting from past re-shoring attempts."],
+    ["Why it's analysis, not fact", "Plants take years to site, permit and build — the timeline is a projection from precedent, not a law."]],
+    src: ["Frontline Wire"] }
+};
+zh.pop = {
+  "政治": { def: "反制清單、《美墨加》仲裁、緊急會談——正式的機器。它以月計運轉；供應鏈以週計重新定價。" },
+  "轉嫁": { def: "關稅有多少反映在消費物價上。2018年一輪的研究發現，數月內轉嫁近乎完全。" },
+  "絕大部分貨品類別": { rows: [
+    ["誰證實", "聯邦公報刊載的附表列明涵蓋類別，能源獲豁免。"],
+    ["為何可信", "命令及附表均屬公開文本。"],
+    ["為何重要", "近乎全面的稅率與針對性關稅性質迥異——根本無路可繞。"]],
+    src: ["聯邦公報"] },
+  "兩國各執一詞": { rows: [
+    ["爭議所在", "《美墨加協定》的爭端機制是否適用於這道命令。"],
+    ["各方說法", "渥太華指協定明顯適用；華府稱安全豁免令命令置身協定之外。"],
+    ["分歧因何而生", "這條豁免從未在此規模下受考驗，無先例可援。"]],
+    src: ["Frontline Wire"] },
+  "六至八星期內浮現": { rows: [
+    ["這是誰的觀點", "零售分析師按庫存周期推算。"],
+    ["為何屬分析而非事實", "推算現貨賣完、關稅貨上架所需時間——是估算，不是量度。"]],
+    src: ["零售業分析師"] },
+  "翻倍": { rows: [
+    ["這是誰的觀點", "把今次稅率與2018年鋼鋁爭端25%高位直接比較。"],
+    ["為何屬分析而非事實", "由25%到50%是算術；「有紀錄以來最陡一步」則取決於把哪些先例計算在內。"]],
+    src: ["Frontline Wire"] },
+  "不可能一季之內搬回本土": { rows: [
+    ["這是誰的觀點", "供應鏈經濟學者按過往回流案例推算。"],
+    ["為何屬分析而非事實", "建廠選址、審批、施工以年計——時間表是按先例推算，不是定律。"]],
+    src: ["Frontline Wire"] }
+};
+}
