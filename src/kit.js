@@ -87,11 +87,45 @@
   var pop = null;
   function norm(s){ return (s||'').replace(/\s+/g,' ').trim().toLowerCase().replace(/[.,;:。，；：]+$/,''); }
   function closePop(){ if(pop){ pop.classList.remove('on'); } }
+  /* two-part chips render as body+end sibling spans; keys are the full phrase,
+     so a tap on either half must resolve against the joined text */
+  function chipText(el){
+    var t = el.textContent;
+    if(!el.classList.contains('chip')) return t;
+    if(el.classList.contains('chip-end')){
+      var pv = el.previousElementSibling;
+      if(pv && pv.classList.contains('chip') && !pv.classList.contains('chip-end')) t = pv.textContent + t;
+    } else {
+      var nx = el.nextElementSibling;
+      if(nx && nx.classList.contains('chip') && nx.classList.contains('chip-end')) t = t + nx.textContent;
+    }
+    return t;
+  }
+  /* honest fallback for chips without an authored note: explain what the colour
+     itself asserts, and point at the Confidence Signal. [label, body] pairs. */
+  var FB = ZH ? {
+    g: ['已證實', '綠色標示＝已證實的事實，有多個獨立來源支持。完整出處請看本篇的可信度訊號。'],
+    o: ['注意', '橙色標示＝仍有保留：數字或說法有爭議、或屬暫時估計。可信度訊號列出各方說法。'],
+    b: ['分析', '藍色標示＝分析：推算或解讀，並非已定案的事實。'],
+    i: ['分析', '藍色標示＝分析：推算或解讀，並非已定案的事實。']
+  } : {
+    g: ['CONFIRMED', 'Green marks a confirmed fact, supported by multiple independent sources. The Confidence Signal has the sourcing.'],
+    o: ['CAUTION', 'Orange marks a contested or provisional figure — the Confidence Signal lays out both sides.'],
+    b: ['ANALYSIS', 'Blue marks analysis: a projection or interpretation, not a settled fact.'],
+    i: ['ANALYSIS', 'Blue marks analysis: a projection or interpretation, not a settled fact.']
+  };
+  function fallbackFor(el){
+    if(el.classList.contains('chip-i')) return FB.i;
+    if(el.classList.contains('chip-g')) return FB.g;
+    if(el.classList.contains('chip-o')) return FB.o;
+    if(el.classList.contains('chip-b')) return FB.b;
+    return null; /* a bare .kw with no entry stays silent */
+  }
   document.addEventListener('click', function(e){
     var el = e.target.closest ? e.target.closest('.kw,.chip,.chip-i') : null;
     if(!el){ closePop(); return; }
-    var key = norm(el.textContent);
-    var entry = K.pop[key];
+    var key = norm(chipText(el));
+    var entry = K.pop[key] || fallbackFor(el);
     if(!entry) return;
     e.stopPropagation();
     var host = el.closest('.nf-phone') || document.body;
@@ -101,9 +135,11 @@
       pop.addEventListener('click', function(ev){ ev.stopPropagation(); });
       host.appendChild(pop);
     }
-    pop.innerHTML = '<div class="hd2"><span class="lbl">' + (ZH ? '關鍵詞' : 'KEY TERM') +
+    var lbl = ZH ? '關鍵詞' : 'KEY TERM', def = entry;
+    if (Object.prototype.toString.call(entry) === '[object Array]'){ lbl = entry[0]; def = entry[1]; }
+    pop.innerHTML = '<div class="hd2"><span class="lbl">' + lbl +
       '</span><button class="x" type="button">×</button></div><p class="def"></p>';
-    pop.querySelector('.def').textContent = entry;
+    pop.querySelector('.def').textContent = def;
     pop.querySelector('.x').addEventListener('click', function(ev){ ev.stopPropagation(); closePop(); });
     pop.classList.add('on');
     var hr = host.getBoundingClientRect(), r = el.getBoundingClientRect();

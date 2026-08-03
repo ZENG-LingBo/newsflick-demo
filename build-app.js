@@ -111,6 +111,34 @@ const MAPS = {
     }
   }
 };
+/* Popover keys are authored against the Plain voice. Calm/ELI5 rewrites may
+   reword a chip ("has closed to shipping" -> "is closed to ships"), which would
+   orphan the tap in those voices — so alias each variant's i-th token to the
+   Plain token's entry. Token extraction mirrors md()'s mini-markup. */
+function tokensOf(text) {
+  const out = [];
+  if (typeof text !== "string") return out;
+  const re = /\[kw:([^\]]+)\]|\[[gob]:([^|\]]*)\|([^\]]+)\]|\[i:([^\]]+)\]/g;
+  let m;
+  while ((m = re.exec(text))) out.push(m[1] != null ? m[1] : m[4] != null ? m[4] : m[2] + m[3]);
+  return out;
+}
+const normKey = s => s.replace(/\s+/g, " ").trim().toLowerCase().replace(/[.,;:。，；：]+$/, "");
+function aliasVoices(node, pop) {
+  if (node == null || typeof node !== "object") return;
+  if (typeof node.p === "string") {
+    const base = tokensOf(node.p).map(normKey);
+    for (const v of ["c", "e"]) {
+      if (typeof node[v] !== "string") continue;
+      tokensOf(node[v]).map(normKey).forEach((k, i) => {
+        if (pop[k] == null && base[i] != null && pop[base[i]] != null) pop[k] = pop[base[i]];
+      });
+    }
+    return;
+  }
+  for (const key of Object.keys(node)) aliasVoices(node[key], pop);
+}
+
 function kitConfig(lang) {
   const maps = {};
   for (const key of Object.keys(MAPS)) {
@@ -119,6 +147,7 @@ function kitConfig(lang) {
   }
   const pop = {};
   for (const sid of ORDER) Object.assign(pop, STORIES[sid][lang].pop || {});
+  for (const sid of ORDER) aliasVoices(STORIES[sid][lang], pop);
   return { maps, pop };
 }
 const LEAFLET_TAGS = `<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">\n<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"><\/script>`;
