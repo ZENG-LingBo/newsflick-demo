@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#000000">
+<title>Fliq — intro</title>
+<link rel="icon" href="assets/img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<!--
+  Demo-video intro card. Pure black backdrop, official logo mark.
+  The F builds itself like a wrapping ribbon — the three bars unfurl
+  bottom-to-top around the left spine, saturating from lilac to brand
+  purple — then the mark shrinks and docks left while the Fliq wordmark
+  slides out beside it. Ends holding the side-by-side lockup.
+
+  Open fullscreen (F11) and record.
+    ?loop     — endless logo-only wrap/unwrap cycle instead
+    click / R — replay from the top
+-->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#000}
+body{display:flex;align-items:center;justify-content:center;user-select:none;
+  font-family:'Space Grotesk',-apple-system,system-ui,sans-serif;
+  --m:min(26vmin,240px); /* final mark width */
+  --shift:calc(var(--m)*.62)} /* JS refines: centers the mark during the build */
+.lockup{display:flex;align-items:center;gap:calc(var(--m)*.17)}
+.markwrap{transform:translateX(var(--shift)) scale(1.42);
+  animation:dock .8s cubic-bezier(.55,.05,.2,1) 2.05s both}
+.mark{width:var(--m);height:auto;display:block;overflow:visible}
+.mark path{fill:#800080}
+.mark .fl-bar{transform-box:fill-box;transform-origin:0 100%;
+  filter:drop-shadow(0 calc(var(--m)*.008) calc(var(--m)*.028) rgba(178,64,178,.35))}
+.word{font-weight:700;font-size:calc(var(--m)*.64);line-height:1;color:#fff;
+  letter-spacing:-.02em;opacity:0;
+  animation:word-in .6s cubic-bezier(.2,.7,.3,1) 2.45s both}
+
+/* ---- one-shot build (default): assemble, then hold ---- */
+.fl-b3{animation:swing3 .8s cubic-bezier(.2,.7,.3,1) .3s both}
+.fl-b2{animation:swing2 .8s cubic-bezier(.2,.7,.3,1) .62s both}
+.fl-b1{animation:swing1 .9s cubic-bezier(.2,.7,.3,1) .95s both}
+.fl-b3 path{animation:tint 1.5s ease .3s both}
+.fl-b2 path{animation:tint 1.45s ease .62s both}
+.fl-b1 path{animation:tint 1.4s ease .95s both}
+@keyframes swing3{
+  0%{transform:rotate(80deg);opacity:0}
+  10%{opacity:1}
+  60%{transform:rotate(-3deg);animation-timing-function:ease-in-out}
+  80%{transform:rotate(1.4deg);animation-timing-function:ease-in-out}
+  100%{transform:rotate(0deg);opacity:1}
+}
+@keyframes swing2{
+  0%{transform:rotate(80deg);opacity:0}
+  10%{opacity:1}
+  60%{transform:rotate(-3deg);animation-timing-function:ease-in-out}
+  80%{transform:rotate(1.4deg);animation-timing-function:ease-in-out}
+  100%{transform:rotate(0deg);opacity:1}
+}
+@keyframes swing1{
+  0%{transform:rotate(80deg);opacity:0}
+  10%{opacity:1}
+  55%{transform:rotate(-4deg);animation-timing-function:ease-in-out}
+  75%{transform:rotate(1.6deg);animation-timing-function:ease-in-out}
+  100%{transform:rotate(0deg);opacity:1}
+}
+@keyframes tint{
+  0%{fill:#ecd9ee}
+  55%{fill:#b44cb4}
+  100%{fill:#800080}
+}
+@keyframes dock{
+  to{transform:translateX(0) scale(1)}
+}
+@keyframes word-in{
+  from{opacity:0;transform:translateX(calc(var(--m)*-.22))}
+  to{opacity:1;transform:translateX(0)}
+}
+
+/* ---- ?loop: endless logo-only wrap / unwrap cycle ---- */
+.loop .word{display:none}
+.loop .markwrap{transform:none;animation:none}
+.loop .fl-b3{animation:loop3 4.6s cubic-bezier(.3,.1,.25,1) infinite}
+.loop .fl-b2{animation:loop2 4.6s cubic-bezier(.3,.1,.25,1) infinite}
+.loop .fl-b1{animation:loop1 4.6s cubic-bezier(.3,.1,.25,1) infinite}
+.loop .fl-b3 path{animation:loop-tint3 4.6s linear infinite}
+.loop .fl-b2 path{animation:loop-tint2 4.6s linear infinite}
+.loop .fl-b1 path{animation:loop-tint1 4.6s linear infinite}
+@keyframes loop3{
+  0%,2%{transform:rotate(80deg);opacity:0;animation-timing-function:cubic-bezier(.2,.7,.3,1)}
+  5%{opacity:1}
+  12%{transform:rotate(-3deg);animation-timing-function:ease-in-out}
+  16%{transform:rotate(1.4deg);animation-timing-function:ease-in-out}
+  20%{transform:rotate(0deg)}
+  80%{transform:translateX(0) rotate(0);opacity:1;animation-timing-function:cubic-bezier(.5,0,.8,.4)}
+  90%{transform:translateX(175px) rotate(-8deg);opacity:0}
+  100%{transform:rotate(80deg);opacity:0}
+}
+@keyframes loop2{
+  0%,10%{transform:rotate(80deg);opacity:0;animation-timing-function:cubic-bezier(.2,.7,.3,1)}
+  13%{opacity:1}
+  20%{transform:rotate(-3deg);animation-timing-function:ease-in-out}
+  24%{transform:rotate(1.4deg);animation-timing-function:ease-in-out}
+  28%{transform:rotate(0deg)}
+  76%{transform:translateX(0) rotate(0);opacity:1;animation-timing-function:cubic-bezier(.5,0,.8,.4)}
+  86%{transform:translateX(230px) rotate(-8deg);opacity:0}
+  100%{transform:rotate(80deg);opacity:0}
+}
+@keyframes loop1{
+  0%,18%{transform:rotate(80deg);opacity:0;animation-timing-function:cubic-bezier(.2,.7,.3,1)}
+  21%{opacity:1}
+  28%{transform:rotate(-4deg);animation-timing-function:ease-in-out}
+  32%{transform:rotate(1.6deg);animation-timing-function:ease-in-out}
+  36%{transform:rotate(0deg)}
+  72%{transform:translateX(0) rotate(0);opacity:1;animation-timing-function:cubic-bezier(.5,0,.8,.4)}
+  82%{transform:translateX(280px) rotate(-8deg);opacity:0}
+  100%{transform:rotate(80deg);opacity:0}
+}
+@keyframes loop-tint3{
+  0%,2%{fill:#ecd9ee} 16%{fill:#b44cb4} 34%,80%{fill:#800080} 90%,100%{fill:#ecd9ee}
+}
+@keyframes loop-tint2{
+  0%,10%{fill:#ecd9ee} 24%{fill:#b44cb4} 38%,76%{fill:#800080} 86%,100%{fill:#ecd9ee}
+}
+@keyframes loop-tint1{
+  0%,18%{fill:#ecd9ee} 32%{fill:#b44cb4} 44%,72%{fill:#800080} 82%,100%{fill:#ecd9ee}
+}
+@media (prefers-reduced-motion:reduce){
+  .mark *,.markwrap,.word{animation:none!important}
+  .markwrap{transform:none}
+  .word{opacity:1}
+}
+</style>
+</head>
+<body>
+<div class="lockup">
+  <div class="markwrap">
+  <svg class="mark" viewBox="0 0 327 332" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g class="fl-bar fl-b3">
+      <path d="M196.051 244.329V201.05H118.052L107.621 202.907L89.3115 284.676H151.47C183.211 284.676 194.416 257.778 196.051 244.329Z"/>
+      <path d="M0.125 291.934V331.835C28.694 294.823 65.5956 284.976 80.4753 284.679L104.644 201.184C23.4266 197.773 1.12406 260.262 0.125 291.934Z"/>
+      <path d="M95.6621 201.049H124.867V284.692H76.5107L95.6621 201.049Z"/>
+    </g>
+    <g class="fl-bar fl-b2">
+      <path d="M326.425 143.812V100.533H248.426L237.995 102.39L219.686 184.159H281.844C313.585 184.159 324.79 157.261 326.425 143.812Z"/>
+      <path d="M0 191.417V231.318C28.569 194.306 65.4706 184.459 80.3503 184.162L104.519 100.667C23.3016 97.2559 0.999065 159.745 0 191.417Z"/>
+      <path d="M95.5479 100.532H260.421L220.308 184.119L76.3965 184.174L95.5479 100.532Z"/>
+    </g>
+    <g class="fl-bar fl-b1">
+      <path d="M326.734 43.2793V0H248.736L238.304 1.85741L219.995 83.6265H282.153C313.895 83.6265 325.1 56.7284 326.734 43.2793Z"/>
+      <path d="M0.30957 90.8837V130.786C28.8786 93.7729 65.7802 83.9259 80.6599 83.629L104.829 0.134146C23.6112 -3.27692 1.30864 59.2126 0.30957 90.8837Z"/>
+      <path d="M95.8535 0.00769043H260.726L220.614 83.5946L76.7021 83.6504L95.8535 0.00769043Z"/>
+    </g>
+  </svg>
+  </div>
+  <div class="word">Fliq</div>
+</div>
+<script>
+(function(){
+  if(/[?&]loop\b/.test(location.search)) document.body.classList.add('loop');
+  /* --shift parks the mark at the exact screen centre during the build:
+     half of (lockup width - mark width), measured after the font loads */
+  function center(){
+    var wrap=document.querySelector('.markwrap'), lock=document.querySelector('.lockup');
+    document.body.style.setProperty('--shift',(lock.offsetWidth-wrap.offsetWidth)/2+'px');
+  }
+  center();
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(center);
+  addEventListener('resize',center);
+  function replay(){
+    var els=document.querySelectorAll('.mark .fl-bar,.mark path,.markwrap,.word');
+    els.forEach(function(el){ el.style.animation='none'; });
+    void document.body.offsetWidth; /* one reflow so the removal commits */
+    els.forEach(function(el){ el.style.animation=''; });
+  }
+  addEventListener('click',replay);
+  addEventListener('keydown',function(e){ if(e.key==='r'||e.key==='R') replay(); });
+})();
+</script>
+</body>
+</html>
