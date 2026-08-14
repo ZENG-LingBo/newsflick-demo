@@ -24,11 +24,18 @@ const OLDLABELS = {
 const EP = (h, m, x, view) => `<div class="ep"><div class="ephead"><span class="epav"></span><div class="epmeta"><div class="epname"><p>${h}</p><svg class="ico epcheck"><use href="#ic-verified"/></svg></div><p class="eprole">${m}</p></div><svg class="ico eptype"><use href="#ic-commentator"/></svg></div><p class="epq">${x}</p><button class="epsrc">${view}</button></div>`;
 const THEME = (key, i, t, n, d, posts, view, postsWord) => `<div class="theme${i === 0 ? " theme--open" : ""}" data-emo="${key}"><button class="thead"><p class="tt">${t}</p><span class="tw">~${n} ${postsWord}</span><svg class="ico tchev"><use href="#ic-arrow-down-01"/></svg></button><div class="twrap"><div><p class="tb">${d}</p><div class="eps">${posts.map(p => EP(p[0], p[1], p[2], view)).join("")}</div></div></div></div>`;
 const DETAIL = (key, dx, themes) => `<div class="detail" data-emo="${key}" hidden><p class="dx">${dx}</p>${themes}</div>`;
-const AVCOLOR = { Officials: "#3B7BD1", Experts: "#8A4F9E", Outlets: "#8A4F9E", Commentators: "#5A616E" };
+/* one distinct colour per category (was: Experts and Outlets shared purple,
+   the only two categories most stories actually populate together) */
+const AVCOLOR = { Officials: "#3B7BD1", Experts: "#8A4F9E", Outlets: "#1a8a72", Commentators: "#5A616E" };
 const VTYPE = { Officials: "ic-official", Experts: "ic-expert", Outlets: "ic-outlet", Commentators: "ic-commentator" };
+/* post avatar: the category glyph itself (building/person/paper/people — already
+   defined once as a <symbol> in this document's own sprite for the vtype badge
+   next to the name) reused at avatar size via <use>, not a letter monogram and
+   not a stock photo. Zero new assets; each category is inherently distinct. */
+const AV_ICON = (color, id) => `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;border-radius:99px"><circle cx="20" cy="20" r="20" fill="${color}"/><use href="#${id}" x="11" y="11" width="18" height="18" style="color:#fff"/></svg>`;
 const VOICE = (v, l) => {
   const check = v.n.startsWith("@") ? "" : `<svg class="ico vcheck"><use href="#ic-verified"/></svg>`;
-  return `<div class="voice" data-cat="${v.cat}"><div class="vhead"><span class="av"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;border-radius:99px"><circle cx="20" cy="20" r="20" fill="${AVCOLOR[v.cat]}"/><text x="20" y="21" font-family="Inter,sans-serif" font-size="15" font-weight="600" fill="#ffffff" text-anchor="middle" dominant-baseline="central">${v.b}</text></svg></span><div class="vmeta"><div class="vname"><p>${v.n}</p>${check}</div><p class="vrole">${v.m}</p></div><svg class="ico vtype"><use href="#${VTYPE[v.cat]}"/></svg></div><p class="vquote vquote--q">${v.x}</p><div class="vfoot"><button class="vsrc">${l.view}</button><button class="vrx" data-rx>${l.show}<svg class="ico"><use href="#ic-arrow-down-01"/></svg></button></div><div class="rxwrap"><div><div class="rxlist"><button class="stance"><span>🤔</span>${l.rx[0]}</button><button class="stance"><span>😟</span>${l.rx[1]}</button><button class="stance"><span>👀</span>${l.rx[2]}</button></div></div></div></div>`;
+  return `<div class="voice" data-cat="${v.cat}"><div class="vhead"><span class="av">${AV_ICON(AVCOLOR[v.cat], VTYPE[v.cat])}</span><div class="vmeta"><div class="vname"><p>${v.n}</p>${check}</div><p class="vrole">${v.m}</p></div><svg class="ico vtype"><use href="#${VTYPE[v.cat]}"/></svg></div><p class="vquote vquote--q">${v.x}</p><div class="vfoot"><button class="vsrc">${l.view}</button><button class="vrx" data-rx>${l.show}<svg class="ico"><use href="#ic-arrow-down-01"/></svg></button></div><div class="rxwrap"><div><div class="rxlist"><button class="stance"><span>🤔</span>${l.rx[0]}</button><button class="stance"><span>😟</span>${l.rx[1]}</button><button class="stance"><span>👀</span>${l.rx[2]}</button></div></div></div></div>`;
 };
 const LBL = {
   en: { view: "View source", show: "Show reactions (3)", rx: ["Not convinced", "This worries me", "Watching closely"], posts: "posts" },
