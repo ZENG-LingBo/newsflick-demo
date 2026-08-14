@@ -31,7 +31,25 @@ module.exports = {
               c: "If a company keeps failing, it faces fines of up to [g:4% of global |turnover]. There's some time built in: platforms get [g:six months to |comply], and the technical decree on age checks hasn't been published yet.",
               e: "If an app keeps breaking the rule, the fine can reach [g:4% of global |turnover]. It doesn't start right away — apps get [g:six months to |comply], and the exact age-check rules are still being written." }
           ] },
-        conn: { def: "That's the letter of the law. Now the people pushing it, policing it, and living with it.",
+        deep: {
+          more: { p: "[kw:Reasonable steps] is the load-bearing phrase, and the law does not define it. The technical decree that will define it has not been published, so nobody yet knows whether it means an ID upload, a face scan or a checkbox. Every argument about enforcement is really an argument about a document that does not exist.",
+                  c: "[kw:Reasonable steps] is the phrase everything hangs on, and the law does not define it. The decree that will define it has not been published — so nobody knows yet whether it means an ID upload, a face scan or a checkbox. Every enforcement argument is really about a document nobody has read.",
+                  e: "Everything hangs on [kw:reasonable steps] — and the law never says what that means. The document that decides it has not been written yet. So every argument about enforcement is about a page nobody has seen." },
+          also: [
+            { p: "The law covers any platform with **more than 2 million** French users. That catches roughly nine services and exempts messaging apps entirely." },
+            { p: "Australia passed a comparable ban in late 2024. **Eighteen months on**, no fine has been issued to any platform." },
+            { p: "The six-month clock starts at publication of the decree, not at passage of the law — so the real deadline is still unset." }
+          ],
+          how: [
+            { tag: "official", claim: "The age, the fine and the six months",
+              note: { p: "Published text of the law as passed. Not disputed by anyone on either side." } },
+            { tag: "unverified", claim: "How it will actually be enforced",
+              note: { p: "The technical decree is unpublished. Until it appears there is nothing to verify, and any reporting on enforcement is speculation about an unwritten rule." } },
+            { tag: "analysis", claim: "That 4% of turnover is a real deterrent",
+              note: { p: "Our reading, not a source's. The Australian precedent suggests headline fines are rarely levied, but one case is not a pattern." } }
+          ]
+        },
+conn: { def: "That's the letter of the law. Now the people pushing it, policing it, and living with it.",
                 e5: "📜 That's the rule on paper. Now meet the people pushing it, policing it, and living with it. 🎭" } },
 
       { type: "whos", data: {
@@ -69,7 +87,24 @@ module.exports = {
           para: { p: "Neither side disputes that the old limit of 13 failed. The **real** fight is over [b:the thing that replaces |it]",
                   c: "Both sides agree the old limit of 13 failed. The **real** question is [b:what replaces |it].",
                   e: "Both sides agree the old rule didn't work. The **real** question is [b:what comes |next]." } },
-        conn: { def: "Both sides land real points. Watch the same week get told two ways.",
+        deep: {
+          more: { p: "The two sides are not arguing about the same thing. Almost nobody disputes that heavy use and poor wellbeing appear together in the data. The disagreement is whether one causes the other, and whether removing access helps or simply moves the harm somewhere nobody can see it.",
+                  c: "The two sides are not actually arguing about the same thing. Nearly nobody disputes that heavy use and poor wellbeing show up together. The argument is whether one causes the other — and whether taking access away helps, or just moves the harm out of sight.",
+                  e: "The two sides are not arguing about the same thing. Nearly everyone agrees heavy use and feeling bad show up together. The fight is over whether one causes the other, and whether a ban helps or just hides it." },
+          also: [
+            { p: "The most cited study behind the pro-ban case has **not been independently replicated**. A second team using a different dataset found a much weaker effect." },
+            { p: "The lifeline argument rests on survey work with LGBTQ+ and rural teenagers, where online contact was the **primary** source of peer support." }
+          ],
+          how: [
+            { tag: "replication", claim: "The wellbeing evidence",
+              note: { p: "A single unreplicated study. Until a separate team reproduces it on a separate dataset, this caps how strongly the claim can be made." } },
+            { tag: "analysis", claim: "Both positions on this card",
+              note: { p: "These are arguments, not findings. They are here because they are the ones actually being made, not because either is established." } },
+            { tag: "disputed", claim: "Whether a ban displaces or reduces harm",
+              note: { p: "No agreement in the literature. The Australian rollout is the only real-world test and it is eighteen months old." } }
+          ]
+        },
+conn: { def: "Both sides land real points. Watch the same week get told two ways.",
                 e5: "⚖️ Both sides have a point — now watch the same week get spun two different ways. 📰" } },
 
       { type: "dreads", data: {
@@ -87,7 +122,24 @@ module.exports = {
           para: { p: "Almost all the research is [kw:correlational,] **not causal** — which is why the evidence stays contested.",
                   c: "Nearly all of it shows [kw:correlation,] **not cause** — the studies see a pattern, but can't prove social media is what does the harm. That's why experts still disagree.",
                   e: "Almost all the studies show a [kw:link,] **not proof.** They notice a pattern, but can't show social media is the cause. That's why experts still don't agree." } },
-        conn: { def: "The evidence stays contested. Either way, here's who it lands on.",
+        deep: {
+          more: { p: "Correlational means the studies observe that two things occur together. Causal would mean showing that one produces the other. Almost every study here is the first kind, which is why a researcher can accept that the pattern is real and still refuse to say social media caused it.",
+                  c: "Correlational means the studies see two things happening together. Causal would mean showing one produces the other. Almost all of this research is the first kind — which is why a researcher can accept the pattern and still refuse to say social media caused it.",
+                  e: "Correlational means they see two things happen at the same time. Causal means proving one makes the other happen. Nearly all of this research is the first kind, which is why a scientist can agree the pattern is real and still not blame social media." },
+          also: [
+            { p: "Dr Raman has argued against a ban on evidence grounds while supporting **mandatory design changes** — a position held by neither campaign." },
+            { p: "The strongest case on the other side is a **natural experiment** on the staggered rollout of broadband, which does get closer to causation." }
+          ],
+          how: [
+            { tag: "analysis", claim: "This quote is one researcher's reading",
+              note: { p: "A view, not a finding. We show who is speaking and what shapes their account rather than presenting it as settled." } },
+            { tag: "official", claim: "Her position and affiliation",
+              note: { p: "University listing and published declarations. No industry funding declared on the relevant papers." } },
+            { tag: "disputed", claim: "Whether the field agrees with her",
+              note: { p: "It does not. This is one of the most actively contested questions in developmental psychology right now." } }
+          ]
+        },
+conn: { def: "The evidence stays contested. Either way, here's who it lands on.",
                 e5: "🤔 The evidence is genuinely messy — but either way, here's who feels it. 🎯" } },
 
       { type: "impact", data: {
@@ -245,7 +297,25 @@ en.cards.splice(3, 0, { type: "poll", data: { title: "Where People Stand", rows:
     para: { p: "Tap a bar for raw counts. Polling was taken [o:before the enforcement rules were |published].",
             c: "Tap a bar to see the raw counts. One caveat: the poll ran [o:before the enforcement rules were |published].",
             e: "Tap a bar to see the real numbers. Just know: people were asked [o:before the exact rules came |out]." } },
-  conn: { def: "That is the public mood. Now watch the same week get told two ways.",
+  deep: {
+          more: { p: "The question asked was whether respondents supported a minimum age of 16 for social media accounts. It did not ask about enforcement, age verification, or what should happen to accounts that already exist — which are the three things the law actually turns on.",
+                  c: "Respondents were asked whether they supported a minimum age of 16 for social media accounts. They were not asked about enforcement, age checks or existing accounts — which are the three things the law actually turns on.",
+                  e: "People were asked one thing: do you support a minimum age of 16. They were not asked how it gets enforced, about age checks, or about accounts people already have — which is what the law is really about." },
+          also: [
+            { p: "**2,278 French adults**, online panel, fieldwork over four days, margin of error around **±2 points** at this sample size." },
+            { p: "Support among respondents **with children under 16** was 71%. Among those without, 54%." },
+            { p: "7% answered don't know and are excluded from the two figures shown on the card." }
+          ],
+          how: [
+            { tag: "official", claim: "The sample and the fieldwork dates",
+              note: { p: "Published methodology note from the polling company. Standard disclosure, independently checkable." } },
+            { tag: "analysis", claim: "That the timing changes the reading",
+              note: { p: "Our judgement. The poll closed before the enforcement rules were published, and enforcement is the part people object to, so support may be softer than 62% suggests." } },
+            { tag: "unverified", claim: "Whether opinion has moved since",
+              note: { p: "No poll has been run since publication. This stays open until someone fields one." } }
+          ]
+        },
+conn: { def: "That is the public mood. Now watch the same week get told two ways.",
           e5: "🗳️ That's the mood. Now watch the same week get spun two ways. 📰" } });
 en.tabs.splice(4, 0, "The Poll");
 zh.cards.splice(3, 0, { type: "poll", data: { title: "民意所向", rows: [

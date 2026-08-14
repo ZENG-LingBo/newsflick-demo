@@ -367,6 +367,42 @@
   requestAnimationFrame(fitAll);
   window.addEventListener('load', function(){ requestAnimationFrame(fitAll); });
 
+  /* ---- depth on demand: double tap expands the card in place ----
+     Desktop dblclick plus a manual touch double-tap (iOS Safari does not fire
+     dblclick reliably). Taps on interactive things inside the card are ignored so
+     inline transparency chips, source links and the confidence pill still work. */
+  (function(){
+    var IGNORE = 'a,button,input,select,textarea,.nf-conf,.chip,.chip-i,.kw,.maplive,.leaflet-container';
+    function toggle(sec){
+      var opening = !sec.classList.contains('is-open');
+      sec.classList.toggle('is-open');
+      if(opening){
+        setTimeout(function(){
+          var r = sec.getBoundingClientRect(), sc = sec.closest('.nf-phone');
+          if(sc && r.bottom > sc.clientHeight) sec.scrollIntoView({behavior:'smooth', block:'nearest'});
+        }, 380);
+      }
+    }
+    function bind(sec){
+      var last = 0;
+      sec.addEventListener('dblclick', function(e){
+        if(e.target.closest(IGNORE)) return;
+        e.preventDefault(); toggle(sec);
+      });
+      sec.addEventListener('touchend', function(e){
+        if(e.target.closest(IGNORE)) return;
+        var now = Date.now();
+        if(now - last < 320){ e.preventDefault(); toggle(sec); last = 0; }
+        else last = now;
+      }, {passive:false});
+    }
+    document.querySelectorAll('section.nf-card.has-deep').forEach(function(sec){
+      bind(sec);
+      var head = sec.querySelector('.hd');
+      if(head) head.addEventListener('click', function(e){ e.stopPropagation(); toggle(sec); });
+    });
+  })();
+
   // hook activate's applyVoiceAll reference
   window.__activate = activate;
 })();

@@ -161,10 +161,36 @@ ${d.disps.map(x => `<div class="disp"><b>${x[0]}</b><p>${md(x[1])}</p></div>`).j
 ${vparaDiv(d.para)}</div>`,
 };
 
+/* ---------- depth on demand ----------
+   Three zones inside ONE expanded card. Generated from the same card data and the
+   same claim markup, so the transparency chips are inherited rather than recomputed.
+   That is the whole point: there is one set of claims, so nothing can mismatch.
+     more: [voiceField]           elaboration  — same facts, fuller
+     also: [voiceField]           new facts    — what did not fit on the card
+     how:  [{tag, claim, note}]   evidence     — how we know this one
+   Any zone may be omitted. A timeline card wants no evidence zone; a key-facts card does. */
+const ZONE_LABEL = { more: "More detail", also: "Also known", how: "How we know" };
+
+function deepBlock(d) {
+  const body = ["more", "also", "how"].filter(k => d[k] && (Array.isArray(d[k]) ? d[k].length : true)).map(k => {
+    const items = Array.isArray(d[k]) ? d[k] : [d[k]];
+    const rows = k === "how"
+      ? items.map(it =>
+          `<div class="dp-ev"><span class="dp-ev-tag dp-ev-${it.tag}">${it.tag}</span>` +
+          `<span class="dp-ev-tx"><b>${md(it.claim)}</b><span class="dp-ev-note">${vspan(it.note)}</span></span></div>`).join("\n")
+      : items.map(it => vpara(it, "dp-p")).join("\n");
+    return `<div class="dp-zone"><div class="dp-lab">${ZONE_LABEL[k]}</div>${rows}</div>`;
+  }).join("\n");
+  return `<div class="nf-deep"><div class="nf-deep-in">${body}</div></div>`;
+}
+
 /* section wrapper + assemblers */
-function section(storyIdx, cardIdx, type, data, connector) {
+function section(storyIdx, cardIdx, type, data, connector, deep) {
   const inner = T[type](data);
-  return `<section class="nf-card" id="sec-${storyIdx}-${cardIdx}">${inner}${connector ? conn(connector) : ""}</section>`;
+  if (!deep) return `<section class="nf-card" id="sec-${storyIdx}-${cardIdx}">${inner}${connector ? conn(connector) : ""}</section>`;
+  return `<section class="nf-card has-deep" id="sec-${storyIdx}-${cardIdx}" data-deep="1">${inner}` +
+         `${deepBlock(deep)}` +
+         `${connector ? conn(connector) : ""}</section>`;
 }
 
 function bottomBar(d) {
@@ -182,7 +208,7 @@ ${ab}
 
 /* a story stage. cards = [{type, data, conn}] */
 function stage(i, d) {
-  const secs = d.cards.map((c, k) => section(i - 1, k, c.type, c.data, c.conn)).join("\n");
+  const secs = d.cards.map((c, k) => section(i - 1, k, c.type, c.data, c.conn, c.deep)).join("\n");
   let nav = H.navrow({ tagLabel: d.tag, conf: d.conf, count: d.cards.length, story: d.story });
   if (d.conf === "Medium" || d.conf === "中") nav = nav.replace('class="nf-conf"', 'class="nf-conf nf-conf--med"');
   return `<div class="stage" id="stage-${i}" data-stage="${i}" data-next="${d.next}" data-prev="${d.prev}">

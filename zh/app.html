@@ -662,6 +662,62 @@
 .feedwrap .tabbar{background:transparent;position:absolute;bottom:0;left:0;width:375px;z-index:5}
 body{margin:0;background:#c9ccc9;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 0}
 
+/* ================= Depth on demand (expand in place) =================
+   Double tap and the card itself grows. One white surface, one radius, a hairline
+   divider where the collapsed content ended.
+
+   The affordance is deliberately quiet. Reading comes first, so there is no glow,
+   no pulse and no label shouting for a tap. Two silent signals only:
+     1. a stacked page edge under the card — there is another layer here
+     2. a small chevron in the card header — this opens
+   Both sit still. The chevron turns only in response to a tap, never on its own. */
+
+/* 1. stacked page edge: a sliver of a second surface below the card */
+.nf-card.has-deep > .card{
+  box-shadow:0 4px 0 -1px #fff, 0 6px 4px -3px rgba(39,42,39,.10);
+  transition:box-shadow .3s ease}
+.nf-card.has-deep.is-open > .card{box-shadow:none}
+
+/* 2. chevron in the card header */
+.nf-card.has-deep .hd{position:relative;padding-right:20px}
+.nf-card.has-deep .hd::after{
+  content:"";position:absolute;right:2px;top:50%;width:8px;height:8px;
+  border-right:1.5px solid #bbbdbb;border-bottom:1.5px solid #bbbdbb;
+  transform:translateY(-75%) rotate(45deg);
+  transition:transform .3s cubic-bezier(.4,0,.2,1),border-color .3s}
+.nf-card.has-deep.is-open .hd::after{
+  transform:translateY(-25%) rotate(-135deg);border-color:#800080}
+.nf-card.has-deep .hd{cursor:pointer}
+
+.nf-deep{max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .38s cubic-bezier(.4,0,.2,1),opacity .2s ease}
+.nf-card.is-open .nf-deep{max-height:3000px;opacity:1}
+
+/* one continuous surface: card loses its bottom radius, expansion picks it up */
+.nf-card.is-open > .card{border-radius:16px 16px 0 0}
+.nf-deep-in{background:#fff;border-radius:0 0 16px 16px;margin-top:0;padding:4px 16px 18px;
+  display:flex;flex-direction:column;gap:20px}
+.nf-deep-in::before{content:"";display:block;height:1px;background:#ecedec;margin:0 -16px 14px}
+
+.dp-zone{display:flex;flex-direction:column;gap:9px}
+.dp-lab{font:600 10px/1 Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8e918e}
+.dp-p{margin:0}
+
+.dp-ev{display:flex;gap:10px;align-items:flex-start}
+.dp-ev-tag{flex:none;font:600 9px/1 Inter,sans-serif;letter-spacing:.05em;text-transform:uppercase;
+  padding:5px 7px;border-radius:6px;margin-top:3px}
+.dp-ev-official{background:rgba(26,86,160,.1);color:#1a56a0}
+.dp-ev-physical{background:rgba(26,122,63,.1);color:#1a7a3f}
+.dp-ev-witness{background:#ecedec;color:#616460}
+.dp-ev-disputed{background:rgba(224,112,40,.12);color:#e07028}
+.dp-ev-unverified{background:rgba(176,48,32,.1);color:#b03020}
+.dp-ev-analysis{background:rgba(102,125,255,.12);color:#667dff}
+.dp-ev-replication{background:rgba(128,0,128,.09);color:#800080}
+.dp-ev-tx{display:flex;flex-direction:column;gap:3px}
+.dp-ev-tx b{font:600 14px/1.35 Inter,sans-serif;color:#272a27}
+.dp-ev-note{font:400 13px/1.45 Inter,sans-serif;color:#616460}
+.voice-calm .dp-ev-tx b,.voice-calm .dp-ev-note,.voice-calm .dp-lab{font-family:var(--serif);font-weight:400}
+
 /* Interactive kit, restyled into the v2 .card shell. Animations key off the
    engine's reveal class (.card.rv) so they play exactly when v2 reveals a card. */
 
@@ -2587,6 +2643,42 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
   requestAnimationFrame(fitAll);
   window.addEventListener('load', function(){ requestAnimationFrame(fitAll); });
 
+  /* ---- depth on demand: double tap expands the card in place ----
+     Desktop dblclick plus a manual touch double-tap (iOS Safari does not fire
+     dblclick reliably). Taps on interactive things inside the card are ignored so
+     inline transparency chips, source links and the confidence pill still work. */
+  (function(){
+    var IGNORE = 'a,button,input,select,textarea,.nf-conf,.chip,.chip-i,.kw,.maplive,.leaflet-container';
+    function toggle(sec){
+      var opening = !sec.classList.contains('is-open');
+      sec.classList.toggle('is-open');
+      if(opening){
+        setTimeout(function(){
+          var r = sec.getBoundingClientRect(), sc = sec.closest('.nf-phone');
+          if(sc && r.bottom > sc.clientHeight) sec.scrollIntoView({behavior:'smooth', block:'nearest'});
+        }, 380);
+      }
+    }
+    function bind(sec){
+      var last = 0;
+      sec.addEventListener('dblclick', function(e){
+        if(e.target.closest(IGNORE)) return;
+        e.preventDefault(); toggle(sec);
+      });
+      sec.addEventListener('touchend', function(e){
+        if(e.target.closest(IGNORE)) return;
+        var now = Date.now();
+        if(now - last < 320){ e.preventDefault(); toggle(sec); last = 0; }
+        else last = now;
+      }, {passive:false});
+    }
+    document.querySelectorAll('section.nf-card.has-deep').forEach(function(sec){
+      bind(sec);
+      var head = sec.querySelector('.hd');
+      if(head) head.addEventListener('click', function(e){ e.stopPropagation(); toggle(sec); });
+    });
+  })();
+
   // hook activate's applyVoiceAll reference
   window.__activate = activate;
 })();
@@ -2595,7 +2687,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 (function(){
   function openSheet(kind, sid){
     var fr = document.getElementById(kind);
-    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=msd9cy3y'; fr.setAttribute('data-for', sid); }
+    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=mssr48n8'; fr.setAttribute('data-for', sid); }
     document.getElementById('layer-' + kind).classList.add('on');
   }
   document.querySelectorAll('.nf-conf[data-story]').forEach(function(el){
