@@ -4,15 +4,20 @@ const fs = require("fs");
 const H = require("./src/harvest.js");
 const C = require("./src/cards.js");
 
+/* CES=1 swaps the typhoon story into slot 1 in place of Hormuz, for the CES
+   film build only — output goes to ces/en|zh/, the public en/app.html and
+   zh/app.html (and their ORDER) are never touched by this flag. */
+const CES = !!process.env.CES;
 const STORIES = {
   s01: require("./src/content/s01.js"),
   s02: require("./src/content/s02.js"),
   s03: require("./src/content/s03.js"),
   s04: require("./src/content/s04.js"),
+  s05: require("./src/content/s05.js"),
 };
-const ORDER = ["s01", "s02", "s03", "s04"];
+const ORDER = CES ? ["s05", "s02", "s03", "s04"] : ["s01", "s02", "s03", "s04"];
 const NEWS_COUNTS = [15, 14, 13, 12];
-const HERO_TYPE = { s01: "s2story", s02: "story", s03: "s2story", s04: "s2story" };
+const HERO_TYPE = { s01: "s2story", s02: "story", s03: "s2story", s04: "s2story", s05: "s2story" };
 
 const FEED_TEXT = {
   en: {
@@ -30,10 +35,11 @@ const FEED_TEXT = {
       s01: "Twelve days of strikes have shut the Strait of Hormuz for the first time in history — and no briefing will say how this ends.",
       s02: "France passes the EU's first blanket under-16 ban. Supporters cite mental health; critics say it just moves the risk.",
       s03: "The steepest tariff wall between two allied economies in modern history — and prices move before the politics settle.",
-      s04: "Rents rose almost 4% in six months. The squeeze is real, measurable — and mapped, district by district."
+      s04: "Rents rose almost 4% in six months. The squeeze is real, measurable — and mapped, district by district.",
+      s05: "Typhoon Dolphin is eight hours from landfall. Two forecast models disagree by 90km — and a fake MTR shutdown notice is already going viral."
     },
-    tags: { s01: ["Essential", "World"], s02: ["Essential", "Society"], s03: ["Essential", "Economy"], s04: ["Local", "Housing"] },
-    titles: { s01: "The strait that prices the world is closed", s02: "Should under-16s be banned from social media?", s03: "50% tariffs, between allies", s04: "The steepest summer climb in a decade" },
+    tags: { s01: ["Essential", "World"], s02: ["Essential", "Society"], s03: ["Essential", "Economy"], s04: ["Local", "Housing"], s05: ["Essential", "Local"] },
+    titles: { s01: "The strait that prices the world is closed", s02: "Should under-16s be banned from social media?", s03: "50% tariffs, between allies", s04: "The steepest summer climb in a decade", s05: "Typhoon Dolphin is eight hours out" },
     vsheet: null // keep harvested EN vsheet
   },
   zh: {
@@ -51,10 +57,11 @@ const FEED_TEXT = {
       s01: "十二日空襲令霍爾木茲海峽史上首次封鎖——而沒有一場簡報肯講這一切如何收科。",
       s02: "法國通過歐盟首個16歲以下全面禁令。支持者談精神健康；反對者話風險只係搬咗位。",
       s03: "近代史上盟友之間最高的關稅牆——價格效應比政治結果更快到埗。",
-      s04: "半年租金升近4%。壓力真實、有數可計——而且逐區畫在地圖上。"
+      s04: "半年租金升近4%。壓力真實、有數可計——而且逐區畫在地圖上。",
+      s05: "海豚颱風尚餘八小時登陸。兩個預測模型相差90公里——一張假嘅港鐵停駛通知已經瘋傳緊。"
     },
-    tags: { s01: ["必讀", "國際"], s02: ["必讀", "社會"], s03: ["必讀", "經濟"], s04: ["本地", "房屋"] },
-    titles: { s01: "為全球定價的海峽，封了", s02: "16歲以下應否禁用社交媒體？", s03: "盟友之間，50%關稅", s04: "十年來最急的夏季升浪" },
+    tags: { s01: ["必讀", "國際"], s02: ["必讀", "社會"], s03: ["必讀", "經濟"], s04: ["本地", "房屋"], s05: ["必讀", "本地"] },
+    titles: { s01: "為全球定價的海峽，封了", s02: "16歲以下應否禁用社交媒體？", s03: "盟友之間，50%關稅", s04: "十年來最急的夏季升浪", s05: "海豚颱風尚餘八小時登陸" },
     vsheet: {
       title: "選擇聲線", sub: "同一批事實、同一批數字——只是講法不同。",
       rows: [["Plain", "平實", "中性、直述事實。預設聲線。"],
@@ -64,7 +71,28 @@ const FEED_TEXT = {
   }
 };
 
-const IMG = { s01: "../assets/img/hero-strait.jpg", s02: "../assets/img/hero-teens.jpg", s03: "../assets/img/hero-tariff.jpg", s04: "../assets/img/hero-rent.jpg" };
+const IMG = { s01: "../assets/img/hero-strait.jpg", s02: "../assets/img/hero-teens.jpg", s03: "../assets/img/hero-tariff.jpg", s04: "../assets/img/hero-rent.jpg", s05: "../assets/img/hero-typhoon.svg" };
+
+/* CES snapshot copy: same lede/bullets shape as the public feed, describing
+   the CES-only 4-story set (typhoon replacing Hormuz) instead. */
+if (CES) {
+  Object.assign(FEED_TEXT.en, {
+    lede: "One typhoon eight hours out, one landmark ban, one tariff wall and one overheating market are quietly repricing tonight. None are new; all are landing now.",
+    bullets: [
+      "Typhoon Dolphin → No. 8 window named, models disagree by 90km",
+      "France draws the under-16 line → all of Europe watches",
+      "50% tariffs land on Canada → prices follow",
+      "HK rents → steepest summer climb in a decade"]
+  });
+  Object.assign(FEED_TEXT.zh, {
+    lede: "一個尚餘八小時嘅颱風、一道破天荒的禁令、一堵關稅牆、一個過熱的市場，正悄悄為今晚重新定價。全部都不是新事，全部都在此刻埋單。",
+    bullets: [
+      "海豚颱風 → 八號風球窗口已預告，模型相差90公里",
+      "法國劃下16歲界線 → 全歐洲都在看",
+      "50%關稅落在加拿大 → 物價隨後就到",
+      "香港租金 → 十年最急夏季升浪"]
+  });
+}
 
 /* ---------- kit: map data (lifted from build-stories.js) + per-lang config ---------- */
 const MAPS = {
@@ -108,6 +136,23 @@ const MAPS = {
     points: {
       en: [[[22.306, 114.185], "Steepest: Hung Hom", "+6.2% in six months — the fastest district climb since 2016."]],
       zh: [[[22.306, 114.185], "升幅最急：紅磡", "半年+6.2%——2016年以來最快的地區升幅。"]]
+    }
+  },
+  typhoon: {
+    center: [22.28, 114.17], zoom: 10,
+    zones: {
+      en: [
+        [[22.309, 113.915], 3.0, "Hong Kong International Airport", "Low-lying and exposed on reclaimed land — among the first to feel a storm surge."],
+        [[22.285, 114.16], 2.4, "Central & harbourfront", "The waterfront promenade is where a 3-metre surge first reaches a public road."],
+        [[22.284, 114.22], 2.4, "Island East", "Low-lying streets behind the seawall; the district's own drainage is the limiting factor."]],
+      zh: [
+        [[22.309, 113.915], 3.0, "香港國際機場", "填海地勢低、暴露在外——風暴潮最先感受到嘅地方之一。"],
+        [[22.285, 114.16], 2.4, "中環及海濱一帶", "海濱長廊係3米風暴潮最先湧上公路嘅地方。"],
+        [[22.284, 114.22], 2.4, "港島東", "海堤後方地勢低嘅街道；區內排水能力係關鍵所在。"]]
+    },
+    points: {
+      en: [[[22.30, 114.05], "Projected landfall", "The current best estimate — with a roughly 90km margin either way, per the two disagreeing forecast models."]],
+      zh: [[[22.30, 114.05], "預測登陸點", "目前最佳估計——按兩個分歧模型計算，兩邊誤差範圍約90公里。"]]
     }
   }
 };
@@ -205,9 +250,15 @@ function storyStage(i, sid, lang) {
   const cards = [{ type: HERO_TYPE[sid], data: d.hero, conn: d.heroConn }].concat(d.cards);
   const next = i === 4 ? 1 : i + 1;
   const prev = i - 1; /* stage 1's prev is the feed (0) */
+  /* The bottom "up next" pill always names whichever story actually occupies the
+     next ORDER slot — derived, not the story's own static nextTitle field, so a
+     story swapped into a different slot (e.g. the CES build) can't show a stale
+     title for a neighbour it no longer has. */
+  const nextTitle = STORIES[ORDER[next - 1]][lang].hero.title
+    .replace(/\s*\[he:[^\]]+\]\s*/g, " ").replace(/\s+/g, " ").trim();
   return C.stage(i, {
     tag: d.tag, conf: d.conf, story: sid, voices: d.voices,
-    tabs: d.tabs, nextTitle: d.nextTitle, next, prev,
+    tabs: d.tabs, nextTitle, next, prev,
     cards, newsCount: NEWS_COUNTS[i - 1]
   });
 }
@@ -348,12 +399,35 @@ function buildApp(lang) {
    so GitHub Pages' 10-minute edge cache can't serve a stale app once the shell
    itself has refreshed (query strings are distinct cache keys on the CDN) */
 const STAMP = Date.now().toString(36);
-for (const lang of ["en", "zh"]) {
-  const html = buildApp(lang).split("__NF_BUILD__").join(STAMP);
-  fs.writeFileSync(`${lang}/app.html`, html);
-  console.log(`${lang}/app.html`, Math.round(html.length / 1024) + "KB");
+const OUT = CES ? "ces" : ".";
+if (CES) {
+  for (const lang of ["en", "zh"]) fs.mkdirSync(`${OUT}/${lang}`, { recursive: true });
 }
-const shell = fs.readFileSync("index.html", "utf8")
-  .replace(/var NF_BUILD="[^"]*"/, `var NF_BUILD="${STAMP}"`);
-fs.writeFileSync("index.html", shell);
-console.log("index.html stamped", STAMP);
+for (const lang of ["en", "zh"]) {
+  let html = buildApp(lang).split("__NF_BUILD__").join(STAMP);
+  /* ces/en/app.html sits one directory deeper than the public en/app.html,
+     so every "../assets/..." reference (hero images, harvested sprite icons)
+     needs an extra "../" to still reach the shared assets/ folder. Sheets
+     don't need this — they carry no raster refs (avatars are inline SVG). */
+  if (CES) html = html.replace(/\.\.\/assets\//g, "../../assets/");
+  fs.writeFileSync(`${OUT}/${lang}/app.html`, html);
+  console.log(`${OUT}/${lang}/app.html`, Math.round(html.length / 1024) + "KB");
+}
+/* CES build reuses the same shell (splash + scale-to-fit); only the app
+   iframes underneath it differ, so the public index.html is never touched
+   in CES mode — the CES shell is a thin copy pointed at ces/en|zh/. */
+if (CES) {
+  /* ces/index.html sits one directory deeper than the public shell, so its
+     root-relative asset refs (assets/img/...) need a ../ prefix; the app
+     src (lang+"/app.html") is already correct as-is, relative to ces/. */
+  const shell = fs.readFileSync("index.html", "utf8")
+    .replace(/var NF_BUILD="[^"]*"/, `var NF_BUILD="${STAMP}"`)
+    .replace(/(href|src)="assets\//g, `$1="../assets/`);
+  fs.writeFileSync(`${OUT}/index.html`, shell);
+  console.log(`${OUT}/index.html stamped`, STAMP);
+} else {
+  const shell = fs.readFileSync("index.html", "utf8")
+    .replace(/var NF_BUILD="[^"]*"/, `var NF_BUILD="${STAMP}"`);
+  fs.writeFileSync("index.html", shell);
+  console.log("index.html stamped", STAMP);
+}

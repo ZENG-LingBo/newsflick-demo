@@ -4,7 +4,7 @@
 const fs = require("fs");
 const CLOCK_JS = "<script>(function(){function t(){var d=new Date(),h=d.getHours(),m=d.getMinutes(),x=h%12===0?12:h%12;var s=x+\":\"+(m<10?\"0\":\"\")+m;var n=document.querySelectorAll(\".time\");for(var i=0;i<n.length;i++)n[i].textContent=s;}t();setInterval(t,10000);document.addEventListener(\"visibilitychange\",t);})();</script>";
 
-const TPL = { s01: "confidence-s01", s02: "confidence-s01", s03: "confidence-s03", s04: "confidence-s02" };
+const TPL = { s01: "confidence-s01", s02: "confidence-s01", s03: "confidence-s03", s04: "confidence-s02", s05: "confidence-s01" };
 
 /* section rebuild helpers (exact original markup) */
 const ITEM_TERM = (t, tag, p) => `<div class="cs-item cs-item--terms"><div class="cs-itemhead"><p class="cs-t cs-t--nowrap">${t}</p><span class="cs-etag cs-etag--term">${tag}</span></div><p class="cs-p">${p}</p></div>`;
@@ -292,6 +292,58 @@ const D = {
       settleNote: "實測紀錄相當扎實——所以是「高」與「核實中」。下一步變動取決於數據公布，而非調查。",
       explore: ["差估署租金指數", "人才計劃流入", "學生宿舍供應"]
     }
+  },
+  s05: {
+    en: {
+      level: "MEDIUM", state: "Developing", flags: true, basedOn: "6 sources", verified: "Last verified 12m ago",
+      verdict: "The No. 8 signal window is officially confirmed. The exact landfall point is genuinely still moving between forecast models, and a viral MTR shutdown screenshot circulating tonight is fabricated.",
+      status: { Developing: "The No. 8 signal window is officially confirmed. The exact landfall point is genuinely still moving between forecast models, and a viral MTR shutdown screenshot circulating tonight is fabricated.", Verifying: "The signal timing is established. Landfall specifics are narrowing as later bulletins arrive.", Stabilised: "The track is settled; only the after-action questions are open." },
+      claims: [["ok", "Signal No. 8 window: around 02:00", "Published in the Observatory's 18:00 bulletin — the primary source, not a model's raw output."],
+               ["dev", "Landfall point still narrowing", "Two major forecast models currently disagree by roughly 90km; expected to converge as the night goes on."],
+               ["un", "MTR suspending all service from 8pm", "This screenshot is circulating widely tonight. It does not match any MTR bulletin — see Disputed below."]],
+      terms: [["Signal No. 8", "The threshold for sustained winds above 63 km/h expected to affect the whole territory. It is a public-safety trigger, not a measure of the storm's raw strength."],
+              ["Storm surge", "Wind piling sea water against the coastline faster than it can drain. A 3-metre surge is enough to put water on Hong Kong's harbourfront road."]],
+      confirmed: [["Signal No. 8 window named for around 02:00", "Directly readable from the Observatory's own 18:00 bulletin.", ["official"]],
+                  ["Gusts near 210 km/h at the eyewall", "Consistent across the Observatory's last three bulletins.", ["official", "physical"]]],
+      evidence: [["official", "Observatory 18:00 bulletin", "Names the No. 8 window and current gust speeds; the primary source for tonight's timeline."],
+                 ["witness", "Ferry and transport operators", "Cross-harbour routes and ferries confirmed suspended for the night as of 16:00."],
+                 ["physical", "Live gust-speed readings", "Climbing from 45 km/h at 14:00 to a projected overnight peak of 118 km/h."],
+                 ["notyet", "Confirmed landfall coordinates", "Won't be known until the storm is much closer — tonight's map shows a projection, not a fact."]],
+      disputed: [["Whether the MTR is suspending all service from 8pm", "The viral screenshot's claim", "Circulating widely since 19:30, styled to look like an official MTR service update.", "MTR's own bulletin", "The 17:30 update — the most recent MTR has actually published — says normal service continues until the signal changes."],
+                 ["Exactly where landfall happens", "One forecast model's track", "Points further west, closer to the airport.", "The other model's track", "Points further east, closer to Island East — a roughly 90km gap between the two."]],
+      unknown: [["Whether Signal No. 8 will be raised on schedule", "The 22:00 bulletin will confirm or shift the window."],
+                ["How quickly flights resume after landfall", "Depends on the storm's forward speed once it passes, not yet observable."]],
+      settle: [["The 22:00 Observatory bulletin", "Will directly narrow — or confirm open — the 90km landfall gap."],
+               ["An official MTR statement", "Would settle the viral screenshot beyond doubt; none has been needed, since MTR's own channels never showed the claim."],
+               ["Landfall itself", "The single event that converts every current projection into a fact."]],
+      settleNote: "Every gap here is Awaiting, expected to resolve within hours rather than days — which is why the story is Developing and moves fast in both directions tonight.",
+      explore: ["Hong Kong Observatory bulletins", "How storm surge works", "Past Signal No. 8 nights"]
+    },
+    zh: {
+      level: "MEDIUM", state: "Developing", flags: true, basedOn: "6 個來源", verified: "12分鐘前核實",
+      verdict: "八號風球窗口已正式確認。實際登陸地點喺兩個預測模型之間確實仍在浮動，而今晚瘋傳嘅港鐵停駛截圖屬於捏造。",
+      status: { Developing: "八號風球窗口已正式確認。實際登陸地點喺兩個預測模型之間確實仍在浮動，而今晚瘋傳嘅港鐵停駛截圖屬於捏造。", Verifying: "風球時間已經確立。隨住後續公告陸續有來，登陸細節正在收窄。", Stabilised: "路徑已經穩定；只剩事後檢討嘅問題未有答案。" },
+      claims: [["ok", "八號風球窗口：大約凌晨兩點", "出自天文台18:00公告——主要來源，並非模型嘅原始輸出。"],
+               ["dev", "登陸地點仍在收窄", "兩個主要預測模型現時相差約90公里；預期隨住入夜逐步收斂。"],
+               ["un", "港鐵晚上8點起全線停駛", "呢張截圖今晚瘋傳緊。同任何港鐵公告都對唔上——詳見下面「有爭議」。"]],
+      terms: [["八號風球", "持續風速超過時速63公里、預計影響全港嘅門檻。呢個係公眾安全嘅觸發點，並非風暴本身強度嘅量度。"],
+              ["風暴潮", "風力將海水推向岸邊，速度快過排水。3米嘅風暴潮，足以令海水湧上香港嘅海濱道路。"]],
+      confirmed: [["八號風球窗口預告大約凌晨兩點", "直接出自天文台自己嘅18:00公告。", ["official"]],
+                  ["風眼陣風接近時速210公里", "連續三份天文台公告數字一致。", ["official", "physical"]]],
+      evidence: [["official", "天文台18:00公告", "點名八號風球窗口同現時陣風速度；今晚時序嘅主要來源。"],
+                 ["witness", "渡輪及交通營運商", "維港兩岸航線同渡輪已於16:00確認停航一晚。"],
+                 ["physical", "實時陣風讀數", "由14:00嘅時速45公里，攀升至預測今晚高峰嘅時速118公里。"],
+                 ["notyet", "確實登陸座標", "要風暴再逼近先會知道——今晚地圖顯示嘅係預測，唔係事實。"]],
+      disputed: [["港鐵是否晚上8點起全線停駛", "瘋傳截圖嘅說法", "由19:30開始廣泛流傳，格式扮成官方港鐵服務更新。", "港鐵自己嘅公告", "17:30嘅更新——港鐵至今發出過最新一份——話正常服務維持到風球轉波為止。"],
+                 ["登陸地點實際喺邊", "其中一個模型嘅路徑", "指向較西，貼近機場。", "另一個模型嘅路徑", "指向較東，貼近港島東——兩者相差約90公里。"]],
+      unknown: [["八號風球會否準時發出", "22:00公告會確認或調整呢個窗口。"],
+                ["航班幾快恢復", "視乎風暴過境後嘅移動速度，現階段未能觀察。"]],
+      settle: [["22:00天文台公告", "會直接收窄——或確認持續——嗰90公里嘅登陸差距。"],
+               ["港鐵官方聲明", "可以徹底了斷嗰張瘋傳截圖；不過至今都毋須發出，因為港鐵自己嘅渠道從未出現過呢個講法。"],
+               ["登陸本身", "將現時所有推算變成事實嘅唯一事件。"]],
+      settleNote: "此處每項缺口均屬「有待進展」，預期數小時內、而非數日內解決——這正是報道處於「發展中」、今晚會雙向快速變動的原因。",
+      explore: ["香港天文台公告", "風暴潮運作原理", "過往嘅八號風球夜"]
+    }
   }
 };
 
@@ -337,8 +389,17 @@ function secReplace(h, sec, newInner) {
   return replaceInner(h, listIdx, "\n" + newInner + "\n          ");
 }
 
+/* Which output roots need each story's sheet. s01 is public-only (the CES
+   build swaps it out for s05); s05 is CES-only; s02-s04 are shared by both
+   builds, so their sheets must exist under both roots — a CES app.html
+   resolves "confidence-s02.html" relative to its own folder, same as the
+   public app.html does, so nothing in engine.js/APPENDIX needs to know
+   about the second location. */
+const ROOTS = { s01: [""], s02: ["", "ces/"], s03: ["", "ces/"], s04: ["", "ces/"], s05: ["ces/"] };
+for (const root of ["ces/en", "ces/zh"]) fs.mkdirSync(root, { recursive: true });
+
 let n = 0;
-for (const id of ["s01", "s02", "s03", "s04"]) {
+for (const id of Object.keys(ROOTS)) {
   for (const lang of ["en", "zh"]) {
     const d = D[id][lang], l = L[lang];
     let h = fs.readFileSync(`templates/${lang}/${TPL[id]}.html`, "utf8");
@@ -390,8 +451,7 @@ for (const id of ["s01", "s02", "s03", "s04"]) {
     h = h.replace(/const STATUS = \{[\s\S]*?\};/, `const STATUS = ${JSON.stringify(d.status)};`);
 
     h = h.replace("</body>", "<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}/*responsive-fill*/html,body{height:100%}body{display:block!important;padding:0!important}.phone{height:100%!important;border-radius:0!important}</style>" + CLOCK_JS + "</body>");
-    fs.writeFileSync(`${lang}/confidence-${id}.html`, h);
-    n++;
+    for (const root of ROOTS[id]) { fs.writeFileSync(`${root}${lang}/confidence-${id}.html`, h); n++; }
   }
 }
 console.log("built", n, "confidence sheets on original UI");

@@ -8,7 +8,7 @@
 const fs = require("fs");
 const CLOCK_JS = "<script>(function(){function t(){var d=new Date(),h=d.getHours(),m=d.getMinutes(),x=h%12===0?12:h%12;var s=x+\":\"+(m<10?\"0\":\"\")+m;var n=document.querySelectorAll(\".time\");for(var i=0;i<n.length;i++)n[i].textContent=s;}t();setInterval(t,10000);document.addEventListener(\"visibilitychange\",t);})();</script>";
 
-const TPL = { s01: "pulse-s03", s02: "pulse-s01", s03: "pulse-s03", s04: "pulse-s02" };
+const TPL = { s01: "pulse-s03", s02: "pulse-s01", s03: "pulse-s03", s04: "pulse-s02", s05: "pulse-s01" };
 const KEYS = {
   "pulse-s01": ["protective", "wary", "anxious", "skeptical"],
   "pulse-s02": ["resignation", "frustration", "humour", "solidarity"],
@@ -237,6 +237,54 @@ const D = {
         { cat: "Commentators", b: "SD", n: "@shoebox_deluxe", m: "租客 · Threads · 2小時前", x: "我間280呎而家叫做「租務支持強勁的罕有筍盤」。原來我住喺一份投資論文入面。" }
       ]
     }
+  },
+  s05: {
+    en: {
+      labels: ["Protective", "Wary", "Anxious", "Skeptical"],
+      temp: "Loud but oddly cheerful — a city that has done this before, checking on neighbours and stocking up, with a thick undercurrent of distrust about that MTR screenshot.",
+      basedOn: ["Based on 11,000 posts", "Based on 9,400 posts"],
+      details: [
+        ["Neighbours checking in on elderly residents and stocking up for more than just themselves.", [
+          ["Checking on the block", "2,000", "Neighbours checking in on elderly residents and stocking up for more than just themselves.", [["@shatin_helen", "public post · Threads · 35m ago", "Knocked on the auntie next door's flat, brought her extra water and torch batteries. Takes ten minutes."]]]]],
+        ["Distrust of the viral MTR screenshot, and a general wariness about unverified storm claims.", [
+          ["That MTR thing is fake", "1,800", "Distrust of the viral MTR screenshot, and a general wariness about unverified storm claims.", [["@commute_kelvin", "public post · X · 20m ago", "That '8pm full suspension' screenshot has been going around for an hour. MTR's own page says nothing like it. Check before you share."]]]]],
+        ["The familiar pre-signal-8 nerves — flights, exams, and whether the call comes in time.", [
+          ["The waiting is the worst part", "1,400", "The familiar pre-signal-8 nerves — flights, exams, and whether the call comes in time.", [["@redbag_ren", "public post · Threads · 50m ago", "Mock exam is tomorrow morning. Either it's cancelled or it isn't, and nobody tells us until 6am. Impossible to sleep."]]]]],
+        ["The city's own genre of storm humour, running at full speed.", [
+          ["The noodle shelf is gone", "1,100", "The city's own genre of storm humour, running at full speed.", [["@panpanpanda", "public post · Threads · 1h ago", "Bought the last shelf of instant noodles at 7-Eleven. See you on the other side 🍜"]]]]]
+      ],
+      voices: [
+        { cat: "Officials", b: "HKO", n: "Hong Kong Observatory", m: "Official bulletin · 18:00", x: "Signal No. 8 may be issued around 02:00. Please secure loose objects and avoid unnecessary travel tonight." },
+        { cat: "Experts", b: "SL", n: "Dr Samuel Lo", m: "Meteorologist, Meridian Institute · 2h ago", x: "The two major tracks disagree by about 90km. That gap is tonight's whole story — every decision people are waiting on follows from it." },
+        { cat: "Outlets", b: "FW", n: "Frontline Wire", m: "News outlet · explainer · 3h ago", x: "The MTR shutdown screenshot circulating tonight does not match any bulletin MTR has actually published — treat it as unverified." },
+        { cat: "Commentators", b: "SH", n: "@shatin_helen", m: "public post · Threads · 35m ago", x: "Knocked on the auntie next door's flat, brought her extra water and torch batteries. Takes ten minutes." },
+        { cat: "Commentators", b: "CK", n: "@commute_kelvin", m: "public post · X · 20m ago", x: "That '8pm full suspension' screenshot has been going around for an hour. MTR's own page says nothing like it. Check before you share." },
+        { cat: "Commentators", b: "PP", n: "@panpanpanda", m: "public post · Threads · 1h ago", x: "Bought the last shelf of instant noodles at 7-Eleven. See you on the other side 🍜" }
+      ]
+    },
+    zh: {
+      labels: ["互相照應", "有戒心", "緊張", "淡定吐槽"],
+      temp: "聲浪大但意外地輕鬆——呢個城市見識過大場面，鄰里互相照應、屯定糧食，底下卻有一股對嗰張港鐵截圖嘅濃厚戒心。",
+      basedOn: ["根據11,000則帖文", "根據9,400則帖文"],
+      details: [
+        ["鄰居互相探望長者，屯糧唔止為自己。", [
+          ["睇吓成層樓", "2,000", "鄰居互相探望長者，屯糧唔止為自己。", [["@shatin_helen", "公開帖文 · Threads · 35分鐘前", "敲咗隔籬阿婆度門，攞多咗水同電筒電芯畀佢。十分鐘就搞掂。"]]]]],
+        ["對瘋傳嘅港鐵截圖存有戒心，對未經證實嘅風暴傳言普遍謹慎。", [
+          ["港鐵嗰單嘢係假嘅", "1,800", "對瘋傳嘅港鐵截圖存有戒心，對未經證實嘅風暴傳言普遍謹慎。", [["@commute_kelvin", "公開帖文 · X · 20分鐘前", "嗰張「8點全綫停駛」截圖已經傳咗成個鐘。港鐵自己個網完全冇呢回事。轉發前查清楚先。"]]]]],
+        ["熟悉嘅八號風球前緊張——航班、考試，仲有個決定幾時先到。", [
+          ["等待先係最難捱", "1,400", "熟悉嘅八號風球前緊張——航班、考試，仲有個決定幾時先到。", [["@redbag_ren", "公開帖文 · Threads · 50分鐘前", "聽日朝早模擬試。停課定唔停，冇人會喺朝早6點之前話你知。點瞓得着。"]]]]],
+        ["呢個城市獨有嘅風暴幽默感，全速運作。", [
+          ["個公仔麵架空咗", "1,100", "呢個城市獨有嘅風暴幽默感，全速運作。", [["@panpanpanda", "公開帖文 · Threads · 1小時前", "喺7-Eleven買咗最後一排公仔麵。大家平安過關，見返 🍜"]]]]]
+      ],
+      voices: [
+        { cat: "Officials", b: "天文台", n: "香港天文台", m: "官方公告 · 18:00", x: "八號風球可能於凌晨兩點左右發出。請盡快收好露天物品，今晚避免非必要外出。" },
+        { cat: "Experts", b: "SL", n: "羅森彥博士", m: "氣象學家，Meridian Institute · 2小時前", x: "兩條主要路徑相差約90公里。呢個差距就係今晚嘅懸念——所有人等緊嘅決定，都跟住呢個數。" },
+        { cat: "Outlets", b: "FW", n: "Frontline Wire", m: "新聞機構 · 解說 · 3小時前", x: "今晚瘋傳嘅港鐵停駛截圖，同港鐵發出過嘅任何公告都對唔上——請當未經證實處理。" },
+        { cat: "Commentators", b: "SH", n: "@shatin_helen", m: "公開帖文 · Threads · 35分鐘前", x: "敲咗隔籬阿婆度門，攞多咗水同電筒電芯畀佢。十分鐘就搞掂。" },
+        { cat: "Commentators", b: "CK", n: "@commute_kelvin", m: "公開帖文 · X · 20分鐘前", x: "嗰張「8點全綫停駛」截圖已經傳咗成個鐘。港鐵自己個網完全冇呢回事。轉發前查清楚先。" },
+        { cat: "Commentators", b: "PP", n: "@panpanpanda", m: "公開帖文 · Threads · 1小時前", x: "喺7-Eleven買咗最後一排公仔麵。大家平安過關，見返 🍜" }
+      ]
+    }
   }
 };
 
@@ -254,8 +302,12 @@ function replaceDiv(h, openTag, replacement) {
   throw new Error("unbalanced divs after: " + openTag);
 }
 
+/* see build-conf.js for why s02-s04 need both output roots and s05 needs ces/ only */
+const ROOTS = { s01: [""], s02: ["", "ces/"], s03: ["", "ces/"], s04: ["", "ces/"], s05: ["ces/"] };
+for (const root of ["ces/en", "ces/zh"]) fs.mkdirSync(root, { recursive: true });
+
 let n = 0;
-for (const id of ["s01", "s02", "s03", "s04"]) {
+for (const id of Object.keys(ROOTS)) {
   for (const lang of ["en", "zh"]) {
     const d = D[id][lang], l = LBL[lang], tpl = TPL[id], keys = KEYS[tpl], old = OLDLABELS[tpl][lang];
     let h = fs.readFileSync(`templates/${lang}/${tpl}.html`, "utf8");
@@ -280,8 +332,7 @@ for (const id of ["s01", "s02", "s03", "s04"]) {
     h = h.replace(d.basedOn[0], d.basedOn[1]);
 
     h = h.replace("</body>", "<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}/*responsive-fill*/html,body{height:100%}body{display:block!important;padding:0!important}.phone{height:100%!important;border-radius:0!important}</style>" + CLOCK_JS + "</body>");
-    fs.writeFileSync(`${lang}/pulse-${id}.html`, h);
-    n++;
+    for (const root of ROOTS[id]) { fs.writeFileSync(`${root}${lang}/pulse-${id}.html`, h); n++; }
   }
 }
 console.log("built", n, "pulse sheets on original UI");
