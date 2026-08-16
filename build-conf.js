@@ -447,7 +447,14 @@ for (const id of Object.keys(ROOTS)) {
     h = h.replace(/const STATUS = \{[\s\S]*?\};/, `const STATUS = ${JSON.stringify(d.status)};`);
 
     h = h.replace("</body>", "<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}/*responsive-fill*/html,body{height:100%}body{display:block!important;padding:0!important}.phone{height:100%!important;border-radius:0!important}</style>" + CLOCK_JS + "</body>");
-    for (const root of ROOTS[id]) { if (root === "ces/" && !CES_LANGS.includes(lang)) continue; fs.writeFileSync(`${root}${lang}/confidence-${id}.html`, h); n++; }
+    for (const root of ROOTS[id]) {
+      if (root === "ces/" && !CES_LANGS.includes(lang)) continue;
+      /* ces/en/ is one directory deeper than en/, so the publisher-logo
+         "../assets/..." refs need an extra ../ to reach the shared folder —
+         same adjustment build-app.js makes for the CES app document. */
+      const out = root === "ces/" ? h.split("../assets/").join("../../assets/") : h;
+      fs.writeFileSync(`${root}${lang}/confidence-${id}.html`, out); n++;
+    }
   }
 }
 console.log("built", n, "confidence sheets on original UI");
