@@ -55,6 +55,7 @@ module.exports = {
               e: "That screenshot going around saying the [kw:MTR] shuts down at 8pm? Fake. The real MTR bulletin from 5:30pm says trains keep running until the signal actually changes." }
           ] },
         deep: {
+          stats: [["90", "km between the two model tracks"], ["63", "km/h sustained triggers No. 8"]],
           more: { p: "The 90km gap between the two forecast models is not unusual this far out — but it is the single number every other decision tonight depends on. A school board deciding whether to call off tomorrow, an airline deciding whether to pre-cancel a flight, a family deciding whether to board windows: all of it traces back to which of the two tracks turns out to be right.",
                   c: "A 90km gap between forecast models is not unusual this many hours out — but it is the one number every other decision tonight actually depends on. Whether a school calls off tomorrow, whether an airline pre-cancels a flight, whether a family boards up windows — all of it traces back to which of the two tracks turns out right.",
                   e: "A 90km gap this far out is pretty normal, honestly — storms are hard to predict. But this ONE number is what every other decision tonight hangs on: school, flights, boarding up windows. All of it comes down to which forecast turns out true." },
@@ -105,6 +106,7 @@ module.exports = {
                   c: "Tap a bar to see the raw counts. This is a genuine, recurring argument every typhoon season — not something manufactured for tonight.",
                   e: "Tap a bar to see the real numbers behind it. People argue about this every single typhoon season — it's not a new fight." } },
         deep: {
+          stats: [["2,278", "people surveyed"], ["81%", "of parents of school-age kids"]],
           more: { p: "The question asked was narrow and specific: should school and work closure decisions be announced the night before, rather than at 5am on the day. It did not ask whether people wanted the storm to be taken seriously, or whether they trusted the Observatory — both of which a simpler headline number might imply.",
                   c: "The question asked was narrow and specific: whether closure decisions should come the night before rather than at 5am on the day. It did not ask whether people take the storm seriously, or whether they trust the Observatory — both things a simpler headline might quietly imply.",
                   e: "The actual question was just: should they decide tonight, not at 5am? It wasn't asking if people trust the weather service or think the storm's a big deal — a simpler headline could make you think it was." },

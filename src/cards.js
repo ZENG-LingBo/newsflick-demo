@@ -79,7 +79,7 @@ const T = {
   s2story: d => `<div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('${d.img}')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">${md(d.title)}</div></div><div class="card c-s2story-body">${vblock(d.paras)}</div></div>`,
 
   keyfacts: d => `<div class="card">${hd("keyfacts", d.title || "Key Facts")}
-<div class="stats">${d.tiles.map(t => `<div class="tile"><div class="fig">${t.fig}</div><div class="lab">${t.lab}</div></div>`).join("\n")}</div>
+<div class="stats">${(sm => d.tiles.map(t => `<div class="tile"><div class="fig${sm}">${t.fig}</div><div class="lab">${t.lab}</div></div>`).join("\n"))(figSm(d.tiles.map(t => t.fig)) ? " sm" : "")}</div>
 <div class="bd">${vblock(d.paras, "block")}</div></div>`,
 
   whos: d => `<div class="card c-whos">${hd("whos", d.title || "Who's Involved")}
@@ -171,6 +171,35 @@ ${vparaDiv(d.para)}</div>`,
    Any zone may be omitted. A timeline card wants no evidence zone; a key-facts card does. */
 const ZONE_LABEL = { more: "More detail", also: "Also known", how: "How we know" };
 
+/* Zone icons — 16px stroke marks on the 32px grey disc, same weight as the card
+   header icons so an opened card reads as more of the same page, not a new one. */
+const DP_ICON = {
+  /* text-check: three shortening lines and a tick — "the same claims, checked" */
+  more: '<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.667 3.333H12M2.667 6.667H10M2.667 10H5.333" stroke="#1D201D" stroke-width="1.5" stroke-linecap="round"/><path d="M7.333 10.667 9.333 12.667 13.333 8" stroke="#1D201D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  /* plus-circle: facts that did not fit on the card */
+  also: '<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" stroke="#1D201D" stroke-width="1.5"/><path d="M8 5.5v5M5.5 8h5" stroke="#1D201D" stroke-width="1.5" stroke-linecap="round"/></svg>',
+  /* magnifier: how we know it */
+  how: '<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="7.083" cy="7.083" r="4.583" stroke="#1D201D" stroke-width="1.5"/><path d="M13.5 13.5 10.9 10.9" stroke="#1D201D" stroke-width="1.5" stroke-linecap="round"/></svg>',
+  chev: '<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 5.75 8 10.5l4.5-4.75" stroke="#272A27" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+};
+
+/* A 150px tile fits about five characters of the 44px display figure; past that
+   the number spills out of its own tile. Sizing is decided per ROW, not per tile,
+   so the pair still reads as a pair — two figures at different sizes side by side
+   looks like a mistake, which is what "210 km/h" next to "8 hrs" was doing. */
+const figSm = vals => vals.some(v => String(v).length > 5);
+
+/* Optional headline pair for a zone: [[value, label], ...].
+   Two tiles is the design; the row stays honest with one. */
+function dpStats(st) {
+  if (!Array.isArray(st) || !st.length) return "";
+  const pair = st.slice(0, 2);
+  const sm = figSm(pair.map(t => t[0])) ? " sm" : "";
+  return `<div class="dp-stats">${pair.map(([n, lab]) =>
+    `<div class="dp-tile"><div class="dp-num${sm}">${md(String(n))}</div>` +
+    `<div class="dp-tlab">${md(lab)}</div></div>`).join("")}</div>`;
+}
+
 function deepBlock(d) {
   const body = ["more", "also", "how"].filter(k => d[k] && (Array.isArray(d[k]) ? d[k].length : true)).map(k => {
     const items = Array.isArray(d[k]) ? d[k] : [d[k]];
@@ -179,9 +208,21 @@ function deepBlock(d) {
           `<div class="dp-ev"><span class="dp-ev-tag dp-ev-${it.tag}">${it.tag}</span>` +
           `<span class="dp-ev-tx"><b>${md(it.claim)}</b><span class="dp-ev-note">${vspan(it.note)}</span></span></div>`).join("\n")
       : items.map(it => vpara(it, "dp-p")).join("\n");
-    return `<div class="dp-zone"><div class="dp-lab">${ZONE_LABEL[k]}</div>${rows}</div>`;
+    /* the numbers lead the first zone — they are the reason to have opened it */
+    const lead = k === "more" ? dpStats(d.stats) : "";
+    return `<div class="dp-zone"><div class="dp-hd"><span class="dp-hd-ic">${DP_ICON[k]}</span>` +
+           `<span class="dp-hd-t">${ZONE_LABEL[k]}</span></div>` +
+           `<div class="dp-body">${lead}${rows}</div></div>`;
   }).join("\n");
   return `<div class="nf-deep"><div class="nf-deep-in">${body}</div></div>`;
+}
+
+/* The control is now a labelled bar on the card's bottom edge rather than a mute
+   chevron in the header: the expansion is a named thing you choose, so it says its
+   name. It sits above the panel it opens, so the control you tapped stays put. */
+function deepBar() {
+  return `<button class="dp-bar" type="button" aria-expanded="false">` +
+         `<span class="dp-bar-t">Deep dive</span><span class="dp-bar-ic">${DP_ICON.chev}</span></button>`;
 }
 
 /* section wrapper + assemblers */
@@ -189,7 +230,7 @@ function section(storyIdx, cardIdx, type, data, connector, deep) {
   const inner = T[type](data);
   if (!deep) return `<section class="nf-card" id="sec-${storyIdx}-${cardIdx}">${inner}${connector ? conn(connector) : ""}</section>`;
   return `<section class="nf-card has-deep" id="sec-${storyIdx}-${cardIdx}" data-deep="1">${inner}` +
-         `${deepBlock(deep)}` +
+         `${deepBar()}${deepBlock(deep)}` +
          `${connector ? conn(connector) : ""}</section>`;
 }
 

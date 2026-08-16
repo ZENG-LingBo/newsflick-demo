@@ -376,6 +376,8 @@
     function toggle(sec){
       var opening = !sec.classList.contains('is-open');
       sec.classList.toggle('is-open');
+      var bar = sec.querySelector('.dp-bar');
+      if(bar) bar.setAttribute('aria-expanded', opening ? 'true' : 'false');
       if(opening){
         setTimeout(function(){
           var r = sec.getBoundingClientRect(), sc = sec.closest('.nf-phone');
@@ -398,8 +400,11 @@
     }
     document.querySelectorAll('section.nf-card.has-deep').forEach(function(sec){
       bind(sec);
-      var head = sec.querySelector('.hd');
-      if(head) head.addEventListener('click', function(e){ e.stopPropagation(); toggle(sec); });
+      /* the bar is the primary control; double tap on the card body still works.
+         It is a <button>, so IGNORE already keeps the double-tap handler off it
+         and one tap cannot register as both. */
+      var bar = sec.querySelector('.dp-bar');
+      if(bar) bar.addEventListener('click', function(e){ e.stopPropagation(); toggle(sec); });
     });
   })();
 

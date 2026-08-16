@@ -30,10 +30,12 @@
 .banner-cap{font-family:'Space Grotesk';font-weight:600;font-size:16px;line-height:20px;color:var(--ink);text-align:center}
 /* metric tiles row (Key Facts style) */
 .stats{display:flex;gap:8px;width:100%}
-.tile{flex:1;background:var(--purpleL);border-radius:12px;padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.tile{flex:1;min-width:0;background:var(--purpleL);border-radius:12px;padding:16px 8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
 .lab{font-family:'Inter';font-weight:400;font-size:14px;line-height:18px;color:var(--ink);text-align:center}
 /* DISPLAY FIGURE — always use .fig for big numbers so Calm can reskin it to serif+ink */
-.fig{font-family:'Space Grotesk';font-weight:700;font-size:44px;line-height:52px;color:var(--purple)}
+.fig{font-family:'Space Grotesk';font-weight:700;font-size:44px;line-height:52px;color:var(--purple);white-space:nowrap}
+/* a figure too long for its tile steps down instead of spilling out of it */
+.fig.sm{font-size:32px;line-height:52px}
 /* body paragraph (flex-wrap inline like Figma) */
 /* normal inline text flow — NOT flex-wrap (flex made every inline span an atomic
    item that broke onto its own line and stranded punctuation) */
@@ -60,7 +62,7 @@
 .conn-t{font-family:'Space Grotesk';font-weight:600;font-size:20px;line-height:24px;color:var(--ink);text-align:center}
 /* ===== VOICE DELTAS (applied centrally; do not hard-code voice styles per card) ===== */
 /* Calm = New York REGULAR (not bold) everywhere serif is used */
-.voice-calm .fig{font-family:var(--serif);color:var(--ink);font-weight:400}
+.voice-calm .fig,.voice-calm .dp-num{font-family:var(--serif);color:var(--ink);font-weight:400}
 .voice-calm .tile,.voice-calm .banner{background:var(--grey)}
 .voice-calm .conn-t{font-family:var(--serif);font-weight:400}
 
@@ -387,12 +389,13 @@
 /* ===== font fallbacks: never fall back to a browser serif for the sans voices ===== */
 .para,.para b,.lab,.kw,.plabel,.nf-tag-t,.nf-conf-t,.nf-news-t,.nf-tab-lbl,.nf-next-t,.nf-pill-t,.vs-desc,.nf-time
 {font-family:'Inter',-apple-system,'Segoe UI',sans-serif}
-.hd-t,.fig,.conn-t,.hero-title,.banner-cap,.vs-title,.vs-name{font-family:'Space Grotesk',-apple-system,sans-serif}
+.hd-t,.fig,.conn-t,.hero-title,.banner-cap,.vs-title,.vs-name,.dp-hd-t,.dp-num,.dp-tlab{font-family:'Space Grotesk',-apple-system,sans-serif}
 
 /* ===== CALM voice = fully serif (New York on Mac, Georgia fallback), everywhere ===== */
 .voice-calm .para,.voice-calm .para b,.voice-calm .lab,.voice-calm .kw,.voice-calm .plabel,
 .voice-calm .chip,.voice-calm .chip-i,.voice-calm .chip-b,.voice-calm .lead,.voice-calm b,
 .voice-calm .hd-t,.voice-calm .fig,.voice-calm .conn-t,.voice-calm .banner-cap,.voice-calm .hero-title,
+.voice-calm .dp-hd-t,.voice-calm .dp-num,.voice-calm .dp-tlab,
 .voice-calm .wi-lab,.voice-calm .wi-name,.voice-calm .wi-desc,
 .voice-calm .arg-lab,.voice-calm .arg-txt,
 .voice-calm .dr-lab,.voice-calm .dr-headline,
@@ -663,45 +666,58 @@
 body{margin:0;background:#c9ccc9;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 0}
 
 /* ================= Depth on demand (expand in place) =================
-   Double tap and the card itself grows. One white surface, one radius, a hairline
-   divider where the collapsed content ended.
+   The card itself grows. One white surface, one radius, a hairline where the
+   collapsed content ended.
 
-   The affordance is deliberately quiet. Reading comes first, so there is no glow,
-   no pulse and no label shouting for a tap. Two silent signals only:
-     1. a stacked page edge under the card — there is another layer here
-     2. a small chevron in the card header — this opens
-   Both sit still. The chevron turns only in response to a tap, never on its own. */
+   The control is a named bar on the card's bottom edge — "Deep dive" and a
+   chevron — not a mute mark in the header. The expansion is a thing you choose,
+   so it says its name. The bar sits above the panel it opens, so the control
+   your finger just left stays where you left it. The chevron turns only in
+   response to a tap, never on its own. */
 
-/* 1. stacked page edge: a sliver of a second surface below the card */
-.nf-card.has-deep > .card{
-  box-shadow:0 4px 0 -1px #fff, 0 6px 4px -3px rgba(39,42,39,.10);
-  transition:box-shadow .3s ease}
-.nf-card.has-deep.is-open > .card{box-shadow:none}
+.dp-bar{display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:11px 16px;background:#fff;border:0;border-top:.5px solid var(--bar);
+  border-radius:0 0 16px 16px;cursor:pointer;font:inherit;
+  transition:border-radius .3s ease}
+.dp-bar-t{font:400 14px/20px Inter,sans-serif;color:var(--ink)}
+.dp-bar-ic{flex:none;display:flex;width:16px;height:16px}
+.dp-bar-ic svg{width:16px;height:16px;display:block;
+  transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.voice-calm .dp-bar-t{font-family:var(--serif)}
 
-/* 2. chevron in the card header */
-.nf-card.has-deep .hd{position:relative;padding-right:20px}
-.nf-card.has-deep .hd::after{
-  content:"";position:absolute;right:2px;top:50%;width:8px;height:8px;
-  border-right:1.5px solid #bbbdbb;border-bottom:1.5px solid #bbbdbb;
-  transform:translateY(-75%) rotate(45deg);
-  transition:transform .3s cubic-bezier(.4,0,.2,1),border-color .3s}
-.nf-card.has-deep.is-open .hd::after{
-  transform:translateY(-25%) rotate(-135deg);border-color:#800080}
-.nf-card.has-deep .hd{cursor:pointer}
+/* one continuous surface: card and bar are the same sheet of paper */
+.nf-card.has-deep > .card{border-radius:16px 16px 0 0}
+.nf-card.is-open .dp-bar{border-radius:0}
+.nf-card.is-open .dp-bar-ic svg{transform:rotate(180deg)}
 
 .nf-deep{max-height:0;overflow:hidden;opacity:0;
   transition:max-height .38s cubic-bezier(.4,0,.2,1),opacity .2s ease}
-.nf-card.is-open .nf-deep{max-height:3000px;opacity:1}
+.nf-card.is-open .nf-deep{max-height:4000px;opacity:1}
 
-/* one continuous surface: card loses its bottom radius, expansion picks it up */
-.nf-card.is-open > .card{border-radius:16px 16px 0 0}
-.nf-deep-in{background:#fff;border-radius:0 0 16px 16px;margin-top:0;padding:4px 16px 18px;
-  display:flex;flex-direction:column;gap:20px}
-.nf-deep-in::before{content:"";display:block;height:1px;background:#ecedec;margin:0 -16px 14px}
+.nf-deep-in{background:#fff;border-radius:0 0 16px 16px;margin-top:0;padding:16px;
+  display:flex;flex-direction:column;gap:16px}
 
-.dp-zone{display:flex;flex-direction:column;gap:9px}
-.dp-lab{font:600 10px/1 Inter,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:#8e918e}
+/* a zone reads like a card of its own: disc icon, title, then the body */
+.dp-zone{display:flex;flex-direction:column;gap:16px}
+.dp-hd{display:flex;align-items:center;gap:8px;height:32px}
+.dp-hd-ic{flex:none;width:32px;height:32px;padding:8px;background:var(--grey);
+  border-radius:999px;display:flex}
+.dp-hd-ic svg{width:16px;height:16px;display:block}
+.dp-hd-t{flex:1;font-family:'Space Grotesk';font-weight:600;font-size:20px;
+  line-height:24px;color:var(--ink)}
+.dp-body{display:flex;flex-direction:column;gap:16px}
 .dp-p{margin:0}
+
+/* the headline pair — the numbers that were the reason to open the card */
+.dp-stats{display:flex;gap:8px;align-items:stretch}
+.dp-tile{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:8px;padding:16px 8px;
+  background:rgba(128,0,128,.1);border-radius:12px}
+.dp-num{font-family:'Space Grotesk';font-weight:700;font-size:44px;line-height:52px;
+  text-align:center;color:var(--purple);white-space:nowrap}
+.dp-num.sm{font-size:32px;line-height:52px}
+.dp-tlab{font-family:'Space Grotesk';font-weight:600;font-size:16px;line-height:20px;
+  text-align:center;color:var(--ink)}
 
 .dp-ev{display:flex;gap:10px;align-items:flex-start}
 .dp-ev-tag{flex:none;font:600 9px/1 Inter,sans-serif;letter-spacing:.05em;text-transform:uppercase;
@@ -1122,8 +1138,8 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 <section class="nf-card" id="sec-0-3"><div class="card"><div class="hd"><div class="hd-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.60261 14.3646C7.95384 14.1451 8.41626 14.2517 8.63582 14.6029C8.85502 14.9541 8.74859 15.4166 8.39754 15.6361C7.5677 16.1548 6.7698 17.2591 6.15144 18.3412C5.85218 18.8649 5.61172 19.3533 5.44636 19.7103C5.36395 19.8883 5.30021 20.0333 5.25789 20.1322C5.23686 20.1813 5.22131 20.2196 5.21101 20.2445C5.20593 20.2568 5.20164 20.2661 5.19929 20.2719C5.1982 20.2745 5.19683 20.2766 5.19636 20.2777V20.2787C5.08755 20.5504 4.83044 20.7345 4.53816 20.7494C4.2459 20.7643 3.97188 20.6072 3.83601 20.348C3.64365 19.9805 3.33906 19.6474 3.05965 19.3949C2.9239 19.2723 2.80156 19.1756 2.71492 19.1107C2.67226 19.0788 2.63804 19.0546 2.61629 19.0394C2.60569 19.0321 2.59728 19.0258 2.59285 19.0228L2.5909 19.0209C2.24402 18.7947 2.14618 18.3307 2.37215 17.9838C2.59831 17.637 3.06232 17.5391 3.40926 17.765L3.08699 18.2601C3.38538 17.8024 3.40838 17.7676 3.41023 17.765L3.41218 17.767C3.41341 17.7677 3.4155 17.7689 3.41707 17.7699C3.42039 17.7721 3.42475 17.7753 3.42976 17.7787C3.44019 17.7857 3.45464 17.7951 3.47176 17.807C3.5066 17.8312 3.55523 17.866 3.61336 17.9095C3.72971 17.9967 3.88935 18.1225 4.06551 18.2816C4.15271 18.3604 4.24668 18.4499 4.34285 18.5482C4.48654 18.2605 4.65521 17.9357 4.84871 17.597C5.48029 16.4918 6.43259 15.096 7.60261 14.3646ZM21.0001 17.2504C21.4142 17.2505 21.7501 17.5862 21.7501 18.0004C21.7498 18.4143 21.4141 18.7503 21.0001 18.7504H11.0001C10.586 18.7504 10.2503 18.4144 10.2501 18.0004C10.2501 17.5862 10.5859 17.2504 11.0001 17.2504H21.0001ZM21.0001 11.2504C21.4142 11.2505 21.7501 11.5862 21.7501 12.0004C21.7498 12.4143 21.4141 12.7503 21.0001 12.7504H11.0001C10.586 12.7504 10.2503 12.4144 10.2501 12.0004C10.2501 11.5862 10.5859 11.2504 11.0001 11.2504H21.0001ZM7.60261 3.36463C7.95384 3.14511 8.41626 3.25173 8.63582 3.60291C8.85502 3.95408 8.74859 4.41664 8.39754 4.63611C7.5677 5.1548 6.7698 6.25908 6.15144 7.34119C5.85218 7.86492 5.61172 8.3533 5.44636 8.71033C5.36395 8.88829 5.30021 9.0333 5.25789 9.13221C5.23686 9.18135 5.22131 9.21959 5.21101 9.24451C5.20593 9.25679 5.20164 9.26607 5.19929 9.27185C5.1982 9.27445 5.19683 9.27657 5.19636 9.27771V9.27869C5.08755 9.55036 4.83044 9.73447 4.53816 9.74939C4.2459 9.76425 3.97188 9.60717 3.83601 9.34803C3.64365 8.98049 3.33905 8.64741 3.05965 8.3949C2.92391 8.27226 2.80156 8.17561 2.71492 8.11072C2.67198 8.07857 2.63803 8.05358 2.61629 8.03846C2.60568 8.03108 2.59728 8.02579 2.59285 8.02283L2.5909 8.02088C2.24401 7.79473 2.14617 7.33073 2.37215 6.98377C2.59831 6.63693 3.06231 6.53903 3.40926 6.76502L3.08699 7.26013C3.38538 6.80237 3.40838 6.76757 3.41023 6.76502L3.41218 6.76697C3.41341 6.76774 3.4155 6.76886 3.41707 6.7699C3.42038 6.77212 3.42475 6.77532 3.42976 6.77869C3.44019 6.7857 3.45464 6.79511 3.47176 6.80701C3.50661 6.83125 3.55523 6.86603 3.61336 6.90955C3.72971 6.99667 3.88934 7.12245 4.06551 7.28162C4.15272 7.36043 4.24668 7.44989 4.34285 7.54822C4.48654 7.26049 4.65521 6.93568 4.84871 6.59705C5.48029 5.49178 6.43259 4.09597 7.60261 3.36463ZM21.0001 5.25037C21.4142 5.25045 21.7501 5.58621 21.7501 6.00037C21.7498 6.41433 21.4141 6.75029 21.0001 6.75037H11.0001C10.586 6.75037 10.2503 6.41438 10.2501 6.00037C10.2501 5.58616 10.5859 5.25037 11.0001 5.25037H21.0001Z" fill="#1D201D"/>
 </svg></div><div class="hd-t">Key Facts</div></div>
-<div class="stats"><div class="tile"><div class="fig">5,000+</div><div class="lab">個目標被擊中</div></div>
-<div class="tile"><div class="fig">$140</div><div class="lab">布蘭特期油升穿</div></div></div>
+<div class="stats"><div class="tile"><div class="fig sm">5,000+</div><div class="lab">個目標被擊中</div></div>
+<div class="tile"><div class="fig sm">$140</div><div class="lab">布蘭特期油升穿</div></div></div>
 <div class="bd"><div class="vv vp"><p class="para block"><span class="chip chip-g">霍爾木茲海峽已對商船</span><span class="chip chip-g chip-end">封閉<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#2F8A58" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg></span>——歷史上首次全面封鎖。油輪通航量連續七日歸零，保險商已全面撤保。</p>
@@ -1820,8 +1836,8 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 <section class="nf-card" id="sec-3-4"><div class="card"><div class="hd"><div class="hd-ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M7.60261 14.3646C7.95384 14.1451 8.41626 14.2517 8.63582 14.6029C8.85502 14.9541 8.74859 15.4166 8.39754 15.6361C7.5677 16.1548 6.7698 17.2591 6.15144 18.3412C5.85218 18.8649 5.61172 19.3533 5.44636 19.7103C5.36395 19.8883 5.30021 20.0333 5.25789 20.1322C5.23686 20.1813 5.22131 20.2196 5.21101 20.2445C5.20593 20.2568 5.20164 20.2661 5.19929 20.2719C5.1982 20.2745 5.19683 20.2766 5.19636 20.2777V20.2787C5.08755 20.5504 4.83044 20.7345 4.53816 20.7494C4.2459 20.7643 3.97188 20.6072 3.83601 20.348C3.64365 19.9805 3.33906 19.6474 3.05965 19.3949C2.9239 19.2723 2.80156 19.1756 2.71492 19.1107C2.67226 19.0788 2.63804 19.0546 2.61629 19.0394C2.60569 19.0321 2.59728 19.0258 2.59285 19.0228L2.5909 19.0209C2.24402 18.7947 2.14618 18.3307 2.37215 17.9838C2.59831 17.637 3.06232 17.5391 3.40926 17.765L3.08699 18.2601C3.38538 17.8024 3.40838 17.7676 3.41023 17.765L3.41218 17.767C3.41341 17.7677 3.4155 17.7689 3.41707 17.7699C3.42039 17.7721 3.42475 17.7753 3.42976 17.7787C3.44019 17.7857 3.45464 17.7951 3.47176 17.807C3.5066 17.8312 3.55523 17.866 3.61336 17.9095C3.72971 17.9967 3.88935 18.1225 4.06551 18.2816C4.15271 18.3604 4.24668 18.4499 4.34285 18.5482C4.48654 18.2605 4.65521 17.9357 4.84871 17.597C5.48029 16.4918 6.43259 15.096 7.60261 14.3646ZM21.0001 17.2504C21.4142 17.2505 21.7501 17.5862 21.7501 18.0004C21.7498 18.4143 21.4141 18.7503 21.0001 18.7504H11.0001C10.586 18.7504 10.2503 18.4144 10.2501 18.0004C10.2501 17.5862 10.5859 17.2504 11.0001 17.2504H21.0001ZM21.0001 11.2504C21.4142 11.2505 21.7501 11.5862 21.7501 12.0004C21.7498 12.4143 21.4141 12.7503 21.0001 12.7504H11.0001C10.586 12.7504 10.2503 12.4144 10.2501 12.0004C10.2501 11.5862 10.5859 11.2504 11.0001 11.2504H21.0001ZM7.60261 3.36463C7.95384 3.14511 8.41626 3.25173 8.63582 3.60291C8.85502 3.95408 8.74859 4.41664 8.39754 4.63611C7.5677 5.1548 6.7698 6.25908 6.15144 7.34119C5.85218 7.86492 5.61172 8.3533 5.44636 8.71033C5.36395 8.88829 5.30021 9.0333 5.25789 9.13221C5.23686 9.18135 5.22131 9.21959 5.21101 9.24451C5.20593 9.25679 5.20164 9.26607 5.19929 9.27185C5.1982 9.27445 5.19683 9.27657 5.19636 9.27771V9.27869C5.08755 9.55036 4.83044 9.73447 4.53816 9.74939C4.2459 9.76425 3.97188 9.60717 3.83601 9.34803C3.64365 8.98049 3.33905 8.64741 3.05965 8.3949C2.92391 8.27226 2.80156 8.17561 2.71492 8.11072C2.67198 8.07857 2.63803 8.05358 2.61629 8.03846C2.60568 8.03108 2.59728 8.02579 2.59285 8.02283L2.5909 8.02088C2.24401 7.79473 2.14617 7.33073 2.37215 6.98377C2.59831 6.63693 3.06231 6.53903 3.40926 6.76502L3.08699 7.26013C3.38538 6.80237 3.40838 6.76757 3.41023 6.76502L3.41218 6.76697C3.41341 6.76774 3.4155 6.76886 3.41707 6.7699C3.42038 6.77212 3.42475 6.77532 3.42976 6.77869C3.44019 6.7857 3.45464 6.79511 3.47176 6.80701C3.50661 6.83125 3.55523 6.86603 3.61336 6.90955C3.72971 6.99667 3.88934 7.12245 4.06551 7.28162C4.15272 7.36043 4.24668 7.44989 4.34285 7.54822C4.48654 7.26049 4.65521 6.93568 4.84871 6.59705C5.48029 5.49178 6.43259 4.09597 7.60261 3.36463ZM21.0001 5.25037C21.4142 5.25045 21.7501 5.58621 21.7501 6.00037C21.7498 6.41433 21.4141 6.75029 21.0001 6.75037H11.0001C10.586 6.75037 10.2503 6.41438 10.2501 6.00037C10.2501 5.58616 10.5859 5.25037 11.0001 5.25037H21.0001Z" fill="#1D201D"/>
 </svg></div><div class="hd-t">Key Facts</div></div>
-<div class="stats"><div class="tile"><div class="fig">+3.8%</div><div class="lab">上半年租金</div></div>
-<div class="tile"><div class="fig">$18.9K</div><div class="lab">市區一房月租中位數</div></div></div>
+<div class="stats"><div class="tile"><div class="fig sm">+3.8%</div><div class="lab">上半年租金</div></div>
+<div class="tile"><div class="fig sm">$18.9K</div><div class="lab">市區一房月租中位數</div></div></div>
 <div class="bd"><div class="vv vp"><p class="para block">差餉物業估價署指數已<span class="chip chip-g">連升七個</span><span class="chip chip-g chip-end">月<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M8 12L10.5347 14.2812C10.9662 14.6696 11.6366 14.6101 11.993 14.1519L16 9M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="#2F8A58" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg></span>，並與中原領先指數互相核對——兩者相差不足0.3點。</p>
@@ -2659,6 +2675,8 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
     function toggle(sec){
       var opening = !sec.classList.contains('is-open');
       sec.classList.toggle('is-open');
+      var bar = sec.querySelector('.dp-bar');
+      if(bar) bar.setAttribute('aria-expanded', opening ? 'true' : 'false');
       if(opening){
         setTimeout(function(){
           var r = sec.getBoundingClientRect(), sc = sec.closest('.nf-phone');
@@ -2681,8 +2699,11 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
     }
     document.querySelectorAll('section.nf-card.has-deep').forEach(function(sec){
       bind(sec);
-      var head = sec.querySelector('.hd');
-      if(head) head.addEventListener('click', function(e){ e.stopPropagation(); toggle(sec); });
+      /* the bar is the primary control; double tap on the card body still works.
+         It is a <button>, so IGNORE already keeps the double-tap handler off it
+         and one tap cannot register as both. */
+      var bar = sec.querySelector('.dp-bar');
+      if(bar) bar.addEventListener('click', function(e){ e.stopPropagation(); toggle(sec); });
     });
   })();
 
@@ -2694,7 +2715,7 @@ body,.nf-frame{font-family:'Inter','Noto Sans HK',sans-serif}
 (function(){
   function openSheet(kind, sid){
     var fr = document.getElementById(kind);
-    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=msvv8rgf'; fr.setAttribute('data-for', sid); }
+    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=msvwpxdv'; fr.setAttribute('data-for', sid); }
     document.getElementById('layer-' + kind).classList.add('on');
   }
   document.querySelectorAll('.nf-conf[data-story]').forEach(function(el){

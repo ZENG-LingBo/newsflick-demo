@@ -32,6 +32,7 @@ module.exports = {
               e: "If an app keeps breaking the rule, the fine can reach [g:4% of global |turnover]. It doesn't start right away — apps get [g:six months to |comply], and the exact age-check rules are still being written." }
           ] },
         deep: {
+          stats: [["2M", "French users to qualify"], ["9", "services caught"]],
           more: { p: "[kw:Reasonable steps] is the load-bearing phrase, and the law does not define it. The technical decree that will define it has not been published, so nobody yet knows whether it means an ID upload, a face scan or a checkbox. Every argument about enforcement is really an argument about a document that does not exist.",
                   c: "[kw:Reasonable steps] is the phrase everything hangs on, and the law does not define it. The decree that will define it has not been published — so nobody knows yet whether it means an ID upload, a face scan or a checkbox. Every enforcement argument is really about a document nobody has read.",
                   e: "Everything hangs on [kw:reasonable steps] — and the law never says what that means. The document that decides it has not been written yet. So every argument about enforcement is about a page nobody has seen." },
@@ -298,6 +299,7 @@ en.cards.splice(3, 0, { type: "poll", data: { title: "Where People Stand", rows:
             c: "Tap a bar to see the raw counts. One caveat: the poll ran [o:before the enforcement rules were |published].",
             e: "Tap a bar to see the real numbers. Just know: people were asked [o:before the exact rules came |out]." } },
   deep: {
+          stats: [["2,278", "French adults surveyed"], ["±2", "points margin of error"]],
           more: { p: "The question asked was whether respondents supported a minimum age of 16 for social media accounts. It did not ask about enforcement, age verification, or what should happen to accounts that already exist — which are the three things the law actually turns on.",
                   c: "Respondents were asked whether they supported a minimum age of 16 for social media accounts. They were not asked about enforcement, age checks or existing accounts — which are the three things the law actually turns on.",
                   e: "People were asked one thing: do you support a minimum age of 16. They were not asked how it gets enforced, about age checks, or about accounts people already have — which is what the law is really about." },
