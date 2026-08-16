@@ -93,7 +93,7 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
       <p class="tag"><b>A calmer way to follow the news.</b>更冷靜的看新聞方式。</p>
       <div class="langs">
         <button class="langbig" type="button" data-lang="en">English <span class="arr">→</span></button>
-        <button class="langbig langbig--zh" type="button" data-lang="zh">中文（香港） <span class="arr">→</span></button>
+        
       </div>
     </div>
     <p class="foot">Concept demo · 概念示範</p>
@@ -102,14 +102,12 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
 <div class="rail">
   <div class="brand"><img src="../assets/img/logo.png" alt=""><span>Fliq</span></div>
   <p id="railnote">A calmer way to follow the news — tap a story, check the confidence signal, feel the pulse.</p>
-  <div class="langbtn" id="langbtn" role="group" aria-label="Language">
-    <span data-lang="en">EN</span><span data-lang="zh">中</span>
-  </div>
+  
 </div>
 <script>
 (function(){
   var LANGS={en:"en",zh:"zh"};
-  var stored=localStorage.getItem("nf-lang");
+  var stored="en";
   var lang=LANGS[stored]?stored:(/^zh/i.test(navigator.language||"")?"zh":"en");
   var app=document.getElementById("app");
   var splash=document.getElementById("splash");
@@ -125,7 +123,7 @@ body{display:flex;align-items:center;justify-content:center;padding:20px;gap:20p
       ? "更冷靜的看新聞方式——揀聲線、拉下一篇、查可信度。"
       : "A calmer way to follow the news — pick a voice, pull the next story open, check the signal.";
   }
-  var NF_BUILD="msvtqe25";
+  var NF_BUILD="msvtx9i3";
   function boot(){ if(booted) return; booted=true; setLangUI(); app.src=lang+"/app.html?b="+NF_BUILD; }
   function switchLang(l){
     if(!LANGS[l]) return;

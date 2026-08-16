@@ -416,10 +416,14 @@ function buildApp(lang) {
    itself has refreshed (query strings are distinct cache keys on the CDN) */
 const STAMP = Date.now().toString(36);
 const OUT = CES ? "ces" : ".";
+/* The CES film is English-only, so that build emits just en/ — shipping a
+   zh edition nobody maintains behind a language toggle on a public URL is
+   worse than not shipping one. The public demo stays bilingual. */
+const LANGS = CES ? ["en"] : ["en", "zh"];
 if (CES) {
-  for (const lang of ["en", "zh"]) fs.mkdirSync(`${OUT}/${lang}`, { recursive: true });
+  for (const lang of LANGS) fs.mkdirSync(`${OUT}/${lang}`, { recursive: true });
 }
-for (const lang of ["en", "zh"]) {
+for (const lang of LANGS) {
   let html = buildApp(lang).split("__NF_BUILD__").join(STAMP);
   /* ces/en/app.html sits one directory deeper than the public en/app.html,
      so every "../assets/..." reference (hero images, harvested sprite icons)
@@ -435,12 +439,19 @@ for (const lang of ["en", "zh"]) {
 if (CES) {
   /* ces/index.html sits one directory deeper than the public shell, so its
      root-relative asset refs (assets/img/...) need a ../ prefix; the app
-     src (lang+"/app.html") is already correct as-is, relative to ces/. */
+     src (lang+"/app.html") is already correct as-is, relative to ces/.
+     English-only, so the language chooser and the EN/中 rail toggle come out
+     and the stored nf-lang preference is ignored — otherwise a visitor who
+     last picked 中 on the public demo would land on a zh app that this build
+     doesn't emit. */
   const shell = fs.readFileSync("index.html", "utf8")
     .replace(/var NF_BUILD="[^"]*"/, `var NF_BUILD="${STAMP}"`)
-    .replace(/(href|src)="assets\//g, `$1="../assets/`);
+    .replace(/(href|src)="assets\//g, `$1="../assets/`)
+    .replace(/<button class="langbig langbig--zh"[\s\S]*?<\/button>/, "")
+    .replace(/<div class="langbtn"[\s\S]*?<\/div>/, "")
+    .replace(/var stored=localStorage\.getItem\("nf-lang"\);/, 'var stored="en";');
   fs.writeFileSync(`${OUT}/index.html`, shell);
-  console.log(`${OUT}/index.html stamped`, STAMP);
+  console.log(`${OUT}/index.html stamped`, STAMP, "(English only)");
 } else {
   const shell = fs.readFileSync("index.html", "utf8")
     .replace(/var NF_BUILD="[^"]*"/, `var NF_BUILD="${STAMP}"`);

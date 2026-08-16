@@ -390,7 +390,9 @@ function secReplace(h, sec, newInner) {
    public app.html does, so nothing in engine.js/APPENDIX needs to know
    about the second location. */
 const ROOTS = { s01: [""], s02: ["", "ces/"], s03: ["", "ces/"], s04: ["", "ces/"], s05: ["ces/"] };
-for (const root of ["ces/en", "ces/zh"]) fs.mkdirSync(root, { recursive: true });
+/* the CES film is English-only, so ces/ only ever receives en sheets */
+const CES_LANGS = ["en"];
+fs.mkdirSync("ces/en", { recursive: true });
 
 let n = 0;
 for (const id of Object.keys(ROOTS)) {
@@ -445,7 +447,7 @@ for (const id of Object.keys(ROOTS)) {
     h = h.replace(/const STATUS = \{[\s\S]*?\};/, `const STATUS = ${JSON.stringify(d.status)};`);
 
     h = h.replace("</body>", "<style>.scroll,.phone{scrollbar-width:none;-ms-overflow-style:none}.scroll::-webkit-scrollbar,.phone::-webkit-scrollbar{display:none!important}/*responsive-fill*/html,body{height:100%}body{display:block!important;padding:0!important}.phone{height:100%!important;border-radius:0!important}</style>" + CLOCK_JS + "</body>");
-    for (const root of ROOTS[id]) { fs.writeFileSync(`${root}${lang}/confidence-${id}.html`, h); n++; }
+    for (const root of ROOTS[id]) { if (root === "ces/" && !CES_LANGS.includes(lang)) continue; fs.writeFileSync(`${root}${lang}/confidence-${id}.html`, h); n++; }
   }
 }
 console.log("built", n, "confidence sheets on original UI");
