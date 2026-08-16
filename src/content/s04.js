@@ -7,7 +7,7 @@ module.exports = {
     tabs: ["The Story", "Key Facts", "Then vs Now", "Why This Matters", "What's Next"],
     hero: {
       img: "../assets/img/hero-rent.jpg",
-      title: "The steepest summer climb in a decade.",
+      title: "The steepest [he:🏠] summer climb [he:📈] in a decade. [he:🇭🇰]",
       paras: [
         { p: "Hong Kong rents rose **almost 4% in the first half** — on pace for the biggest summer gain since 2016. The drivers are measurable: mainland professionals and students, returning expats, and thin supply.",
           c: "Hong Kong rents are up **almost 4% this half-year** — the fastest summer pace since 2016. The drivers are all measurable: mainland professionals and students arriving, expats returning, and very little new supply.",
@@ -64,7 +64,7 @@ module.exports = {
     tabs: ["本篇", "關鍵事實", "今昔對比", "為何重要", "下一步"],
     hero: {
       img: "../assets/img/hero-rent.jpg",
-      title: "十年來最急的夏季升浪。",
+      title: "十年來最急的 [he:🏠] 夏季升浪。[he:📈][he:🇭🇰]",
       paras: [
         "香港住宅租金上半年**升近4%**——有望創2016年以來最大的夏季升幅。推手有數可依：內地專才與學生、回流外派人員，加上供應緊絀。",
         "這是復甦還是壓力，視乎你[kw:坐在租約的哪一邊]。"

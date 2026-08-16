@@ -8,29 +8,23 @@ const TPL = { s01: "confidence-s01", s02: "confidence-s01", s03: "confidence-s03
 
 /* section rebuild helpers (exact original markup) */
 const ITEM_TERM = (t, tag, p) => `<div class="cs-item cs-item--terms"><div class="cs-itemhead"><p class="cs-t cs-t--nowrap">${t}</p><span class="cs-etag cs-etag--term">${tag}</span></div><p class="cs-p">${p}</p></div>`;
-/* source-stack marks: original abstract badges, never a real outlet's logo.
-   9 distinct {color, glyph} pairs so a 3-up stack can never repeat one mark —
-   the old build sampled 3 raster images at stride 3 from a 9-file pool that
-   repeated every 3 images, so every stack silently showed the same logo 3x. */
-const MARKS = [
-  { c: "#3B7BD1", d: '<line x1="13" y1="15" x2="27" y2="15"/><line x1="13" y1="20" x2="24" y2="20"/><line x1="13" y1="25" x2="27" y2="25"/>' },
-  { c: "#8A4F9E", d: '<circle cx="20" cy="20" r="7" fill="none"/><circle cx="20" cy="20" r="2.6" fill="#fff" stroke="none"/>' },
-  { c: "#1a8a72", d: '<path d="M13 15 L20 22 L27 15" fill="none"/>' },
-  { c: "#b0791f", d: '<rect x="14.5" y="14.5" width="11" height="11" fill="none" transform="rotate(45 20 20)"/>' },
-  { c: "#e07028", d: '<circle cx="16" cy="16" r="2.1" fill="#fff" stroke="none"/><circle cx="24" cy="16" r="2.1" fill="#fff" stroke="none"/><circle cx="16" cy="24" r="2.1" fill="#fff" stroke="none"/><circle cx="24" cy="24" r="2.1" fill="#fff" stroke="none"/>' },
-  { c: "#5A616E", d: '<path d="M12 22 Q16 14 20 22 T28 22" fill="none"/>' },
-  { c: "#b03020", d: '<path d="M20 12 L28 26 L12 26 Z" fill="none"/>' },
-  { c: "#4a5fd6", d: '<path d="M20 11 L28 15.5 L28 24.5 L20 29 L12 24.5 L12 15.5 Z" fill="none"/>' },
-  { c: "#1a7a3f", d: '<line x1="20" y1="13" x2="20" y2="27"/><line x1="13" y1="20" x2="27" y2="20"/>' }
-];
-const MARK_SVG = i => { const m = MARKS[((i % MARKS.length) + MARKS.length) % MARKS.length];
-  return `<svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;border-radius:99px"><circle cx="20" cy="20" r="20" fill="${m.c}"/><g stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${m.d}</g></svg>`; };
-const MINI = n => `<div class="cs-mini">${[0, 1, 2].map(k => `<span class="f">${MARK_SVG(n + k)}</span>`).join("")}<span class="n">+4</span></div>`;
+/* Real publisher logos in the source stack — cleared for use by the team's
+   counsel (14 Aug 2026).
+   The three files below are the only *distinct* marks in the av1-av9 pool:
+   it holds three logos each duplicated three times (av1/4/7, av2/5/8, av3/6/9).
+   The original build sampled it at stride 3, which is exactly the pool's own
+   period, so all three picks were always the same image and every stack showed
+   one logo three times. Naming the three distinct files explicitly makes a
+   repeat impossible; `n` only rotates their order so claims don't look identical. */
+const LOGOS = ["av2.png", "av3.png", "av1.png"];
+const LOGO_IMG = i => { const f = LOGOS[((i % 3) + 3) % 3];
+  return `<img src="../assets/img/${f}" alt="">`; };
+const MINI = n => `<div class="cs-mini">${[0, 1, 2].map(k => `<span class="f">${LOGO_IMG(n + k)}</span>`).join("")}<span class="n">+4</span></div>`;
 const FOOT = (view, n) => `<div class="cs-foot"><div class="rule"></div><div class="cs-footrow">${MINI(n)}<p class="cs-view">${view}</p></div></div>`;
 const ITEM_CONF = (t, p, etags, view, n) => `<div class="cs-item"><div class="cs-itemhead"><span class="d"></span><p class="cs-t">${t}</p></div><p class="cs-p">${p}</p><div class="cs-etags">${etags}</div>${FOOT(view, n)}</div>`;
 const ITEM_EV = (tagCls, tagTxt, t, p) => `<div class="cs-item"><div class="cs-etags cs-etags--one"><span class="cs-etag cs-etag--${tagCls}">${tagTxt}</span></div><p class="cs-t cs-t--block">${t}</p><p class="cs-p">${p}</p></div>`;
 const ITEM_DISP = (t, k1, v1, k2, v2, view, n) => `<div class="cs-item"><div class="cs-itemhead"><span class="d d--disputed"></span><p class="cs-t">${t}</p></div><div class="cs-hr"></div><div class="cs-side"><p class="k">${k1}</p><p class="v">${v1}</p></div><div class="cs-hr"></div><div class="cs-side"><p class="k">${k2}</p><p class="v">${v2}</p></div>${FOOT(view, n)}</div>`;
-const ITEM_UNK = (t, p, awaiting, view, n) => `<div class="cs-item"><div class="cs-itemhead"><span class="d d--disputed"></span><p class="cs-t">${t}</p></div><p class="cs-p">${p}</p><div class="cs-etags cs-etags--one"><span class="cs-etag cs-etag--awaiting">${awaiting}</span></div><div class="cs-foot"><div class="rule"></div><div class="cs-footrow"><div class="cs-mini cs-mini--one"><span class="f">${MARK_SVG(n)}</span></div><p class="cs-view">${view}</p></div></div></div>`;
+const ITEM_UNK = (t, p, awaiting, view, n) => `<div class="cs-item"><div class="cs-itemhead"><span class="d d--disputed"></span><p class="cs-t">${t}</p></div><p class="cs-p">${p}</p><div class="cs-etags cs-etags--one"><span class="cs-etag cs-etag--awaiting">${awaiting}</span></div><div class="cs-foot"><div class="rule"></div><div class="cs-footrow"><div class="cs-mini cs-mini--one"><span class="f">${LOGO_IMG(n)}</span></div><p class="cs-view">${view}</p></div></div></div>`;
 const ITEM_SETTLE = (t, p, awaiting) => `<div class="cs-item"><div class="cs-itemhead"><span class="d d--disputed"></span><p class="cs-t">${t}</p></div><p class="cs-p">${p}</p><div class="cs-etags cs-etags--one"><span class="cs-etag cs-etag--awaiting">${awaiting}</span></div></div>`;
 const WHY = (i, tagCls, tagTxt, t, p) => `<div class="cs-why${i === 0 ? " cs-why--open" : ""}"><div class="cs-whyhead"><span class="cs-tag cs-tag--${tagCls}">${tagTxt}</span><svg class="ico"><use href="#ic-arrow-down-01"/></svg></div><p class="cs-whytitle">${t}</p><div class="cs-whybody-wrap"><div><p class="cs-whybody">${p}</p></div></div></div>`;
 /* sections 16-18 (Interpretations / Political Bias / Top Sources) — v2 port */

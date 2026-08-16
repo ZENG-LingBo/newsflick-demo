@@ -7,7 +7,7 @@ module.exports = {
     tabs: ["The Story", "Key Facts", "Why This Matters", "What's Next"],
     hero: {
       img: "../assets/img/hero-strait.jpg",
-      title: "The strait that prices the world is closed.",
+      title: "The strait that [he:🌊] prices the world [he:🛢️] is closed. [he:🚫]",
       paras: [
         { p: "Twelve days of strikes have hit **more than 5,000 targets** across Iran, and the response has shut the [kw:Strait of Hormuz] — the channel a fifth of the world's oil passes through.",
           c: "Here's where things stand: twelve days of strikes, **more than 5,000 targets** hit — and in response, the [kw:Strait of Hormuz] has been closed. A fifth of the world's oil normally sails through it.",
@@ -82,7 +82,7 @@ module.exports = {
     tabs: ["本篇", "關鍵事實", "為何重要", "下一步"],
     hero: {
       img: "../assets/img/hero-strait.jpg",
-      title: "為全球定價的海峽，封了。",
+      title: "為全球定價的 [he:🌊] 海峽，[he:🛢️] 封了。[he:🚫]",
       paras: [
         "十二日空襲，擊中伊朗境內**逾5,000個目標**；報復之下，[kw:霍爾木茲海峽]宣告封鎖——全球五分之一的石油，平日正是取道這條水道。",
         "官員把行動形容為「施壓」。但十二日以來，沒有任何一場簡報講過**這一切如何收科**。"

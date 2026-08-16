@@ -890,6 +890,13 @@ body{display:block;padding:0;min-height:0}
 /* conf pill: Medium variant matches the feed's conf-med palette; third bar dims */
 .nf-conf--med{background:#ab5c2b}
 .nf-conf--med .cbars path:last-of-type{fill-opacity:.3;stroke-opacity:.3}
+/* Hero emoji are a Friend-voice flourish only. app.css gates them inside
+   .hero-title, but that class belongs to the "story" hero type alone — the
+   s2story heroes (every story except the France one) title with
+   .c-s2story-title, which no rule covered, so their emoji showed in Plain and
+   Calm too. Gate all three title classes the same way. */
+.c-s2story-title .he,.s2-title .he{display:none;font-size:20px;line-height:28px;vertical-align:-1px}
+.voice-eli5 .c-s2story-title .he,.voice-eli5 .s2-title .he{display:inline}
 /* nf-noscrollbars: simulated phone — never show scrollbars anywhere */
 *{scrollbar-width:none;-ms-overflow-style:none}
 *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
@@ -1297,7 +1304,7 @@ body{display:block;padding:0;min-height:0}
 <section class="nf-card" id="sec-1-0"><div class="c-story">
   <div class="c-story-hero" style="background-image:url('../../assets/img/hero-teens.jpg')">
     <div class="c-story-scrim"></div><div class="c-story-blend"></div>
-    <div class="hero-title">Should under-16s be banned from social media?</div>
+    <div class="hero-title">Should <span class="he">👶</span> under-16s be <span class="he">❌</span> banned from social media? <span class="he">📵</span></div>
   </div>
   <div class="card c-story-body"><div class="vv vp"><p class="para">France has passed a law barring under-16s from holding a social-media <b>account</b>, requiring platforms to <span class="kw">verify age</span> and close the accounts of anyone younger — the first blanket ban in the EU.</p>
 <p class="para">Supporters say the years between 11 and 15 are when a person's sense of <b>self</b> is still forming. Critics say a ban simply pushes young people onto quieter, less-moderated corners of the web.</p></div>
@@ -1612,7 +1619,7 @@ body{display:block;padding:0;min-height:0}
         </div>
       </div></div></div>
 <div class="cards voice-plain">
-<section class="nf-card" id="sec-2-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../../assets/img/hero-tariff.jpg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">50% tariffs, between allies.</div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">The order is signed: <b>50% tariffs on most Canadian goods</b>, citing autos, alcohol and dairy. It is the steepest tariff wall between two allied economies in modern history.</p>
+<section class="nf-card" id="sec-2-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../../assets/img/hero-tariff.jpg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">50% tariffs, <span class="he">📦</span> between allies. <span class="he">🧾</span></div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">The order is signed: <b>50% tariffs on most Canadian goods</b>, citing autos, alcohol and dairy. It is the steepest tariff wall between two allied economies in modern history.</p>
 <p class="para">Ottawa calls it 'economic coercion' and is drafting retaliation. The price effects will not wait for the <span class="kw">politics</span>.</p></div>
 <div class="vv vc"><p class="para">It's official: <b>50% tariffs on most Canadian goods</b> — autos, alcohol and dairy singled out. No two allied economies have ever raised a wall this steep.</p>
 <p class="para">Ottawa calls it 'economic coercion' and is writing up its response. The price effects won't wait for the <span class="kw">politics</span> to settle.</p></div>
@@ -1805,7 +1812,7 @@ body{display:block;padding:0;min-height:0}
         </div>
       </div></div></div>
 <div class="cards voice-plain">
-<section class="nf-card" id="sec-3-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../../assets/img/hero-rent.jpg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">The steepest summer climb in a decade.</div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">Hong Kong rents rose <b>almost 4% in the first half</b> — on pace for the biggest summer gain since 2016. The drivers are measurable: mainland professionals and students, returning expats, and thin supply.</p>
+<section class="nf-card" id="sec-3-0"><div class="c-s2story"><div class="c-s2story-hero" style="background-image:url('../../assets/img/hero-rent.jpg')"><div class="sc-grad"></div><div class="sc-scrim"></div><div class="c-s2story-title">The steepest <span class="he">🏠</span> summer climb <span class="he">📈</span> in a decade. <span class="he">🇭🇰</span></div></div><div class="card c-s2story-body"><div class="vv vp"><p class="para">Hong Kong rents rose <b>almost 4% in the first half</b> — on pace for the biggest summer gain since 2016. The drivers are measurable: mainland professionals and students, returning expats, and thin supply.</p>
 <p class="para">Whether this is recovery or squeeze depends on <span class="kw">which side of a lease you sit</span>.</p></div>
 <div class="vv vc"><p class="para">Hong Kong rents are up <b>almost 4% this half-year</b> — the fastest summer pace since 2016. The drivers are all measurable: mainland professionals and students arriving, expats returning, and very little new supply.</p>
 <p class="para">Whether you call it a recovery or a squeeze depends on <span class="kw">which side of the lease you're on</span>.</p></div>
@@ -2327,7 +2334,7 @@ body{display:block;padding:0;min-height:0}
         <div class="nf-home"></div>
       </div>
     </div>
-<div class="nf-scrim" id="nf-scrim"></div><div class="nf-vsheet" id="nf-vsheet"><div class="vs-grab"></div><div class="vs-title">Choose a voice</div><div class="vs-sub">Same facts, same numbers — only the way it’s told changes.</div><button class="vs-row on" data-voice="Plain" data-class="voice-plain" type="button"><span class="vs-rt"><span class="vs-name">Plain</span><span class="vs-desc">Neutral, factual. The default voice.</span></span><span class="vs-check"></span></button><button class="vs-row" data-voice="Calm explainer" data-class="voice-calm" type="button"><span class="vs-rt"><span class="vs-name">Calm explainer</span><span class="vs-desc">Measured and reassuring, in a softer serif.</span></span><span class="vs-check"></span></button><button class="vs-row" data-voice="ELI5 friend" data-class="voice-eli5" type="button"><span class="vs-rt"><span class="vs-name">ELI5 friend</span><span class="vs-desc">Warm and playful, like a friend explaining it.</span></span><span class="vs-check"></span></button></div>
+<div class="nf-scrim" id="nf-scrim"></div><div class="nf-vsheet" id="nf-vsheet"><div class="vs-grab"></div><div class="vs-title">Choose a voice</div><div class="vs-sub">Same facts, same numbers — only the way it's told changes.</div><button class="vs-row on" data-voice="Plain" data-class="voice-plain" type="button"><span class="vs-rt"><span class="vs-name">Plain</span><span class="vs-desc">Neutral, factual. The default voice.</span></span><span class="vs-check"></span></button><button class="vs-row" data-voice="Calm explainer" data-class="voice-calm" type="button"><span class="vs-rt"><span class="vs-name">Calm explainer</span><span class="vs-desc">Measured and reassuring, in a softer serif.</span></span><span class="vs-check"></span></button><button class="vs-row" data-voice="ELI5 friend" data-class="voice-eli5" type="button"><span class="vs-rt"><span class="vs-name">Friend</span><span class="vs-desc">Warm and playful, like a friend explaining it.</span></span><span class="vs-check"></span></button></div>
 <div class="sheet-layer" id="layer-confidence"><iframe id="confidence"></iframe></div>
 <div class="sheet-layer" id="layer-pulse"><iframe id="pulse"></iframe></div>
 </div>
@@ -2744,7 +2751,7 @@ body{display:block;padding:0;min-height:0}
 (function(){
   function openSheet(kind, sid){
     var fr = document.getElementById(kind);
-    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=mssy423k'; fr.setAttribute('data-for', sid); }
+    if(fr.getAttribute('data-for') !== sid){ fr.src = kind + '-' + sid + '.html?b=msvtqe25'; fr.setAttribute('data-for', sid); }
     document.getElementById('layer-' + kind).classList.add('on');
   }
   document.querySelectorAll('.nf-conf[data-story]').forEach(function(el){
@@ -2996,7 +3003,7 @@ body{display:block;padding:0;min-height:0}
     ["Tabs follow your reading", "They light up as you scroll — or tap one to jump straight to Map, Numbers or What's Next."],
     ["The Confidence Signal", "<b>Tap the confidence pill</b> — every story carries its verification layer: sources, confirmed, disputed, unknown. Close it to continue."],
     ["The Social Layer", "<b>Tap the pulse pill</b> — reaction from the platforms: stances, heat and quotes. Close it to continue."],
-    ["Voices: one story, three tellings", "<b>Tap Voices</b> and pick Calm or the ELI5 friend — every paragraph re-tells itself in that register. Close to continue."],
+    ["Voices: one story, three tellings", "<b>Tap Voices</b> and pick Calm or the Friend voice — every paragraph re-tells itself in that register. Close to continue."],
     ["Inline transparency", "<b>Tap the glowing term</b> — key claims explain their sourcing, evidence and caveats right in the text."],
     ["The live map", "A real map, not a screenshot — drag to pan, pinch to zoom. <b>Tap a marker</b> to see what happened at that spot."],
     ["The timeline", "Today hour by hour — the chips flag what's breaking versus still developing."],

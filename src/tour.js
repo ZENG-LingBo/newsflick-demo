@@ -38,7 +38,7 @@
     ["Tabs follow your reading", "They light up as you scroll — or tap one to jump straight to Map, Numbers or What's Next."],
     ["The Confidence Signal", "<b>Tap the confidence pill</b> — every story carries its verification layer: sources, confirmed, disputed, unknown. Close it to continue."],
     ["The Social Layer", "<b>Tap the pulse pill</b> — reaction from the platforms: stances, heat and quotes. Close it to continue."],
-    ["Voices: one story, three tellings", "<b>Tap Voices</b> and pick Calm or the ELI5 friend — every paragraph re-tells itself in that register. Close to continue."],
+    ["Voices: one story, three tellings", "<b>Tap Voices</b> and pick Calm or the Friend voice — every paragraph re-tells itself in that register. Close to continue."],
     ["Inline transparency", "<b>Tap the glowing term</b> — key claims explain their sourcing, evidence and caveats right in the text."],
     ["The live map", "A real map, not a screenshot — drag to pan, pinch to zoom. <b>Tap a marker</b> to see what happened at that spot."],
     ["The timeline", "Today hour by hour — the chips flag what's breaking versus still developing."],

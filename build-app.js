@@ -40,7 +40,16 @@ const FEED_TEXT = {
     },
     tags: { s01: ["Essential", "World"], s02: ["Essential", "Society"], s03: ["Essential", "Economy"], s04: ["Local", "Housing"], s05: ["Essential", "Local"] },
     titles: { s01: "The strait that prices the world is closed", s02: "Should under-16s be banned from social media?", s03: "50% tariffs, between allies", s04: "The steepest summer climb in a decade", s05: "Typhoon Dolphin is eight hours out" },
-    vsheet: null // keep harvested EN vsheet
+    /* The third voice is shown as "Friend" — "ELI5" is jargon to a reader who
+       hasn't seen the acronym. The data-voice key stays "ELI5 friend" because
+       the engine, the tour and the film scripts all address voices by that key;
+       only the displayed name changes. */
+    vsheet: {
+      title: "Choose a voice", sub: "Same facts, same numbers — only the way it's told changes.",
+      rows: [["Plain", "Plain", "Neutral, factual. The default voice."],
+             ["Calm explainer", "Calm explainer", "Measured and reassuring, in a softer serif."],
+             ["ELI5 friend", "Friend", "Warm and playful, like a friend explaining it."]]
+    }
   },
   zh: {
     greeting: "哈囉，Michelle 👋",
@@ -368,6 +377,13 @@ body{display:block;padding:0;min-height:0}
 /* conf pill: Medium variant matches the feed's conf-med palette; third bar dims */
 .nf-conf--med{background:#ab5c2b}
 .nf-conf--med .cbars path:last-of-type{fill-opacity:.3;stroke-opacity:.3}
+/* Hero emoji are a Friend-voice flourish only. app.css gates them inside
+   .hero-title, but that class belongs to the "story" hero type alone — the
+   s2story heroes (every story except the France one) title with
+   .c-s2story-title, which no rule covered, so their emoji showed in Plain and
+   Calm too. Gate all three title classes the same way. */
+.c-s2story-title .he,.s2-title .he{display:none;font-size:20px;line-height:28px;vertical-align:-1px}
+.voice-eli5 .c-s2story-title .he,.voice-eli5 .s2-title .he{display:inline}
 /* nf-noscrollbars: simulated phone — never show scrollbars anywhere */
 *{scrollbar-width:none;-ms-overflow-style:none}
 *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}

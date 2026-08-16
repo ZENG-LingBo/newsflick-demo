@@ -8,7 +8,7 @@ module.exports = {
     tabs: ["The Story", "Key Facts", "Who's Involved", "The Arguments", "Different Reads", "Expert View", "Impact", "Why This Matters", "What's Next"],
     hero: {
       img: "../assets/img/hero-teens.jpg",
-      title: "Should under-16s be banned from social media?",
+      title: "Should [he:👶] under-16s be [he:❌] banned from social media? [he:📵]",
       paras: [
         { p: "France has passed a law barring under-16s from holding a social-media **account**, requiring platforms to [kw:verify age] and close the accounts of anyone younger — the first blanket ban in the EU.",
           c: "The short version: France now bars under-16s from holding an **account**, asks platforms to [kw:verify age], and closes the accounts of anyone younger. It's the first law of its kind in the EU — and it isn't settled yet.",
@@ -215,7 +215,7 @@ conn: { def: "The evidence stays contested. Either way, here's who it lands on."
     tabs: ["本篇", "關鍵事實", "誰是持份者", "正反之爭", "各報各表", "專家之言", "衝擊", "為何重要", "下一步"],
     hero: {
       img: "../assets/img/hero-teens.jpg",
-      title: "16歲以下應否禁用社交媒體？",
+      title: "16歲以下 [he:👶] 應否禁用 [he:❌] 社交媒體？[he:📵]",
       paras: [
         "法國已立法禁止16歲以下持有社交媒體**帳戶**，要求平台[kw:核實年齡]、關閉未足齡用戶的帳戶——是歐盟首個全面禁令。",
         "支持者認為，11至15歲正是一個人**自我意識**仍在成形的年紀。反對者則說，禁令只會把年輕人推向更隱蔽、審核更少的網絡角落。"
