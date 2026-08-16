@@ -15,12 +15,12 @@ module.exports = {
     nextTitle: "Should under-16s be banned from social media?",
     tabs: ["The Story", "Map", "Timeline", "Key Facts", "Numbers", "How It Works", "Signal", "Poll", "Why This Matters", "What's Next"],
     hero: {
-      img: "../assets/img/hero-typhoon.svg",
+      img: "../assets/img/hero-typhoon.jpg",
       title: "Typhoon Dolphin is [he:🌀] eight hours out. [he:🌊]",
       paras: [
-        { p: "The Observatory has Signal No. 3 up and has named a window — **around 02:00** — for the No. 8 signal. Gusts at the eyewall are near 210 km/h.",
-          c: "The Observatory has Signal No. 3 flying and has named a window — **around 02:00** — for the No. 8 signal. Gusts at the eyewall are running near 210 km/h.",
-          e: "Signal No. 3 is up, and the No. 8 signal is expected **around 2am**. The wind at the storm's core is close to 210 km/h — that's fast." },
+        { p: "Dolphin crossed the coast further north this morning, leaving collapsed walls behind it. It is now **eight hours from Hong Kong** — Signal No. 3 is up, and the Observatory has named around 02:00 for the No. 8 signal. Gusts at the eyewall are near 210 km/h.",
+          c: "Dolphin crossed the coast further north this morning, leaving collapsed walls behind it. It is now **eight hours from Hong Kong** — Signal No. 3 is flying, and the Observatory has named around 02:00 for the No. 8 signal. Gusts at the eyewall are running near 210 km/h.",
+          e: "Dolphin already hit the coast further north this morning — that's the damage in the photo. It's now **eight hours from Hong Kong**. Signal No. 3 is up, No. 8 is expected around 2am, and the wind at its core is close to 210 km/h." },
         { p: "Two major forecast models disagree about landfall by roughly [kw:ninety kilometres] — and that gap is tonight's whole story.",
           c: "Two major forecast models disagree about where it makes landfall by roughly [kw:ninety kilometres] — and that gap is what tonight actually comes down to.",
           e: "Here's the thing nobody's saying clearly: the two big weather models can't agree where it'll hit, and they're off by about [kw:ninety kilometres]. That's the real story tonight." }
@@ -37,6 +37,7 @@ module.exports = {
         conn: { def: "That is where. Here is when — today, hour by hour.",
                 e5: "🗺️ That's WHERE. Now here's WHEN — today, hour by hour. ⏰" } },
       { type: "timeline", data: { title: "Timeline", chips: ["Breaking", "Developing"], rows: [
+          ["06:20", "Dolphin makes its first landfall further up the coast — collapsed walls and damaged cars, no casualties reported. It turns toward Hong Kong."],
           ["14:40", "Signal No. 3 hoisted; outer rain bands reach the New Territories."],
           ["16:00", "Ferry services suspended; cross-harbour routes lash down for the night."],
           ["18:00", "Observatory update: Signal No. 8 window named as \"around 02:00\", pending the next model run."],

@@ -36,7 +36,7 @@ const FEED_TEXT = {
       s02: "France passes the EU's first blanket under-16 ban. Supporters cite mental health; critics say it just moves the risk.",
       s03: "The steepest tariff wall between two allied economies in modern history — and prices move before the politics settle.",
       s04: "Rents rose almost 4% in six months. The squeeze is real, measurable — and mapped, district by district.",
-      s05: "Typhoon Dolphin is eight hours from landfall. Two forecast models disagree by 90km — and a fake MTR shutdown notice is already going viral."
+      s05: "Dolphin has already crossed the coast further north. It is eight hours from Hong Kong, two forecast models disagree by 90km — and a fake MTR shutdown notice is going viral."
     },
     tags: { s01: ["Essential", "World"], s02: ["Essential", "Society"], s03: ["Essential", "Economy"], s04: ["Local", "Housing"], s05: ["Essential", "Local"] },
     titles: { s01: "The strait that prices the world is closed", s02: "Should under-16s be banned from social media?", s03: "50% tariffs, between allies", s04: "The steepest summer climb in a decade", s05: "Typhoon Dolphin is eight hours out" },
@@ -80,7 +80,7 @@ const FEED_TEXT = {
   }
 };
 
-const IMG = { s01: "../assets/img/hero-strait.jpg", s02: "../assets/img/hero-teens.jpg", s03: "../assets/img/hero-tariff.jpg", s04: "../assets/img/hero-rent.jpg", s05: "../assets/img/hero-typhoon.svg" };
+const IMG = { s01: "../assets/img/hero-strait.jpg", s02: "../assets/img/hero-teens.jpg", s03: "../assets/img/hero-tariff.jpg", s04: "../assets/img/hero-rent.jpg", s05: "../assets/img/hero-typhoon.jpg" };
 
 /* CES snapshot copy: same lede/bullets shape as the public feed, describing
    the CES-only 4-story set (typhoon replacing Hormuz) instead. */
