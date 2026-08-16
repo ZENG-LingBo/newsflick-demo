@@ -9,22 +9,29 @@ const TPL = { s01: "confidence-s01", s02: "confidence-s01", s03: "confidence-s03
 /* section rebuild helpers (exact original markup) */
 const ITEM_TERM = (t, tag, p) => `<div class="cs-item cs-item--terms"><div class="cs-itemhead"><p class="cs-t cs-t--nowrap">${t}</p><span class="cs-etag cs-etag--term">${tag}</span></div><p class="cs-p">${p}</p></div>`;
 /* Real publisher logos in the source stack — cleared for use by the team's
-   counsel (14 Aug 2026).
-   The three files below are the only *distinct* marks in the av1-av9 pool:
-   it holds three logos each duplicated three times (av1/4/7, av2/5/8, av3/6/9).
-   The original build sampled it at stride 3, which is exactly the pool's own
-   period, so all three picks were always the same image and every stack showed
-   one logo three times. Naming the three distinct files explicitly makes a
-   repeat impossible; `n` only rotates their order so claims don't look identical. */
-const LOGOS = ["av2.png", "av3.png", "av1.png"];
-const LOGO_IMG = i => { const f = LOGOS[((i % 3) + 3) % 3];
-  return `<img src="../assets/img/${f}" alt="">`; };
-const MINI = n => `<div class="cs-mini">${[0, 1, 2].map(k => `<span class="f">${LOGO_IMG(n + k)}</span>`).join("")}<span class="n">+4</span></div>`;
-const FOOT = (view, n) => `<div class="cs-foot"><div class="rule"></div><div class="cs-footrow">${MINI(n)}<p class="cs-view">${view}</p></div></div>`;
-const ITEM_CONF = (t, p, etags, view, n) => `<div class="cs-item"><div class="cs-itemhead"><span class="d"></span><p class="cs-t">${t}</p></div><p class="cs-p">${p}</p><div class="cs-etags">${etags}</div>${FOOT(view, n)}</div>`;
+   counsel (14 Aug 2026). Files are each publisher's own favicon.
+
+   Each story declares its own SOURCES pool below, so a Hong Kong housing
+   story cites SCMP and RTHK while a tariff story cites the WSJ and Bloomberg
+   — rather than every claim in every story showing one fixed trio.
+
+   Note on the original bug this replaced: av1-av9 was three logos each
+   duplicated three times (av1/4/7, av2/5/8, av3/6/9) and the code sampled it
+   at stride 3 — the pool's own period — so all three picks were always the
+   same image. Picking distinct consecutive entries makes a repeat impossible. */
+const LOGO_IMG = f => `<img src="../assets/img/${f}" alt="">`;
+/* three distinct marks from this story's pool, rotated by n so successive
+   claims on the same sheet don't show an identical row */
+const MINI = (n, pool) => {
+  const pick = [0, 1, 2].map(k => pool[(n + k) % pool.length]);
+  return `<div class="cs-mini">${pick.map(f => `<span class="f">${LOGO_IMG(f)}</span>`).join("")}` +
+         `<span class="n">+${Math.max(1, pool.length - 3)}</span></div>`;
+};
+const FOOT = (view, n, pool) => `<div class="cs-foot"><div class="rule"></div><div class="cs-footrow">${MINI(n, pool)}<p class="cs-view">${view}</p></div></div>`;
+const ITEM_CONF = (t, p, etags, view, n, pool) => `<div class="cs-item"><div class="cs-itemhead"><span class="d"></span><p class="cs-t">${t}</p></div><p class="cs-p">${p}</p><div class="cs-etags">${etags}</div>${FOOT(view, n, pool)}</div>`;
 const ITEM_EV = (tagCls, tagTxt, t, p) => `<div class="cs-item"><div class="cs-etags cs-etags--one"><span class="cs-etag cs-etag--${tagCls}">${tagTxt}</span></div><p class="cs-t cs-t--block">${t}</p><p class="cs-p">${p}</p></div>`;
-const ITEM_DISP = (t, k1, v1, k2, v2, view, n) => `<div class="cs-item"><div class="cs-itemhead"><span class="d d--disputed"></span><p class="cs-t">${t}</p></div><div class="cs-hr"></div><div class="cs-side"><p class="k">${k1}</p><p class="v">${v1}</p></div><div class="cs-hr"></div><div class="cs-side"><p class="k">${k2}</p><p class="v">${v2}</p></div>${FOOT(view, n)}</div>`;
-const ITEM_UNK = (t, p, awaiting, view, n) => `<div class="cs-item"><div class="cs-itemhead"><span class="d d--disputed"></span><p class="cs-t">${t}</p></div><p class="cs-p">${p}</p><div class="cs-etags cs-etags--one"><span class="cs-etag cs-etag--awaiting">${awaiting}</span></div><div class="cs-foot"><div class="rule"></div><div class="cs-footrow"><div class="cs-mini cs-mini--one"><span class="f">${LOGO_IMG(n)}</span></div><p class="cs-view">${view}</p></div></div></div>`;
+const ITEM_DISP = (t, k1, v1, k2, v2, view, n, pool) => `<div class="cs-item"><div class="cs-itemhead"><span class="d d--disputed"></span><p class="cs-t">${t}</p></div><div class="cs-hr"></div><div class="cs-side"><p class="k">${k1}</p><p class="v">${v1}</p></div><div class="cs-hr"></div><div class="cs-side"><p class="k">${k2}</p><p class="v">${v2}</p></div>${FOOT(view, n, pool)}</div>`;
+const ITEM_UNK = (t, p, awaiting, view, n, pool) => `<div class="cs-item"><div class="cs-itemhead"><span class="d d--disputed"></span><p class="cs-t">${t}</p></div><p class="cs-p">${p}</p><div class="cs-etags cs-etags--one"><span class="cs-etag cs-etag--awaiting">${awaiting}</span></div><div class="cs-foot"><div class="rule"></div><div class="cs-footrow"><div class="cs-mini cs-mini--one"><span class="f">${LOGO_IMG(pool[n % pool.length])}</span></div><p class="cs-view">${view}</p></div></div></div>`;
 const ITEM_SETTLE = (t, p, awaiting) => `<div class="cs-item"><div class="cs-itemhead"><span class="d d--disputed"></span><p class="cs-t">${t}</p></div><p class="cs-p">${p}</p><div class="cs-etags cs-etags--one"><span class="cs-etag cs-etag--awaiting">${awaiting}</span></div></div>`;
 const WHY = (i, tagCls, tagTxt, t, p) => `<div class="cs-why${i === 0 ? " cs-why--open" : ""}"><div class="cs-whyhead"><span class="cs-tag cs-tag--${tagCls}">${tagTxt}</span><svg class="ico"><use href="#ic-arrow-down-01"/></svg></div><p class="cs-whytitle">${t}</p><div class="cs-whybody-wrap"><div><p class="cs-whybody">${p}</p></div></div></div>`;
 /* sections 16-18 (Interpretations / Political Bias / Top Sources) — v2 port */
@@ -39,6 +46,16 @@ const L = {
   zh: { term: "詞條", view: "查看來源 &rarr;", awaiting: "有待進展", tags: { ok: ["confirmed", "已證實"], dev: ["ongoing", "持續中"], un: ["unverified", "未經核實"] },
         et: { official: "官方", witness: "目擊", physical: "實證", notyet: "暫未有" },
         lean: ["左", "中間", "右"], q: ["「", "」"] }
+};
+
+
+/* Which outlets plausibly cover each story — drives the source stack per sheet. */
+const SOURCES = {
+  s01: ["pub-reuters.png","pub-ap.png","pub-bbc.png","pub-aljazeera.png","pub-ft.png","pub-bloomberg.png","pub-guardian.png"],
+  s02: ["pub-lemonde.png","pub-france24.png","pub-guardian.png","pub-bbc.png","pub-reuters.png","pub-nyt.png"],
+  s03: ["pub-wsj.png","pub-bloomberg.png","pub-ft.png","pub-reuters.png","pub-ap.png","pub-cnn.png","pub-wapo.jpg","pub-foxnews.png"],
+  s04: ["pub-scmp.png","pub-rthk.png","pub-reuters.png","pub-bloomberg.png","pub-ft.png","pub-straits.png"],
+  s05: ["pub-scmp.png","pub-rthk.png","pub-reuters.png","pub-ap.png","pub-bbc.png","pub-straits.png"]
 };
 
 /* ---------------- data ---------------- */
@@ -397,7 +414,7 @@ fs.mkdirSync("ces/en", { recursive: true });
 let n = 0;
 for (const id of Object.keys(ROOTS)) {
   for (const lang of ["en", "zh"]) {
-    const d = D[id][lang], l = L[lang];
+    const d = D[id][lang], l = L[lang], pool = SOURCES[id];
     let h = fs.readFileSync(`templates/${lang}/${TPL[id]}.html`, "utf8");
 
     // hero: status + word + whys
@@ -412,10 +429,10 @@ for (const id of Object.keys(ROOTS)) {
     h = h.replace(/(<p class="b">)[^<]+(<\/p>)/, `$1${d.verified}$2`);
     // sections
     h = secReplace(h, "10", d.terms.map(t => ITEM_TERM(t[0], l.term, t[1])).join("\n"));
-    h = secReplace(h, "11", d.confirmed.map((c, i) => ITEM_CONF(c[0], c[1], c[2].map(e => `<span class="cs-etag cs-etag--${e}">${l.et[e]}</span>`).join("\n"), l.view, i)).join("\n"));
+    h = secReplace(h, "11", d.confirmed.map((c, i) => ITEM_CONF(c[0], c[1], c[2].map(e => `<span class="cs-etag cs-etag--${e}">${l.et[e]}</span>`).join("\n"), l.view, i, pool)).join("\n"));
     h = secReplace(h, "12", d.evidence.map(e => ITEM_EV(e[0], l.et[e[0]], e[1], e[2])).join("\n"));
-    h = secReplace(h, "13", d.disputed.map((x, i) => ITEM_DISP(x[0], x[1], x[2], x[3], x[4], l.view, i + 3)).join("\n"));
-    h = secReplace(h, "14", d.unknown.map((u, i) => ITEM_UNK(u[0], u[1], l.awaiting, l.view, i + 5)).join("\n"));
+    h = secReplace(h, "13", d.disputed.map((x, i) => ITEM_DISP(x[0], x[1], x[2], x[3], x[4], l.view, i + 3, pool)).join("\n"));
+    h = secReplace(h, "14", d.unknown.map((u, i) => ITEM_UNK(u[0], u[1], l.awaiting, l.view, i + 5, pool)).join("\n"));
     h = secReplace(h, "15", d.settle.map(s => ITEM_SETTLE(s[0], s[1], l.awaiting)).join("\n"));
     h = h.replace(/(<p class="cs-biasnote"[^>]*>)[\s\S]*?(<\/p>)/, `$1${d.settleNote}$2`);
     h = removeSec(h, "18b"); // stale hidden duplicate of Top Sources
