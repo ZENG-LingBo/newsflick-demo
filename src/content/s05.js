@@ -242,7 +242,27 @@ en.pop = {
     ["Who says what", "Two major forecast models currently disagree by roughly 90 kilometres along the coastline."],
     ["Why the gap exists", "This far from landfall, an intensifying storm's exact track is genuinely uncertain — the gap should narrow as the night goes on."]],
     src: ["Hong Kong Observatory", "Meridian Institute"] },
-  "mtr": { def: "The city's metro operator. Its own published bulletins — not the viral screenshot — are the only source that matters for service status tonight." }
+  "mtr": { def: "The city's metro operator. Its own published bulletins — not the viral screenshot — are the only source that matters for service status tonight." },
+  /* Key Facts chips. Only the Plain phrasing needs a key here — build-app's
+     aliasVoices maps the Calm and Friend variants onto the same entry. */
+  "no. 8 signal window is confirmed": { rows: [
+    ["Who confirmed it", "The Hong Kong Observatory, in its 18:00 bulletin: a No. 8 signal is expected around 02:00."],
+    ["Why we're sure", "It is the Observatory's own published bulletin — the primary source, on the record, not a relay of one."],
+    ["Why it matters", "The No. 8 signal is the trigger for closures and transport changes, so the window's timing is what every plan tonight is built around."]],
+    src: ["Hong Kong Observatory"] },
+  "still shifting — two models disagree by 90km": { rows: [
+    ["What's disputed", "Exactly where Dolphin makes landfall."],
+    ["Who says what", "Two major forecast models put landfall roughly 90 kilometres apart along the coast."],
+    ["Why the gap exists", "This far out, an intensifying storm's track is genuinely uncertain — the gap should narrow as new model runs land through the night."]],
+    src: ["Hong Kong Observatory", "Meridian Institute"] },
+  "analysis, not a forecast": { rows: [
+    ["Whose view this is", "Commentators reaching for Mangkhut in 2018 as tonight's reference point."],
+    ["Why it's analysis, not fact", "A comparison between two different storms, tracks and tides is interpretation. Nothing in the official forecast says tonight repeats 2018."]] },
+  "not real — unverified": { rows: [
+    ["What was checked", "A viral screenshot claiming the MTR suspends all service from 8pm tonight."],
+    ["What we found", "No such notice exists on any MTR channel, and the graphic reuses a years-old service-update template. MTR's own 17:30 bulletin says normal service continues until the signal changes."],
+    ["Why it matters", "The screenshot spread faster than the correction — rumour against record is tonight's whole trust story."]],
+    src: ["MTR Corporation"] }
 };
 zh.pop = {
   "九十公里": { rows: [
